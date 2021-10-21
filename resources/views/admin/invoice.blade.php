@@ -63,17 +63,13 @@
                                     To
                                     <address>
                                         <strong>{{ $customer->name }}</strong><br>
-                                        {{ $customer->address }}<br>
-                                        {{ $customer->city }}<br>
-                                        Phone: (+880) {{ $customer->phone }}<br>
-                                        Email: {{ $customer->email }}
+                                        Phone: (+234) {{ $customer->phone }}<br>
                                     </address>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-sm-4 invoice-col">
-                                    <b>Payment Due:</b> {{ Cart::total() }}<br>
+                                    <b>Payment Due: <span>&#8358;</span></b> {{ $contents->sum('total') }}<br>
                                     <b>Order Status:</b> <span class="badge badge-warning">Pending</span><br>
-                                    <b>Account:</b> {{ $customer->account_number }}
                                 </div>
                                 <!-- /.col -->
                             </div>
@@ -97,9 +93,9 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $content->name }}</td>
-                                                    <td>{{ $content->qty }}</td>
-                                                    <td>{{ number_format($content->price, 2) }}</td>
-                                                    <td>{{ $content->subtotal() }}</td>
+                                                    <td>{{ $content->quantity }}</td>
+                                                    <td><span>&#8358;</span> {{ number_format($content->price, 2) }}</td>
+                                                    <td><span>&#8358;</span> {{ $content->total }}</td>
                                                 </tr>
                                             @endforeach
 
@@ -119,15 +115,15 @@
                                         <table class="table">
                                             <tr>
                                                 <th style="width:50%">Subtotal:</th>
-                                                <td class="text-right">{{ Cart::subtotal() }}</td>
+                                                <td class="text-right"><span>&#8358;</span> {{ $contents->sum('total') }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Tax (21%)</th>
-                                                <td class="text-right">{{ Cart::tax() }}</td>
+                                                <th>Tax (0%)</th>
+                                                <td class="text-right"><span>&#8358;</span> 0</td>
                                             </tr>
                                             <tr>
                                                 <th>Total:</th>
-                                                <td class="text-right">{{ Cart::total() }}</td>
+                                                <td class="text-right"><span>&#8358;</span> {{ $contents->sum('total') }}</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -139,10 +135,15 @@
                             <!-- this row will not appear when printing -->
                             <div class="row no-print">
                                 <div class="col-12">
-                                    <a href="{{ route('admin.invoice.print', $customer->id) }}" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-                                    <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-success float-right"><i class="fa fa-credit-card"></i>
-                                        Submit Payment
-                                    </button>
+                                    <form action="{{ route('admin.invoice.print') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="customer_name" value="{{ $customer->name }}">
+                                        <input type="hidden" name="customer_phone" value="{{ $customer->phone }}">
+                                        {{-- <a href="{{ route('admin.invoice.print', $customer->id) }}" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a> --}}
+                                        <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-success float-right"><i class="fa fa-credit-card"></i>
+                                            Submit Payment
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -172,17 +173,20 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12">
-                                <p class="text-info float-right mb-3">Payable Total : {{ Cart::total() }}</p>
+                                <p class="text-info float-right mb-3">Payable Total : <span>&#8358;</span>{{ $contents->sum('total') }}</p>
                             </div>
                         </div>
+                        <input type="hidden" name="customer_name" value="{{ $customer->name }}">
+                        <input type="hidden" name="customer_phone" value="{{ $customer->phone }}">
+                        <input type="hidden" name="cash" value="{{ $contents->sum('total') }}">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputState">Payment Method</label>
                                 <select name="payment_status" class="form-control" required >
                                     <option value="" disabled selected>Choose a Payment Method</option>
-                                    <option value="HandCash">Hand Cash</option>
-                                    <option value="Cheque">Cheque</option>
-                                    <option value="Due">Due</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="transfer">Transfer</option>
+                                    <option value="credit">Credit</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">

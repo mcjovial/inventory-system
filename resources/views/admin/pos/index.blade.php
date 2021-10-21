@@ -125,12 +125,12 @@
                                 @endif
 
                                 <div class="alert alert-info">
-                                    <p>Quantity : {{ Cart::count() }}</p>
-                                    <p>Sub Total : {{ Cart::subtotal() }} Taka</p>
-                                    Tax : {{ Cart::tax() }} Taka
+                                    <p>Quantity : {{ $cart->sum('quantity') }}</p>
+                                    <p>Sub Total :  <span>&#8358;</span> {{ $cart->sum('total') }}</p>
+                                    Tax :  <span>&#8358;</span> {{ 0 }}
                                 </div>
                                 <div class="alert alert-success">
-                                    Total : {{ Cart::total() }} Taka
+                                    Total :  <span>&#8358;</span> {{ $cart->sum('total') }}
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -154,7 +154,7 @@
                                         <th>Category</th>
                                         <th>Image</th>
                                         <th>Price</th>
-                                        <th>Product Code</th>
+                                        <th>Stock Units</th>
                                         <th>Add To Cart</th>
                                     </tr>
                                     </thead>
@@ -165,7 +165,7 @@
                                         <th>Category</th>
                                         <th>Image</th>
                                         <th>Price</th>
-                                        <th>Product Code</th>
+                                        <th>Stock Units</th>
                                         <th>Add To Cart</th>
                                     </tr>
                                     </tfoot>
@@ -177,7 +177,7 @@
                                                 <input type="hidden" name="id" value="{{ $product->id }}">
                                                 <input type="hidden" name="name" value="{{ $product->name }}">
                                                 <input type="hidden" name="qty" value="1">
-                                                <input type="hidden" name="price" value="{{ $product->selling_price }}">
+                                                <input type="hidden" name="price" value="{{ $product->sell_price_bottle }}">
 
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $product->name }}</td>
@@ -185,8 +185,8 @@
                                                 <td>
                                                     <img width="40" height="40" class="img-fluid" src="{{ URL::asset('storage/product/'. $product->image) }}" alt="{{ $product->name }}">
                                                 </td>
-                                                <td>{{ number_format($product->selling_price, 2) }}</td>
-                                                <td>{{ strtoupper($product->code) }}</td>
+                                                <td>{{ number_format($product->sell_price_bottle, 2) }}</td>
+                                                <td>{{ strtoupper($product->stock) }}</td>
                                                 <td>
                                                     <button type="submit" class="btn btn-sm btn-success px-2">
                                                         <i class="fa fa-cart-plus" aria-hidden="true"></i>

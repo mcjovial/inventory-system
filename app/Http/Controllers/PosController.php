@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Customer;
 use App\Order;
 use App\OrderDetail;
 use App\Product;
 use Brian2694\Toastr\Facades\Toastr;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class PosController extends Controller
@@ -21,7 +21,7 @@ class PosController extends Controller
     {
         $products = Product::with('category')->get();
         $customers = Customer::all();
-        $cart_products = Cart::content();
+        $cart_products = Cart::all();
         return view('admin.pos.index', compact('products', 'customers', 'cart_products'));
     }
 

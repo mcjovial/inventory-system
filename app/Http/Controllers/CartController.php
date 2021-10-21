@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use Brian2694\Toastr\Facades\Toastr;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -39,10 +39,10 @@ class CartController extends Controller
     {
         $inputs = $request->except('_token');
         $rules = [
-          'id' => 'required | integer',
-          'name' => 'required',
-          'qty' => 'required',
-          'price' => 'required',
+            'product_id' => 'required | integer',
+            'name' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
         ];
         $validator = Validator::make($inputs, $rules);
         if ($validator->fails())
@@ -50,22 +50,17 @@ class CartController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $id = $request->input('id');
-        $name = $request->input('name');
-        $qty = $request->input('qty');
-        $price = $request->input('price');
+        $cart = new Cart();
+        $cart->product_id = $request->input('product_id');
+        $cart->name = $request->input('name');
+        $cart->quantity = $request->input('quantity');
+        $cart->price = $request->input('price');
+        $cart->total = $cart->quantity * $cart->price;
+        $cart->exchange = $request->input('exchange') ? '1' : '0';
+        $cart->save();
 
-        $add = Cart::add(['id' => $id, 'name' => $name, 'qty' => $qty, 'price' => $price, 'weight' => 1 ]);
-        if ($add)
-        {
-            Toastr::success('Product successfully added to cart', 'Success');
-            return redirect()->back();
-
-        } else {
-
-            Toastr::error('Product not added to cart', 'Error');
-            return redirect()->back();
-        }
+        Toastr::success('Drink successfully added to cart', 'Success');
+        return redirect()->back();
     }
 
     /**
@@ -97,10 +92,11 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $rowId)
+    public function update(Request $request, Cart $cart)
     {
-        $qty = $request->input('qty');
-        Cart::update($rowId, $qty);
+        $cart->quantity = $request->input('quantity');
+        $cart->total = $cart->quantity * $cart->price;
+        $cart->save();
 
         Toastr::success('Cart Updated Successfully', 'Success');
         return redirect()->back();
@@ -112,10 +108,11 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($rowId)
+    public function destroy(Cart $cart)
     {
-        Cart::remove($rowId);
-        Toastr::success('Product Successfully', 'Success');
+        $cart->delete();
+
+        Toastr::success('Drink removed Successfully', 'Success');
         return redirect()->back();
     }
 }
