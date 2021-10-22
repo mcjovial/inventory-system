@@ -258,7 +258,7 @@ CREATE TABLE `orders` (
   `total` double(8,2) NOT NULL,
   `payment_status` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pay` double(8,2) DEFAULT NULL,
-  `due` double(8,2) DEFAULT NULL,
+  `debt` double(8,2) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
             $table->float('total');
             $table->string('payment_status');
             $table->float('pay')->nullable();
-            $table->float('due')->nullable();
+            $table->float('debt')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });

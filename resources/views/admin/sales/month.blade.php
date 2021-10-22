@@ -56,7 +56,7 @@
                                     <small class="text-danger pull-right">
                                         <span class="badge badge-info">Total Sales : {{ $balance->sum('total') }} Taka</span>
                                         <span class="badge badge-success">Paid : {{ $balance->sum('pay') }} Taka</span>
-                                        <span class="badge badge-warning">Due : {{ $balance->sum('due') }} Taka</span>
+                                        <span class="badge badge-warning">Debt : {{ $balance->sum('debt') }} Taka</span>
                                     </small>
                                 </h3>
                             </div>

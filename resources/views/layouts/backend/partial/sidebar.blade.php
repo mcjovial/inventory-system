@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
-	<a href="index3.html" class="brand-link">
+	<a href="#" class="brand-link">
 		<img src="{{ asset('assets/backend/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
 		     style="opacity: .8">
-		<span class="brand-text font-weight-light">AdminLTE 3</span>
+		<span class="brand-text font-weight-light">CodeNet. Admin</span>
 	</a>
 
 	<!-- Sidebar -->
@@ -14,7 +14,7 @@
 				<img src="{{ asset('assets/backend/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
-				<a href="#" class="d-block">Alexander Pierce</a>
+				<a href="#" class="d-block">Saucegeek McJovial</a>
 			</div>
 		</div>
 
@@ -39,7 +39,7 @@
 						</p>
 					</a>
 				</li>
-				<li class="nav-item has-treeview {{ Request::is('admin/employee*') ? 'menu-open' : '' }}">
+				{{-- <li class="nav-item has-treeview {{ Request::is('admin/employee*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/employee*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
 						<p>
@@ -61,8 +61,8 @@
 							</a>
 						</li>
 					</ul>
-				</li>
-				<li class="nav-item has-treeview {{ Request::is('admin/attendance*') ? 'menu-open' : '' }}">
+				</li> --}}
+				{{-- <li class="nav-item has-treeview {{ Request::is('admin/attendance*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/attendance*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
 						<p>
@@ -84,7 +84,7 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li> --}}
 				<li class="nav-item has-treeview {{ Request::is('admin/customer*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/customer*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
@@ -131,7 +131,31 @@
 						</li>
 					</ul>
 				</li>
-				<li class="nav-item has-treeview {{ Request::is('admin/advanced_salary*') ? 'menu-open' : '' }}">
+
+                <li class="nav-item has-treeview {{ Request::is('admin/supply*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ Request::is('admin/supply*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-pie-chart"></i>
+						<p>
+							Supply
+							<i class="right fa fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.supply.create') }}" class="nav-link {{ Request::is('admin/supply/create') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Add Supply</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.supply.index') }}" class="nav-link {{ Request::is('admin/supply') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>All Supplies</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				{{-- <li class="nav-item has-treeview {{ Request::is('admin/advanced_salary*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/advanced_salary*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
 						<p>
@@ -153,9 +177,9 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li> --}}
 
-				<li class="nav-item has-treeview {{ Request::is('admin/salary*') ? 'menu-open' : '' }}">
+				{{-- <li class="nav-item has-treeview {{ Request::is('admin/salary*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/salary*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
 						<p>
@@ -177,7 +201,7 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li> --}}
 
 				<li class="nav-item has-treeview {{ Request::is('admin/category*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/category*') ? 'active' : '' }}">
@@ -271,21 +295,27 @@
 					<a href="#" class="nav-link {{ Request::is('admin/order*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
 						<p>
-							Order
+							Transactions
 							<i class="right fa fa-angle-left"></i>
 						</p>
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
+							<a href="{{ route('admin.order.credit') }}" class="nav-link {{ Request::is('admin/order/credit') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Debtors</p>
+							</a>
+						</li>
+                        <li class="nav-item">
 							<a href="{{ route('admin.order.pending') }}" class="nav-link {{ Request::is('admin/order/pending') ? 'active' : '' }}">
 								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Pending Orders</p>
+								<p>Pending </p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="{{ route('admin.order.approved') }}" class="nav-link {{ Request::is('admin/order/approved') ? 'active' : '' }}">
 								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Approved Orders</p>
+								<p>Approved </p>
 							</a>
 						</li>
 					</ul>

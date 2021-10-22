@@ -47,7 +47,7 @@
                                 <strong>Admin, {{ config('app.name') }}</strong><br>
                                 {{ $company->address }}<br>
                                 {{ $company->city }} - {{ $company->zip_code }}, {{ $company->country }}<br>
-                                Phone: (+880) {{ $company->mobile }} {{ $company->phone !== null ? ', +88'.$company->phone : ''  }}<br>
+                                Phone: (+234) {{ $company->mobile }} {{ $company->phone !== null ? ', '.$company->phone : ''  }}<br>
                                 Email: {{ $company->email }}
                             </address>
                         </div>
@@ -55,18 +55,14 @@
                         <div class="col-sm-4 invoice-col">
                             To
                             <address>
-                                <strong>{{ $customer->name }}</strong><br>
-                                {{ $customer->address }}<br>
-                                {{ $customer->city }}<br>
-                                Phone: (+880) {{ $customer->phone }}<br>
-                                Email: {{ $customer->email }}
+                                <strong>{{ $order->customer_name }}</strong><br>
+                                Phone: (+234) {{ $order->customer_phone }}<br>
                             </address>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
-                            <b>Payment Due:</b> {{ Cart::total() }}<br>
-                            <b>Order Status:</b> <span class="badge badge-warning">Pending</span><br>
-                            <b>Account:</b> {{ $customer->account_number }}
+                            <b>Payment Debt:</b> {{ number_format($order->Debt, 2) }}<br>
+                            <b>Order Status:</b> <span class="badge {{ $order->order_status == 'approved' ? 'badge-success' : 'badge-warning'  }}">{{ $order->order_status }}</span><br>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -92,7 +88,7 @@
                                         <td>{{ $content->name }}</td>
                                         <td>{{ $content->qty }}</td>
                                         <td>{{ number_format($content->price, 2) }}</td>
-                                        <td>{{ $content->subtotal() }}</td>
+                                        <td><span>&#8358;</span> {{ $content->sum('total') }}</td>
                                     </tr>
                                 @endforeach
 
@@ -112,15 +108,15 @@
                                 <table class="table">
                                     <tr>
                                         <th style="width:50%">Subtotal:</th>
-                                        <td class="text-right">{{ Cart::subtotal() }}</td>
+                                        <td class="text-right"><span>&#8358;</span> {{ $contents->sum('total') }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Tax (21%)</th>
-                                        <td class="text-right">{{ Cart::tax() }}</td>
+                                        <th>Tax (0%)</th>
+                                        <td class="text-right">0</td>
                                     </tr>
                                     <tr>
                                         <th>Total:</th>
-                                        <td class="text-right">{{ Cart::total() }}</td>
+                                        <td class="text-right"><span>&#8358;</span> {{ $contents->sum('total') }}</td>
                                     </tr>
                                 </table>
                             </div>

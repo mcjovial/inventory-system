@@ -126,8 +126,8 @@
                                                 <td class="text-right">{{ number_format($order->pay, 2) }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Due</th>
-                                                <td class="text-right">{{ number_format($order->due, 2) }}</td>
+                                                <th>Debt</th>
+                                                <td class="text-right">{{ number_format($order->debt, 2) }}</td>
                                             </tr>
                                         </table>
                                     </div>

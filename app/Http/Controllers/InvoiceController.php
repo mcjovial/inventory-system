@@ -84,7 +84,7 @@ class InvoiceController extends Controller
         $total = str_replace(',', '', Cart::sum('total'));
 
         $pay = $request->input('payment_status') == 'cash' ? $request->input('cash') : $request->input('pay');
-        $due = $total - $pay;
+        $debt = $total - $pay;
 
         $order = new Order();
         // $order->customer_id =  $request->input('customer_id');
@@ -92,12 +92,12 @@ class InvoiceController extends Controller
         $order->customer_phone = $request->input('customer_phone');
         $order->payment_status = $request->input('payment_status');
         $order->pay = $pay;
-        $order->due = $due;
+        $order->debt = $debt;
         $order->order_date = date('Y-m-d');
         $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
         $order->total_products = Cart::sum('quantity');
         $order->sub_total = $sub_total;
-        $order->owing = $order->due > 0 ? true : false;
+        $order->owing = $order->debt > 0 ? true : false;
         $order->vat = $tax;
         $order->total = $total;
         $order->save();

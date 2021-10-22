@@ -247,13 +247,13 @@
                             <span class="info-box-icon"><i class="fa fa-bell-o"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Today's Due</span>
-                                <span class="info-box-number">{{ $today->sum('due') }} Taka</span>
+                                <span class="info-box-text">Today's Debt</span>
+                                <span class="info-box-number">{{ $today->sum('debt') }} Taka</span>
                                 @php
 
-                                    if($yesterday->sum('due') != 0)
+                                    if($yesterday->sum('debt') != 0)
                                     {
-                                        $percentage = (($today->sum('due') - $yesterday->sum('due'))/ $yesterday->sum('due'))*100;
+                                        $percentage = (($today->sum('debt') - $yesterday->sum('debt'))/ $yesterday->sum('debt'))*100;
                                     } else {
                                         $percentage = 0;
                                     }
@@ -278,13 +278,13 @@
                             <span class="info-box-icon"><i class="fa fa-bell-o"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">This Month's Due</span>
-                                <span class="info-box-number">{{ $month->sum('due') }} Taka</span>
+                                <span class="info-box-text">This Month's Debt</span>
+                                <span class="info-box-number">{{ $month->sum('debt') }} Taka</span>
                                 @php
 
-                                    if($previous_month->sum('due') != 0)
+                                    if($previous_month->sum('debt') != 0)
                                     {
-                                        $percentage = (($month->sum('due') - $previous_month->sum('due'))/ $previous_month->sum('due'))*100;
+                                        $percentage = (($month->sum('debt') - $previous_month->sum('debt'))/ $previous_month->sum('debt'))*100;
                                     } else {
                                         $percentage = 0;
                                     }
@@ -310,12 +310,12 @@
                             <span class="info-box-icon"><i class="fa fa-bell-o"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">This Year's Due</span>
-                                <span class="info-box-number">{{ $year->sum('due') }} Taka</span>
+                                <span class="info-box-text">This Year's Debt</span>
+                                <span class="info-box-number">{{ $year->sum('debt') }} Taka</span>
                                 @php
-                                    if($previous_year->sum('due') != 0)
+                                    if($previous_year->sum('debt') != 0)
                                     {
-                                        $percentage = (($year->sum('due') - $previous_year->sum('due'))/ $previous_year->sum('due'))*100;
+                                        $percentage = (($year->sum('debt') - $previous_year->sum('debt'))/ $previous_year->sum('debt'))*100;
                                     } else {
                                         $percentage = 0;
                                     }
@@ -339,8 +339,8 @@
                             <span class="info-box-icon"><i class="fa fa-bell-o"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text mt-3 pb-1">Total Due</span>
-                                <span class="info-box-number mb-3">{{ $sales->sum('due') }} Taka</span>
+                                <span class="info-box-text mt-3 pb-1">Total Debt</span>
+                                <span class="info-box-number mb-3">{{ $sales->sum('debt') }} Taka</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

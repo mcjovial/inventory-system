@@ -33,24 +33,31 @@ class OrderController extends Controller
 
     public function approved_order()
     {
-        $approveds = Order::latest()->with('customer')->where('order_status', 'approved')->get();
+        $approveds = Order::latest()->with('customer')->where('order_status', 'confirmed')->get();
         return view('admin.order.approved_orders', compact('approveds'));
+    }
+
+    public function credit_order()
+    {
+        $credits = Order::latest()->where('owing', true)->get();
+        return view('admin.order.credit_orders', compact('credits'));
     }
 
     public function order_confirm($id)
     {
         $order = Order::findOrFail($id);
-        $order->order_status = 'approved';
+        $order->order_status = 'confirmed';
+        $order->owing = $order->due > 0 ? true : false;
         $order->save();
 
-        Toastr::success('Order has been Approved! Please delivery the products', 'Success');
+        Toastr::success('Payment has been Confirmed!', 'Success');
         return redirect()->back();
     }
 
     public function destroy($id)
     {
         Order::findOrFail($id)->delete();
-        Toastr::success('Order has been deleted', 'Success');
+        Toastr::success('Payment has been deleted', 'Success');
         return redirect()->back();
     }
 

@@ -30,7 +30,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <!-- left column -->
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div class="card">
                             <form action="{{ route('admin.invoice.create') }}" method="post">
                                 @csrf
@@ -42,30 +42,37 @@
                                             <a href="{{ route('admin.customer.create') }}" class="btn btn-sm btn-primary float-md-right">Add New</a>
                                         </span>
                                     </h3>
-
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Select Customer</label>
-                                        <select name="customer_id" class="form-control" required>
+                                        <select name="customer_id" class="form-control">
                                             <option value="" disabled selected>Select a Customer</option>
                                             @foreach($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
+                                    <div><hr></div>
+                                    <div>
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone">
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
-
                         </div>
-
 
                         <div class="card card-default">
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <i class="fa fa-info"></i>
                                     Shopping Lists
-
                                 </h3>
                             </div>
                             <!-- /.card-header -->
@@ -80,7 +87,7 @@
                                         <tr>
                                             <th>S.N</th>
                                             <th>Name</th>
-                                            <th width="17%">Qty</th>
+                                            <th>Quantity</th>
                                             <th>Price</th>
                                             <th>Sub Total</th>
                                             <th>Update</th>
@@ -93,14 +100,14 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td class="text-left">{{ $product->name }}</td>
 
-                                                <form action="{{ route('admin.cart.update', $product->rowId) }}" method="post">
+                                                <form action="{{ route('admin.cart.update', $product->id) }}" method="post">
                                                     @csrf
                                                     @method('PUT')
                                                     <td>
-                                                        <input type="number" name="qty" class="form-control" value="{{ $product->qty }}">
+                                                        <input type="number" name="quantity" class="form-control" value="{{ $product->quantity }}">
                                                     </td>
-                                                    <td>{{ $price = number_format($product->price, 2) }}</td>
-                                                    <td>{{ $price * $product->qty }}</td>
+                                                    <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>
+                                                    <td> <span>&#8358;</span> {{ number_format($product->total, 2) }}</td>
                                                     <td>
                                                         <button type="submit" class="btn btn-sm btn-success">
                                                             <i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -112,8 +119,8 @@
                                                     <button class="btn btn-danger" type="button" onclick="deleteItem({{ $product->id }})">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </button>
-                                                    <form id="delete-form-{{ $product->id }}" action="{{ route('admin.cart.destroy', $product->rowId) }}" method="post"
-                                                          style="display:none;">
+                                                    <form id="delete-form-{{ $product->id }}" action="{{ route('admin.cart.destroy', $product->id) }}" method="post"
+                                                        style="display:none;">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
@@ -135,10 +142,9 @@
                             </div>
                             <!-- /.card-body -->
                         </div>
-
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
