@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->string('stock');
+            $table->integer('launch_cartons');
             $table->string('image')->nullable();
             $table->dateTime('buying_date');
             $table->dateTime('expire_date')->nullable();

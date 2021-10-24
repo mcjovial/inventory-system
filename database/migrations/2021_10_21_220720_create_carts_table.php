@@ -17,6 +17,7 @@ class CreateCartsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
             $table->string('name');
+            $table->integer('cartons')->nullable();
             $table->unsignedInteger('quantity')->default(1);
             $table->decimal('price', 20, 2);
             $table->integer('total')->nullable();

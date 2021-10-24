@@ -21,8 +21,8 @@ class CreateSettingsTable extends Migration
             $table->string('phone')->nullable();
             $table->string('mobile')->nullable();
             $table->string('logo')->default('logo.png');
-            $table->string('city')->default('savar');
-            $table->string('country')->default('Bangladesh');
+            $table->string('city')->default('Nsukka');
+            $table->string('country')->default('Nigeria');
             $table->integer('zip_code')->default(1000);
             $table->timestamps();
         });

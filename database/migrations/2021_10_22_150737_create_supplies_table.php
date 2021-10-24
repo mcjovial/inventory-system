@@ -15,10 +15,10 @@ class CreateSuppliesTable extends Migration
     {
         Schema::create('supplies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('drink_id');
+            $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('supplier_id');
             $table->integer('quantity');
-            $table->foreign('drink_id')->references('id')->on('drinks')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->timestamps();
         });
