@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExchangeOutsTable extends Migration
+class CreateExchangeinsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateExchangeOutsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exchange_outs', function (Blueprint $table) {
+        Schema::create('exchangeins', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
             $table->string('name');
@@ -33,6 +33,6 @@ class CreateExchangeOutsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exchange_outs');
+        Schema::dropIfExists('exchangeins');
     }
 }
