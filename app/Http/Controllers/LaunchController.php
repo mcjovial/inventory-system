@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Customer;
-use App\Exchange;
-use App\ExchangeIn;
-use App\ExchangeOut;
+use App\Launch;
 use App\Order;
 use App\OrderDetail;
 use App\Product;
@@ -14,28 +12,28 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ExchangeController extends Controller
+class LaunchController extends Controller
 {
     public function create(){
         $cart_products = Cart::all();
         $cart = Cart::all();
         $drinks = Product::all();
 
-        $exchange_products = Exchange::all();
-        $exchange = Exchange::all();
+        $Launch_products = Launch::all();
+        $Launch = Launch::all();
 
         $customers = Customer::all();
 
-        return view('admin.pos.exchange', compact('cart_products', 'cart', 'drinks', 'exchange_products', 'exchange', 'customers'));
+        return view('admin.pos.launch', compact('cart_products', 'cart', 'drinks', 'customers'));
     }
 
-    public function store(Request $request)
+    public function cart_store(Request $request)
     {
         $inputs = $request->except('_token');
         $rules = [
           'product_id' => 'required | integer',
           'name' => 'required',
-          'quantity' => 'required',
+          'cartons' => 'required',
           'price' => 'required',
         ];
 
@@ -45,28 +43,31 @@ class ExchangeController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $exchange = new Exchange();
-        $exchange->product_id = $request->input('product_id');
-        $exchange->name = $request->input('name');
-        $exchange->quantity = $request->input('quantity');
-        $exchange->price = $request->input('price');
-        $exchange->total = $exchange->quantity * $exchange->price;
-        $exchange->save();
+        $cart = new Cart();
+        $cart->product_id = $request->input('product_id');
+        $cart->name = $request->input('name');
+        $cart->cartons = $request->input('cartons');
+        $cart->quantity = $cart->cartons * 12;
+        $cart->price = $request->input('price');
+        $cart->total = $cart->quantity * $cart->price;
+        // $cart->exchange = $request->input('exchange') ? '1' : '0';
+        $cart->save();
 
         // $add = Cart::add(['id' => $id, 'name' => $name, 'qty' => $qty, 'price' => $price, 'weight' => 1, 'exchange' => $exchange ]);
 
-        Toastr::success('Drink successfully added to exchange', 'Success');
+        Toastr::success('Drink successfully added to cart', 'Success');
         return redirect()->back();
     }
 
-    public function update(Request $request, $id)
+    public function cart_update(Request $request, $id)
     {
-        $exchange = Exchange::find($id);
-        $exchange->quantity = $request->input('quantity');
-        $exchange->total = $exchange->quantity * $exchange->price;
-        $exchange->save();
+        $cart = Cart::find($id);
+        $cart->cartons = $request->input('cartons');
+        $cart->quantity = $cart->cartons * 12;
+        $cart->total = $cart->quantity * $cart->price;
+        $cart->save();
 
-        Toastr::success('Exchange Updated Successfully', 'Success');
+        Toastr::success('Cart Updated Successfully', 'Success');
         return redirect()->back();
     }
 
@@ -98,55 +99,38 @@ class ExchangeController extends Controller
         // dd($customer);
 
         // cart stuffs
-        $exchange_out = Cart::all();
+        $cart_products = Cart::all();
         $sub_total = str_replace(',', '', Cart::sum('total'));
         $tax = str_replace(',', '', 0);
         $c_total = str_replace(',', '', Cart::sum('total'));
 
-        foreach ($exchange_out as $drink) {
+        foreach ($cart_products as $drink) {
             $product = Product::find($drink->product_id);
             $product->stock -= $drink->quantity;
             $product->save();
 
-            $x_out = new ExchangeOut();
-            $x_out->product_id = $drink->product_id;
-            $x_out->name = $drink->name;
-            $x_out->quantity = $drink->quantity;
-            $x_out->price = $drink->price;
-            $x_out->total = $drink->total;
-            $x_out->save();
+            $launch = new Launch();
+            $launch->product_id = $drink->product_id;
+            $launch->name = $drink->name;
+            $launch->cartons = $drink->cartons;
+            $launch->quantity = $drink->quantity;
+            $launch->price = $drink->price;
+            $launch->total = $drink->total;
+            $launch->save();
         }
 
-        // exchange stuffs
-        $exchange_in = Exchange::all();
-        $sub_total = str_replace(',', '', Exchange::sum('total'));
-        $x_total = str_replace(',', '', Exchange::sum('total'));
-
-        foreach ($exchange_in as $drink) {
-            $product = Product::find($drink->product_id);
-            $product->stock += $drink->quantity;
-            $product->save();
-
-            $x_in = new ExchangeIn();
-            $x_in->product_id = $drink->product_id;
-            $x_in->name = $drink->name;
-            $x_in->quantity = $drink->quantity;
-            $x_in->price = $drink->price;
-            $x_in->total = $drink->total;
-            $x_in->save();
-        }
-
-        $due = $c_total - $x_total;
+        $due = $c_total - $c_total;
 
         $order = new Order();
         $order->customer_id =  $customer->id;
         $order->customer_name = $customer->name;
         $order->customer_phone = $customer->phone;
-        $order->payment_status = 'exchange';
-        $order->pay = $x_total;
+        $order->payment_status = 'launching';
+        $order->pay = $c_total;
         $order->due = $due;
         $order->order_date = date('Y-m-d');
-        $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
+        // $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
+        $order->order_status = 'confirmed';
         $order->total_products = Cart::sum('quantity');
         $order->sub_total = $sub_total;
         $order->owing = $order->due > 0 ? true : false;
@@ -171,7 +155,6 @@ class ExchangeController extends Controller
         }
 
         Cart::truncate();
-        Exchange::truncate();
 
         Toastr::success('Invoice created successfully', 'Success');
         return redirect()->route('admin.order.pending');

@@ -45,7 +45,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Drink</label>
-                                                <select name="drink_id" class="form-control">
+                                                <select name="product_id" class="form-control">
                                                     <option value="" disabled selected>Select a drink</option>
                                                     @foreach($drinks as $drink)
                                                         <option value="{{ $drink->id }}">{{ $drink->name }}</option>

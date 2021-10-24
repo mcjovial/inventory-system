@@ -65,7 +65,7 @@ class SupplyController extends Controller
         $supply->quantity = $request->input('quantity');
         $supply->save();
 
-        $drink = Product::findOrFail($supply->drink_id);
+        $drink = Product::findOrFail($supply->product_id);
         $date = Carbon::now();
 
         $expense = new Expense();

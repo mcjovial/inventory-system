@@ -238,7 +238,7 @@
                                         <tr>
                                             <form action="{{ route('admin.exchange.store') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="drink_id" value="{{ $drink->id }}">
+                                                <input type="hidden" name="product_id" value="{{ $drink->id }}">
                                                 <input type="hidden" name="name" value="{{ $drink->name }}">
                                                 <input type="hidden" name="quantity" value="1">
                                                 <input type="hidden" name="price" value="{{ $drink->sell_price_bottle }}">

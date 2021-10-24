@@ -46,10 +46,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Drink</label>
-                                                <select name="drink_id" class="form-control">
+                                                <select name="product_id" class="form-control">
                                                     <option value="" disabled selected>Select a drink</option>
                                                     @foreach($drinks as $drink)
-                                                        <option value="{{ $drink->id }}" {{ $supply->drink_id == $drink->id ? 'selected' : '' }}>{{ $drink->name }}</option>
+                                                        <option value="{{ $drink->id }}" {{ $supply->product_id == $drink->id ? 'selected' : '' }}>{{ $drink->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

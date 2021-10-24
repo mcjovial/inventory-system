@@ -43,6 +43,12 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::post('exchange/store', 'ExchangeController@store')->name('exchange.store');
     Route::post('exchange/{id}', 'ExchangeController@update')->name('exchange.update');
     Route::post('exchange', 'ExchangeController@final_invoice')->name('exchange.invoice');
+
+    Route::get('launch', 'LaunchController@create')->name('launch.create');
+    Route::post('launch/store', 'LaunchController@store')->name('launch.store');
+    Route::post('launch/cart/{id}', 'LaunchController@cart_update')->name('launch.cart_update');
+    Route::post('launch', 'LaunchController@final_invoice')->name('launch.invoice');
+    Route::post('launch/cart-store', 'LaunchController@cart_store')->name('launch.cart_store');
     
     Route::get('expense-today', 'ExpenseController@today_expense')->name('expense.today');
     Route::get('expense-month/{month?}', 'ExpenseController@month_expense')->name('expense.month');
