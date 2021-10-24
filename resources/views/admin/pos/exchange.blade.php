@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Pos')
+@section('title', 'Exchange')
 
 @push('css')
     <!-- DataTables -->
@@ -18,7 +18,7 @@
                     <div class="col-sm-6 offset-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Pos</li>
+                            <li class="breadcrumb-item active">Exchange</li>
                         </ol>
                     </div>
                 </div>
@@ -32,15 +32,14 @@
                     <!-- left column -->
                     <div class="col-md-7">
                         <div class="card">
-                            <form action="{{ route('admin.invoice.create') }}" method="post">
+                            <form action="{{ route('admin.exchange.invoice') }}" method="post">
                                 @csrf
                                 <div class="card-header">
                                     <h3 class="card-title">
-                                        Customer
+                                        Exchange In
                                         <span>
-                                            <a href="{{ route('admin.exchange.create') }}" class="btn btn-sm btn-secondary float-md-right">Exchange</a>
                                             <button type="submit" class="btn btn-sm btn-info float-md-right ml-3">Create Invoice</button>
-                                            <a href="{{ route('admin.customer.create') }}" class="btn btn-sm btn-primary float-md-right">Add New Customer</a>
+                                            {{-- <a href="{{ route('admin.customer.create') }}" class="btn btn-sm btn-primary float-md-right">Add New</a> --}}
                                         </span>
                                     </h3>
                                 </div>
@@ -66,6 +65,70 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card-body">
+                                    @if($cart_products->count() < 1)
+                                        <div class="alert alert-danger">
+                                            No Product Added
+                                        </div>
+                                    @else
+                                        <table class="table table-bordered table-striped text-center mb-3">
+                                            <thead>
+                                            <tr>
+                                                <th>S.N</th>
+                                                <th>Name</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Sub Total</th>
+                                                <th>Update</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($exchange_products as $product)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td class="text-left">{{ $product->name }}</td>
+
+                                                    <form action="{{ route('admin.exchange.update', $product->id) }}" method="post">
+                                                        @csrf
+                                                        {{-- @method('PUT') --}}
+                                                        <td>
+                                                            <input type="number" name="quantity" class="form-control" value="{{ $product->quantity }}">
+                                                        </td>
+                                                        <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>
+                                                        <td> <span>&#8358;</span> {{ number_format($product->total, 2) }}</td>
+                                                        <td>
+                                                            <button type="submit" class="btn btn-sm btn-success">
+                                                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                            </button>
+                                                        </td>
+                                                    </form>
+
+                                                    <td>
+                                                        <button class="btn btn-danger" type="button" onclick="deleteItem({{ $product->id }})">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                        <form id="delete-form-{{ $product->id }}" action="{{ route('admin.cart.destroy', $product->id) }}" method="post"
+                                                            style="display:none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    @endif
+
+                                    <div class="alert alert-info">
+                                        <p>Quantity : {{ $exchange->sum('quantity') }}</p>
+                                        <p>Sub Total :  <span>&#8358;</span> {{ $exchange->sum('total') }}</p>
+                                        Tax :  <span>&#8358;</span> {{ 0 }}
+                                    </div>
+                                    <div class="alert alert-success">
+                                        Total :  <span>&#8358;</span> {{ $exchange->sum('total') }}
+                                    </div>
+                                </div>
                             </form>
                         </div>
 
@@ -73,7 +136,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <i class="fa fa-info"></i>
-                                    Shopping Lists
+                                    Exchange Out
                                 </h3>
                             </div>
                             <!-- /.card-header -->
@@ -149,7 +212,7 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">POS</h3>
+                                <h3 class="card-title">Drinks</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -173,9 +236,9 @@
                                     <tbody>
                                     @foreach($drinks as $key => $drink)
                                         <tr>
-                                            <form action="{{ route('admin.cart.store') }}" method="post">
+                                            <form action="{{ route('admin.exchange.store') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="product_id" value="{{ $drink->id }}">
+                                                <input type="hidden" name="drink_id" value="{{ $drink->id }}">
                                                 <input type="hidden" name="name" value="{{ $drink->name }}">
                                                 <input type="hidden" name="quantity" value="1">
                                                 <input type="hidden" name="price" value="{{ $drink->sell_price_bottle }}">
@@ -274,7 +337,4 @@
             })
         }
     </script>
-
-
-
 @endpush

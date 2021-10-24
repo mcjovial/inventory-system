@@ -38,6 +38,12 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::resource('product', 'ProductController');
     Route::resource('expense', 'ExpenseController');
     Route::resource('dues', 'DuesController');
+
+    Route::get('exchange', 'ExchangeController@create')->name('exchange.create');
+    Route::post('exchange/store', 'ExchangeController@store')->name('exchange.store');
+    Route::post('exchange/{id}', 'ExchangeController@update')->name('exchange.update');
+    Route::post('exchange', 'ExchangeController@final_invoice')->name('exchange.invoice');
+    
     Route::get('expense-today', 'ExpenseController@today_expense')->name('expense.today');
     Route::get('expense-month/{month?}', 'ExpenseController@month_expense')->name('expense.month');
     Route::get('expense-yearly/{year?}', 'ExpenseController@yearly_expense')->name('expense.yearly');
