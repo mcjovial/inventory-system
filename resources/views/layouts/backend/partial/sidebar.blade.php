@@ -312,6 +312,12 @@
 								<p>Balance</p>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.order.to_balance') }}" class="nav-link {{ Request::is('admin/order/to-balance') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>To-Balance</p>
+							</a>
+						</li>
                         <li class="nav-item">
 							<a href="{{ route('admin.order.pending') }}" class="nav-link {{ Request::is('admin/order/pending') ? 'active' : '' }}">
 								<i class="fa fa-circle-o nav-icon"></i>

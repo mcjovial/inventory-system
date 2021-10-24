@@ -64,6 +64,11 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
+    public function to_balance(){
+        $credits = Order::latest()->where('to_balance', true)->get();
+        return view('admin.order.to_balance', compact('credits'));
+    }
+
     public function balance(Request $request, $id){
         $inputs = $request->except('_token');
         $rules = [
