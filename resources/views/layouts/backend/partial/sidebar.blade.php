@@ -155,7 +155,7 @@
 						</li>
 					</ul>
 				</li>
-				{{-- <li class="nav-item has-treeview {{ Request::is('admin/advanced_salary*') ? 'menu-open' : '' }}">
+				<li class="nav-item has-treeview {{ Request::is('admin/advanced_salary*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/advanced_salary*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
 						<p>
@@ -177,9 +177,9 @@
 							</a>
 						</li>
 					</ul>
-				</li> --}}
+				</li>
 
-				{{-- <li class="nav-item has-treeview {{ Request::is('admin/salary*') ? 'menu-open' : '' }}">
+				<li class="nav-item has-treeview {{ Request::is('admin/salary*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/salary*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
 						<p>
@@ -201,7 +201,7 @@
 							</a>
 						</li>
 					</ul>
-				</li> --}}
+				</li>
 
 				<li class="nav-item has-treeview {{ Request::is('admin/category*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/category*') ? 'active' : '' }}">
@@ -346,6 +346,29 @@
 							<a href="{{ route('admin.sales.total') }}" class="nav-link {{ Request::is('admin/sales-total') ? 'active' : '' }}">
 								<i class="fa fa-circle-o nav-icon"></i>
 								<p>Total Sales</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+                <li class="nav-item has-treeview {{ Request::is('admin/dues*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ Request::is('admin/dues*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-gg"></i>
+						<p>
+							Dues
+							<i class="right fa fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.dues.create') }}" class="nav-link {{ Request::is('admin/dues/create') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Pay</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.dues.index') }}" class="nav-link {{ Request::is('admin/dues') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>All Dues</p>
 							</a>
 						</li>
 					</ul>

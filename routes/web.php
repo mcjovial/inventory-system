@@ -37,6 +37,7 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::resource('category', 'CategoryController');
     Route::resource('product', 'ProductController');
     Route::resource('expense', 'ExpenseController');
+    Route::resource('dues', 'DuesController');
     Route::get('expense-today', 'ExpenseController@today_expense')->name('expense.today');
     Route::get('expense-month/{month?}', 'ExpenseController@month_expense')->name('expense.month');
     Route::get('expense-yearly/{year?}', 'ExpenseController@yearly_expense')->name('expense.yearly');
