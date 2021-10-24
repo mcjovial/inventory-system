@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Balance;
 use App\Expense;
 use App\Order;
 use App\OrderDetail;
@@ -9,7 +10,9 @@ use App\Setting;
 use Barryvdh\DomPDF\Facade as PDF;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -59,6 +62,42 @@ class OrderController extends Controller
         Order::findOrFail($id)->delete();
         Toastr::success('Payment has been deleted', 'Success');
         return redirect()->back();
+    }
+
+    public function balance(Request $request, $id){
+        $inputs = $request->except('_token');
+        $rules = [
+            'customer_id'       =>  'required | integer',
+            'order_id'          =>  'required | integer',
+            'description'       =>  'required',
+            'amount'            =>  'required | integer',
+        ];
+
+        $validation = Validator::make($inputs, $rules);
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation)->withInput();
+        }
+
+        $balance = new Balance();
+        $balance->customer_id = $request->input('customer_id');
+        $balance->order_id = $request->input('order_id');
+        $balance->description = $request->input('description');
+        $balance->amount = $request->input('amount');
+        $balance->pay_out = $request->input('pay_out') ? true : false;
+        $balance->save();
+
+        $order = Order::findOrFail($request->input('order_id'));
+        $order->due = 0;
+        if ($request->input('pay_out')) {
+            $order->to_balance = false;
+        } else {
+            $order->owing = false;
+        }
+        $order->pay += abs($order->due);
+        $order->save();
+
+        Toastr::success('Order balanced successfully', 'Success!!!');
+        return redirect()->route('admin.balance.index');
     }
 
     public function download($order_id)

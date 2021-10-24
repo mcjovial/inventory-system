@@ -293,7 +293,7 @@
 
 				<li class="nav-item has-treeview {{ Request::is('admin/order*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/order*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-pie-chart"></i>
+						<i class="nav-icon fa fa-money"></i>
 						<p>
 							Transactions
 							<i class="right fa fa-angle-left"></i>
@@ -304,6 +304,12 @@
 							<a href="{{ route('admin.order.credit') }}" class="nav-link {{ Request::is('admin/order/credit') ? 'active' : '' }}">
 								<i class="fa fa-circle-o nav-icon"></i>
 								<p>Debtors</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.balance.index') }}" class="nav-link {{ Request::is('admin/order/balance') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Balance</p>
 							</a>
 						</li>
                         <li class="nav-item">

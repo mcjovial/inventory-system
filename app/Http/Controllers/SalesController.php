@@ -42,7 +42,7 @@ class SalesController extends Controller
     {
         $inputs = $request->except('_token');
         $rules = [
-            'drink_id' => 'required'
+            'product_id' => 'required'
         ];
 
         $validation = Validator::make($inputs, $rules);
@@ -55,7 +55,7 @@ class SalesController extends Controller
         $sell = $product->sell_price_bottle;
 
         $sale = new Sales();
-        $sale->drink_id = $request->input('product_id');
+        $sale->product_id = $request->input('product_id');
         $sale->open_stock = $request->input('open_stock');
         $sale->unit_price = $request->input('unit_price');
         $sale->qty = $request->input('qty');
@@ -106,7 +106,7 @@ class SalesController extends Controller
     {
         $inputs = $request->except('_token');
         $rules = [
-            'drink_id' => 'required'
+            'product_id' => 'required'
         ];
 
         $validation = Validator::make($inputs, $rules);
@@ -114,7 +114,7 @@ class SalesController extends Controller
             return redirect()->back()->withErrors($validation)->withInput();
         }
 
-        $sale->drink_id = $request->input('drink_id');
+        $sale->product_id = $request->input('product_id');
         $sale->open_stock = $request->input('open_stock');
         $sale->unit_price = $request->input('unit_price');
         $sale->qty = $request->input('qty');
