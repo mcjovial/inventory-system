@@ -19,10 +19,11 @@ class PosController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->get();
+        $drinks = Product::with('category')->get();
         $customers = Customer::all();
         $cart_products = Cart::all();
-        return view('admin.pos.index', compact('products', 'customers', 'cart_products'));
+        $cart = Cart::all();
+        return view('admin.pos.index', compact('drinks', 'customers', 'cart_products', 'cart'));
     }
 
     /**

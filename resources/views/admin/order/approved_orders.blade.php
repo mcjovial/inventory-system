@@ -18,7 +18,7 @@
                     <div class="col-sm-6 offset-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Approved Orders</li>
+                            <li class="breadcrumb-item active">Confirmed Transactions</li>
                         </ol>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">APPROVED ORDERS LISTS</h3>
+                                <h3 class="card-title">CONFIRMED TRANSACTION LISTS</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -43,10 +43,11 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
+                                        <th>Phone</th>
                                         <th>Date</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
-                                        <th>Payment Status</th>
+                                        <th>Payment Method</th>
                                         <th>Order Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -55,10 +56,11 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
+                                        <th>Phone</th>
                                         <th>Date</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
-                                        <th>Payment Status</th>
+                                        <th>Payment Method</th>
                                         <th>Order Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -67,7 +69,8 @@
                                     @foreach($approveds as $key => $order)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $order->customer->name }}</td>
+                                            <td>{{ $order->customer_name }}</td>
+                                            <td>{{ $order->customer_phone }}</td>
                                             <td>{{ $order->created_at->toFormattedDateString() }}</td>
                                             <td>{{ $order->total_products }}</td>
                                             <td>{{ $order->total }}</td>

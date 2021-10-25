@@ -140,9 +140,12 @@
                                         <input type="hidden" name="customer_name" value="{{ $customer->name }}">
                                         <input type="hidden" name="customer_phone" value="{{ $customer->phone }}">
                                         {{-- <a href="{{ route('admin.invoice.print', $customer->id) }}" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a> --}}
-                                        <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-success float-right"><i class="fa fa-credit-card"></i>
+                                        <button type="button" data-toggle="modal" data-target="#paymentModal" class="btn btn-success float-left"><i class="fa fa-credit-card"></i>
                                             Submit Payment
                                         </button>
+                                        <a href="{{ route('admin.exchange.create') }}" type="button" class="btn btn-primary float-right"><i class="fa fa-exchange"></i>
+                                            Exchange
+                                        </a>
                                     </form>
                                 </div>
                             </div>
@@ -159,7 +162,7 @@
     <!--payment modal -->
     <form action="{{ route('admin.invoice.final_invoice') }}" method="post">
         @csrf
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -187,6 +190,7 @@
                                     <option value="cash">Cash</option>
                                     <option value="transfer">Transfer</option>
                                     <option value="credit">Credit</option>
+                                    <option value="exchange">Exchange</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
@@ -205,9 +209,6 @@
         </div>
     </form>
     <!--/.payment modal -->
-
-
-
 @endsection
 
 

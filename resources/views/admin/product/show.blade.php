@@ -80,23 +80,23 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Cost Price Per Pack</label>
-                                                <p>{{ number_format($product->cost_price_pack, 2) ." Taka" }}</p>
+                                                <p><span>&#8358;</span>{{ number_format($product->cost_price_pack, 2) }}</p>
                                             </div>
                                             <div class="form-group">
                                                 <label>Cost Price Per Bottle</label>
-                                                <p>{{ number_format($product->cost_price_bottle, 2) ." Taka" }}</p>
+                                                <p><span>&#8358;</span>{{ number_format($product->cost_price_bottle, 2) }}</p>
                                             </div>
                                             <div class="form-group">
                                                 <label>Selling Price</label>
-                                                <p>{{ number_format($product->sell_price_bottle, 2) ." Taka" }}</p>
+                                                <p><span>&#8358;</span>{{ number_format($product->sell_price_bottle, 2) }}</p>
                                             </div>
                                             <div class="form-group">
                                                 <label>Launching Price</label>
-                                                <p>{{ number_format($product->launch_price, 2) ." Taka" }}</p>
+                                                <p><span>&#8358;</span>{{ number_format($product->launch_price, 2) }}</p>
                                             </div>
                                             <div class="form-group">
                                                 <label>Number of Bottles</label>
-                                                <p>{{ number_format($product->bottles_per_pack, 2) ." Taka" }}</p>
+                                                <p><span>&#8358;</span>{{ number_format($product->bottles_per_pack, 2) }}</p>
                                             </div>
                                         </div>
                                     </div>

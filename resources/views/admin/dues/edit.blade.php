@@ -38,33 +38,27 @@
                             <!-- /.card-header -->
 
                             <!-- form start -->
-                            <form role="form" action="{{ route('admin.dues.update') }}" method="post" enctype="multipart/form-data">
+                            <form role="form" action="{{ route('admin.dues.update', $due->id) }}" method="post" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="card-body">
                                     <div class="row">
 
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Member</label>
-                                                <select name="customer_id" class="form-control">
-                                                    <option value="" disabled selected>Select a Member</option>
-                                                    @foreach($customers as $customer)
-                                                        <option value="{{ $customer->id }}">{{ $customer->name }} <div class="float-right text-danger">[NIN]: {{ $customer->nin }}</div> </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group">
+                                                <input type="number" class="form-control" name="" value="{{ $due->customer->name }}" disabled>
+                                            </div><div class="form-group">
                                                 <label>Registration Fee</label>
-                                                <input type="number" class="form-control" name="reg_fee" value="{{ old('reg_fee') }}" placeholder="Enter Registration Fee">
+                                                <input type="number" class="form-control" name="reg_fee" value="{{ $due->reg_fee }}" placeholder="Enter Registration Fee">
                                             </div>
                                             <div class="form-group">
                                                 <label>Annual Dues</label>
-                                                <input type="number" class="form-control" name="annual" value="{{ old('annual') }}" placeholder="Enter Annual Dues">
+                                                <input type="number" class="form-control" name="annual" value="{{ $due->annual }}" placeholder="Enter Annual Dues">
                                             </div>
                                             <div class="form-group">
                                                 <label>welfare Dues</label>
-                                                <input type="number" class="form-control" name="welfare" value="{{ old('welfare') }}" placeholder="Enter Welfare Dues">
+                                                <input type="number" class="form-control" name="welfare" value="{{ $due->welfare }}" placeholder="Enter Welfare Dues">
                                             </div>
                                         </div>
                                     </div>

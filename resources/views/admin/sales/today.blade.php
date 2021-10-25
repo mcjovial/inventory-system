@@ -37,9 +37,9 @@
                                 <h3 class="card-title">
                                     TODAY'S SALES LISTS
                                     <small class="text-danger pull-right">
-                                        <span class="badge badge-info">Total Sales : {{ $balance->sum('total') }} Taka</span>
-                                        <span class="badge badge-success">Paid : {{ $balance->sum('pay') }} Taka</span>
-                                        <span class="badge badge-warning">Debt : {{ $balance->sum('debt') }} Taka</span>
+                                        <span class="badge badge-info">Total Sales : <span>&#8358;</span>{{ $balance->sum('total') }}</span>
+                                        <span class="badge badge-success">Paid : <span>&#8358;</span>{{ $balance->sum('pay') }}</span>
+                                        <span class="badge badge-warning">Debt : <span>&#8358;</span>{{ $balance->sum('debt') }}</span>
                                     </small>
                                     <small class="text-primary">{{ date('d F Y') }}</small>
                                 </h3>

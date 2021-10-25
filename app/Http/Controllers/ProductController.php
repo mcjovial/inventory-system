@@ -96,7 +96,7 @@ class ProductController extends Controller
         $product->expire_date = $request->input('expire_date');
         $product->sell_price_bottle = $request->input('sell_price_bottle');
         $product->bottles_per_pack = $request->input('bottles_per_pack');
-        $product->launching_price = $request->input('launching_price');
+        $product->launch_price = $request->input('launching_price');
         $product->image = $imageName;
         $product->save();
 

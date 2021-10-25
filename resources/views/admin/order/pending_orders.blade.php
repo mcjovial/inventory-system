@@ -43,6 +43,7 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
+                                        <th>Phone</th>
                                         <th>Date</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
@@ -55,6 +56,7 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
+                                        <th>Phone</th>
                                         <th>Date</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
@@ -67,7 +69,8 @@
                                     @foreach($pendings as $key => $order)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $order->customer->name }}</td>
+                                            <td>{{ $order->customer_name }}</td>
+                                            <td>{{ $order->customer_phone }}</td>
                                             <td>{{ $order->created_at->toFormattedDateString() }}</td>
                                             <td>{{ $order->total_products }}</td>
                                             <td>{{ $order->total }}</td>

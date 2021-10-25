@@ -119,7 +119,7 @@ class LaunchController extends Controller
             $launch->save();
         }
 
-        $due = $c_total - $c_total;
+        $debt = $c_total - $c_total;
 
         $order = new Order();
         $order->customer_id =  $customer->id;
@@ -127,21 +127,21 @@ class LaunchController extends Controller
         $order->customer_phone = $customer->phone;
         $order->payment_status = 'launching';
         $order->pay = $c_total;
-        $order->due = $due;
+        $order->debt = $debt;
         $order->order_date = date('Y-m-d');
         // $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
         $order->order_status = 'confirmed';
         $order->total_products = Cart::sum('quantity');
         $order->sub_total = $sub_total;
-        $order->owing = $order->due > 0 ? true : false;
-        $order->to_balance = $order->due < 0 ? true : false;
+        $order->owing = $order->debt > 0 ? true : false;
+        $order->to_balance = $order->debt < 0 ? true : false;
         $order->vat = $tax;
         $order->total = $c_total;
+        // dd($order);
         $order->save();
 
         $order_id = $order->id;
         $contents = Cart::all();
-        // dd($order);
 
         foreach ($contents as $content)
         {

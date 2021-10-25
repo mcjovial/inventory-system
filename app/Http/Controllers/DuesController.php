@@ -95,9 +95,10 @@ class DuesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Dues $due)
     {
-        return view('admin.dues.edit', compact('due'));
+        $customer = Customer::all();
+        return view('admin.dues.edit', compact('due', 'customer'));
     }
 
     /**
@@ -111,7 +112,7 @@ class DuesController extends Controller
     {
         $input = $request->except('_token');
         $rules = [
-            'customer_id' =>    'required',
+            // 'customer_id' =>    'required',
 
         ];
 
@@ -120,7 +121,7 @@ class DuesController extends Controller
             return redirect()->back()->withErrors($validation)->withInput();
         }
 
-        $due->customer_id = $request->input('customer_id');
+        // $due->customer_id = $request->input('customer_id');
         $due->reg_fee = $request->input('reg_fee');
         if ($request->input('reg_fee')) {
             $due->reg_fee_date = Carbon::now()->format('Y-m-d');

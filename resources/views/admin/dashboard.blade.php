@@ -38,7 +38,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Today's Sale</span>
-                                <span class="info-box-number">{{ $today->sum('total') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $today->sum('total') }}</span>
 
                                 @php
 
@@ -70,7 +70,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">This Month's Sale</span>
-                                <span class="info-box-number">{{ $month->sum('total') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $month->sum('total') }}</span>
                                 @php
 
                                     if ($previous_month->sum('total') != 0)
@@ -100,7 +100,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">This Year's Sale</span>
-                                <span class="info-box-number">{{ $year->sum('total') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $year->sum('total') }}</span>
                                 @php
 
                                     if($previous_year->sum('total') != 0)
@@ -129,7 +129,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text mt-3 pb-1">Total Sale</span>
-                                <span class="info-box-number mb-3">{{ $sales->sum('total') }} Taka</span>
+                                <span class="info-box-number mb-3"><span>&#8358;</span>{{ $sales->sum('total') }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -142,7 +142,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Today's Paid</span>
-                                <span class="info-box-number">{{ $today->sum('pay') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $today->sum('pay') }}</span>
                                 @php
 
                                     if($yesterday->sum('pay') != 0)
@@ -173,7 +173,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">This Month's Paid</span>
-                                <span class="info-box-number">{{ $month->sum('pay') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $month->sum('pay') }}</span>
                                 @php
                                     if($previous_month->sum('pay') != 0)
                                     {
@@ -203,7 +203,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">This Year's Paid</span>
-                                <span class="info-box-number">{{ $year->sum('pay') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $year->sum('pay') }}</span>
                                 @php
 
                                     if($previous_month->sum('pay') != 0)
@@ -235,7 +235,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text mt-3 pb-1">Total Paid</span>
-                                <span class="info-box-number mb-3">{{ $sales->sum('pay') }} Taka</span>
+                                <span class="info-box-number mb-3"><span>&#8358;</span>{{ $sales->sum('pay') }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -248,7 +248,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Today's Debt</span>
-                                <span class="info-box-number">{{ $today->sum('debt') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $today->sum('debt') }}</span>
                                 @php
 
                                     if($yesterday->sum('debt') != 0)
@@ -279,7 +279,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">This Month's Debt</span>
-                                <span class="info-box-number">{{ $month->sum('debt') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $month->sum('debt') }}</span>
                                 @php
 
                                     if($previous_month->sum('debt') != 0)
@@ -311,7 +311,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">This Year's Debt</span>
-                                <span class="info-box-number">{{ $year->sum('debt') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $year->sum('debt') }}</span>
                                 @php
                                     if($previous_year->sum('debt') != 0)
                                     {
@@ -340,7 +340,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text mt-3 pb-1">Total Debt</span>
-                                <span class="info-box-number mb-3">{{ $sales->sum('debt') }} Taka</span>
+                                <span class="info-box-number mb-3"><span>&#8358;</span>{{ $sales->sum('debt') }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -354,7 +354,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Today's Expenses</span>
-                                <span class="info-box-number">{{ $today_expenses->sum('amount') }} Taka</span>
+                                <span class="info-box-number">{{ $today_expenses->sum('amount') }}</span>
 
                                 @php
 
@@ -385,7 +385,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">This Month's Expenses</span>
-                                <span class="info-box-number">{{ $month_expenses->sum('amount') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $month_expenses->sum('amount') }}</span>
                                 @php
                                     if($yesterday_expenses->sum('amount') != 0)
                                     {
@@ -416,7 +416,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">This Year's Expenses</span>
-                                <span class="info-box-number">{{ $year_expenses->sum('amount') }} Taka</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $year_expenses->sum('amount') }}</span>
                                 @php
                                     if($previous_year_expenses->sum('amount') != 0)
                                     {
@@ -445,7 +445,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text mt-3 pb-1">Total Expenses</span>
-                                <span class="info-box-number mb-3">{{ $expenses->sum('amount') }} Taka</span>
+                                <span class="info-box-number mb-3"><span>&#8358;</span>{{ $expenses->sum('amount') }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

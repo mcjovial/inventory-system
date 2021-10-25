@@ -88,14 +88,18 @@
                                             <td>{{ \Carbon\Carbon::parse($due->welfare_date)->toFormattedDateString() }}</td>
                                             <td>{{ \Carbon\Carbon::parse($due->welfare_expire)->toFormattedDateString() }}</td>
                                             <td>
-                                                <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem({{ $due->id }})">
+                                                <a href="{{ route('admin.dues.edit', $due->id) }}" class="btn
+													btn-info">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a>
+                                                {{-- <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem({{ $due->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $due->id }}" action="{{ route('admin.expense.destroy', $due->id) }}" method="post"
                                                       style="display:none;">
                                                     @csrf
                                                     @method('DELETE')
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach

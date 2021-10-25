@@ -56,7 +56,6 @@ class CartController extends Controller
         $cart->quantity = $request->input('quantity');
         $cart->price = $request->input('price');
         $cart->total = $cart->quantity * $cart->price;
-        $cart->exchange = $request->input('exchange') ? '1' : '0';
         $cart->save();
 
         Toastr::success('Drink successfully added to cart', 'Success');
