@@ -64,7 +64,10 @@
                                                 <label>Stock Units</label>
                                                 <p>{{ $product->stock }}</p>
                                             </div>
-
+                                            <div class="form-group">
+                                                <label>Launch Qty</label>
+                                                <p>{{ $product->launch_cartons }}</p>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">

@@ -52,6 +52,7 @@
                                         <th>Cost Per Bottle</th>
                                         <th>Price Per Bottle</th>
                                         <th>Lanching Price</th>
+                                        <th>Launch Qty</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -68,6 +69,7 @@
                                         <th>Cost Per Bottle</th>
                                         <th>Price Per Bottle</th>
                                         <th>Lanching Price</th>
+                                        <th>Launch Qty</th>
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
@@ -80,7 +82,7 @@
                                                 <img class="img-rounded" style="height:35px; width: 35px;" src="{{ URL::asset("storage/product/".$product->image) }}" alt="{{ $product->name }}">
                                             </td>
                                             <td>{{ $product->category->name }}</td>
-                                            <td>{{ $product->supplier->name }}</td>
+                                            {{-- <td>{{ $product->supplier->name }}</td> --}}
                                             <td>{{ $product->stock }}</td>
                                             <td>{{ $product->buying_date->toFormattedDateString() }}</td>
                                             <td>{{ number_format($product->cost_price_pack, 2) }}</td>
@@ -88,6 +90,7 @@
                                             <td>{{ number_format($product->cost_price_bottle, 2) }}</td>
                                             <td>{{ number_format($product->sell_price_bottle, 2) }}</td>
                                             <td>{{ number_format($product->launch_price, 2) }}</td>
+                                            <td>{{ $product->launch_cartons }}</td>
                                             <td>
                                                 <a href="{{ route('admin.product.show', $product->id) }}" class="btn btn-success">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>

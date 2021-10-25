@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Dues;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -81,6 +82,7 @@ class CustomerController extends Controller
         $customer->phone = $request->input('phone');
         $customer->address = $request->input('address');
         $customer->city = $request->input('city');
+        $customer->nin = $request->input('nin');
         $customer->shop_name = $request->input('shop_name');
         $customer->account_holder = $request->input('account_holder');
         $customer->account_number = $request->input('account_number');
@@ -88,6 +90,29 @@ class CustomerController extends Controller
         $customer->bank_branch = $request->input('bank_branch');
         $customer->photo = $imageName;
         $customer->save();
+
+        $customer_id = $customer->id;
+        // $date = Carbon::now();
+
+        $due = new Dues();
+        $due->customer_id = $customer_id;
+        $due->reg_fee = $request->input('reg_fee');
+        if ($request->input('reg_fee')) {
+            $due->reg_fee_date = Carbon::now()->format('Y-m-d');
+        }
+
+        $due->annual = $request->input('annual');
+        if ($request->input('annual')) {
+            $due->annual_date = Carbon::now()->format('Y-m-d');
+            $due->annual_expire = date('Y-m-d', strtotime('+1 years'));
+        }
+
+        $due->welfare = $request->input('welfare');
+        if ($request->input('welfare')) {
+            $due->welfare_date = Carbon::now()->format('Y-m-d');
+            $due->welfare_expire = date('Y-m-d', strtotime('+1 years'));
+        }
+        $due->save();
 
         Toastr::success('Customer Successfully Created', 'Success!!!');
         return redirect()->route('admin.customer.index');
@@ -169,6 +194,7 @@ class CustomerController extends Controller
         $customer->phone = $request->input('phone');
         $customer->address = $request->input('address');
         $customer->city = $request->input('city');
+        $customer->nin = $request->input('nin');
         $customer->shop_name = $request->input('shop_name');
         $customer->account_holder = $request->input('account_holder');
         $customer->account_number = $request->input('account_number');
@@ -176,6 +202,26 @@ class CustomerController extends Controller
         $customer->bank_branch = $request->input('bank_branch');
         $customer->photo = $imageName;
         $customer->save();
+
+        $due = Dues::where('customer_id', $customer->id)->first();
+        $due->reg_fee = $request->input('reg_fee');
+        if ($request->input('reg_fee')) {
+            $due->reg_fee_date = Carbon::now()->format('Y-m-d');
+        }
+
+        $due->annual = $request->input('annual');
+        if ($request->input('annual')) {
+            $due->annual_date = Carbon::now()->format('Y-m-d');
+            $due->annual_expire = date('Y-m-d', strtotime('+1 years'));
+        }
+
+        $due->welfare = $request->input('welfare');
+        if ($request->input('welfare')) {
+            $due->welfare_date = Carbon::now()->format('Y-m-d');
+            $due->welfare_expire = date('Y-m-d', strtotime('+1 years'));
+        }
+        $customer->save();
+        $due->save();
 
         Toastr::success('Customer Successfully Updated', 'Success!!!');
         return redirect()->route('admin.customer.index');

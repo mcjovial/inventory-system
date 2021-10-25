@@ -67,7 +67,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Units in Stock</label>
-                                                <input type="number" class="form-control" name="code" value="{{ old('stock') }}" placeholder="Enter Stock units">
+                                                <input type="number" class="form-control" name="stock" value="{{ old('stock') }}" placeholder="Enter Stock units">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Launch Qty</label>
+                                                <input type="number" class="form-control" name="launch_cartons" value="{{ old('launch_cartons') }}" placeholder="Enter Stock units">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -80,7 +84,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <label>Buying Date</label>
                                                 <input type="date" class="form-control" name="buying_date" value="{{ old('buying_date') }}">

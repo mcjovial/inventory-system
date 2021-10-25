@@ -89,12 +89,14 @@ class ProductController extends Controller
         $product->category_id = $request->input('category_id');
         $product->supplier_id = $request->input('supplier_id');
         $product->stock = $request->input('stock');
+        $product->launch_cartons = $request->input('launch_cartons');
         $product->cost_price_pack = $request->input('cost_price_pack');
         $product->cost_price_bottle = $request->input('cost_price_bottle');
         $product->buying_date = $request->input('buying_date');
         $product->expire_date = $request->input('expire_date');
         $product->sell_price_bottle = $request->input('sell_price_bottle');
         $product->bottles_per_pack = $request->input('bottles_per_pack');
+        $product->launching_price = $request->input('launching_price');
         $product->image = $imageName;
         $product->save();
 
@@ -196,6 +198,7 @@ class ProductController extends Controller
         $product->category_id = $request->input('category_id');
         $product->supplier_id = $request->input('supplier_id');
         $product->stock = $request->input('stock');
+        $product->launch_cartons = $request->input('launch_cartons');
         $product->cost_price_pack = $request->input('cost_price_pack');
         $product->cost_price_bottle = $request->input('cost_price_bottle');
         $product->buying_date = $buying_date;
@@ -203,6 +206,7 @@ class ProductController extends Controller
         $product->sell_price_bottle = $request->input('sell_price_bottle');
         $product->bottles_per_pack = $request->input('bottles_per_pack');
         $product->image = $imageName;
+        $product->launching_price = $request->input('launching_price');
         $product->save();
 
         Toastr::success('Product Successfully Updated', 'Success!!!');

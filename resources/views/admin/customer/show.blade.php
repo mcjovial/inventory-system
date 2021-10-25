@@ -63,8 +63,8 @@
                                                 <p>{{ $customer->city }}</p>
                                             </div>
                                             <div class="form-group">
-                                                <label>Shop Name</label>
-                                                <p>{{ $customer->shop_name }}</p>
+                                                <label>NIN</label>
+                                                <p>{{ $customer->nin }}</p>
                                             </div>
                                         </div>
                                         <div class="col-md-6">

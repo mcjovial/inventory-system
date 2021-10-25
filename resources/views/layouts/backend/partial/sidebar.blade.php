@@ -9,14 +9,14 @@
 	<!-- Sidebar -->
 	<div class="sidebar">
 		<!-- Sidebar user panel (optional) -->
-		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+		{{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 			<div class="image">
 				<img src="{{ asset('assets/backend/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
 				<a href="#" class="d-block">Saucegeek McJovial</a>
 			</div>
-		</div>
+		</div> --}}
 
 		<!-- Sidebar Menu -->
 		<nav class="mt-2">
@@ -33,9 +33,9 @@
 				</li>
 				<li class="nav-item has-treeview">
 					<a href="{{ route('admin.pos.index') }}" class="nav-link {{ Request::is('admin/pos') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-dashboard"></i>
+						<i class="nav-icon fa fa-window-maximize"></i>
 						<p>
-							Point of Sales (POS)
+							Point of Sales
 						</p>
 					</a>
 				</li>
@@ -87,7 +87,7 @@
 				</li> --}}
 				<li class="nav-item has-treeview {{ Request::is('admin/customer*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/customer*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-pie-chart"></i>
+						<i class="nav-icon fa fa-address-card"></i>
 						<p>
 							Customer
 							<i class="right fa fa-angle-left"></i>
@@ -134,7 +134,7 @@
 
                 <li class="nav-item has-treeview {{ Request::is('admin/supply*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/supply*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-pie-chart"></i>
+						<i class="nav-icon fa fa-cubes"></i>
 						<p>
 							Supply
 							<i class="right fa fa-angle-left"></i>
@@ -155,7 +155,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="nav-item has-treeview {{ Request::is('admin/advanced_salary*') ? 'menu-open' : '' }}">
+				{{-- <li class="nav-item has-treeview {{ Request::is('admin/advanced_salary*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/advanced_salary*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
 						<p>
@@ -201,7 +201,7 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li> --}}
 
 				<li class="nav-item has-treeview {{ Request::is('admin/category*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/category*') ? 'active' : '' }}">
@@ -228,7 +228,7 @@
 				</li>
 				<li class="nav-item has-treeview {{ Request::is('admin/product*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/product*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-pie-chart"></i>
+						<i class="nav-icon fa fa-glass"></i>
 						<p>
 							Product
 							<i class="right fa fa-angle-left"></i>
@@ -251,7 +251,7 @@
 				</li>
 				<li class="nav-item has-treeview {{ Request::is('admin/expense*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/expense*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-pie-chart"></i>
+						<i class="nav-icon fa fa-credit-card"></i>
 						<p>
 							Expense
 							<i class="right fa fa-angle-left"></i>

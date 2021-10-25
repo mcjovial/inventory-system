@@ -70,6 +70,10 @@
                                                 <label>Units in Stock</label>
                                                 <input type="number" class="form-control" name="stock" value="{{ $product->stock }}" placeholder="Enter Stock Units">
                                             </div>
+                                            <div class="form-group">
+                                                <label>Launch Qty</label>
+                                                <input type="number" class="form-control" name="launch_cartons" value="{{ $product->launch_cartons }}" placeholder="Enter Stock units">
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -109,6 +113,10 @@
                                             <div class="form-group">
                                                 <label>Amount of Bottles in a Pack</label>
                                                 <input type="number" class="form-control" name="bottles_per_pack" value="{{ $product->bottles_per_pack }}" placeholder="Enter Number of Bottles in a Pack">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Launching Price</label>
+                                                <input type="number" class="form-control" name="launching_price" value="{{ $product->launching_price }}" placeholder="Enter Price for Launching">
                                             </div>
                                         </div>
                                     </div>

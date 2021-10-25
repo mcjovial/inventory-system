@@ -44,11 +44,12 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Image</th>
+                                        <th>NIN</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>City</th>
-                                        <th>Shop Name</th>
                                         <th>Account Holder</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -57,11 +58,12 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Image</th>
+                                        <th>NIN</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>City</th>
-                                        <th>Shop Name</th>
                                         <th>Account Holder</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
@@ -73,11 +75,18 @@
                                             <td>
                                                 <img class="img-rounded" style="height:35px; width: 35px;" src="{{ URL::asset("storage/customer/".$customer->photo) }}" alt="{{ $customer->name }}">
                                             </td>
+                                            <td>{{ $customer->nin }}</td>
                                             <td>{{ $customer->email }}</td>
                                             <td>0{{ $customer->phone }}</td>
                                             <td>{{ $customer->city }}</td>
-                                            <td>{{ $customer->shop_name }}</td>
                                             <td>{{ $customer->account_holder }}</td>
+                                            <td>
+                                                @if(!$customer->dues->reg_fee || !$customer->dues->annual || !$customer->dues->welfare)
+                                                    <span class="badge badge-warning">Not-up-to-date</span>
+                                                @else
+                                                    <span class="badge badge-success">Up-to-date</span>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a href="{{ route('admin.customer.show', $customer->id) }}" class="btn btn-success">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>

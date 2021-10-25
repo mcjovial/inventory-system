@@ -65,8 +65,8 @@
                                                 <input type="text" class="form-control" name="city" value="{{ $customer->city }}" placeholder="Enter City">
                                             </div>
                                             <div class="form-group">
-                                                <label>Shop Name</label>
-                                                <input type="text" class="form-control" name="shop_name" value="{{ $customer->shop_name }}" placeholder="Enter Shop Name">
+                                                <label>NIN</label>
+                                                <input type="text" class="form-control" name="nin" value="{{ $customer->nin }}" placeholder="Enter Your NIN">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -95,8 +95,16 @@
                                                 <input type="text" class="form-control" name="bank_name" value="{{ $customer->bank_name }}" placeholder="Enter Bank Name">
                                             </div>
                                             <div class="form-group">
-                                                <label>Bank Branch</label>
-                                                <input type="text" class="form-control" name="bank_branch" value="{{ $customer->bank_branch }}" placeholder="Enter Bank Branch">
+                                                <label>Registration Fee</label>
+                                                <input type="number" class="form-control" name="reg_fee" value="{{ $customer->dues->reg_fee }}" placeholder="Enter Registration Fee">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Annual Dues</label>
+                                                <input type="number" class="form-control" name="annual" value="{{ $customer->dues->annual }}" placeholder="Enter Annual Dues">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>welfare Dues</label>
+                                                <input type="number" class="form-control" name="welfare" value="{{ $customer->dues->welfare }}" placeholder="Enter Welfare Dues">
                                             </div>
                                         </div>
                                     </div>
