@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Exchange')
+@section('title', 'Pos')
 
 @push('css')
     <!-- DataTables -->
@@ -337,4 +337,7 @@
             })
         }
     </script>
+
+
+
 @endpush

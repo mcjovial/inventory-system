@@ -452,6 +452,110 @@
                         <!-- /.info-box -->
                     </div>
                     <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box bg-default">
+                            <span class="info-box-icon"><i class="fa fa-line-chart"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Today's Profit</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $today_profit }}</span>
+
+                                @php
+                                    if($yesterday_profit != 0)
+                                    {
+                                        $percentage = (($today_profit - $yesterday_profit)/ $yesterday_profit)*100;
+                                    } else {
+                                        $percentage = 0;
+                                    }
+                                @endphp
+
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: {{  number_format(abs($percentage), 2) }}%"></div>
+                                </div>
+
+                                <span class="progress-description {{ $percentage < 0 ? 'text-success' : '' }}">
+                                  {{ number_format(abs($percentage), 2) }} % {{ $percentage > 0 ? 'Increase' : 'Decrease' }} From {{ date('l', strtotime('-1 day')) }}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box bg-default">
+                            <span class="info-box-icon"><i class="fa fa-line-chart"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">This Month's Profit</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $month_profit }}</span>
+                                @php
+                                    if($yesterday_profit != 0)
+                                    {
+                                        $percentage = (($today_profit - $yesterday_profit)/ $yesterday_profit)*100;
+                                    } else {
+                                        $percentage = 0;
+                                    }
+
+
+                                @endphp
+
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: {{ number_format(abs($percentage), 2) }}%"></div>
+                                </div>
+
+                                <span class="progress-description {{ $percentage < 0 ? 'text-success' : '' }}">
+                                  {{ number_format(abs($percentage), 2) }} % {{ $percentage > 0 ? 'Increase' : 'Decrease' }} From {{ date('F', strtotime('-1 month')) }}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box bg-default">
+                            <span class="info-box-icon"><i class="fa fa-line-chart"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">This Year's Profit</span>
+                                <span class="info-box-number"><span>&#8358;</span>{{ $year_profit }}</span>
+                                @php
+                                    if($previous_year_profit != 0)
+                                    {
+                                        $percentage = (($year_profit - $previous_year_profit)/ $previous_year_profit)*100;
+                                    } else {
+                                        $percentage = 0;
+                                    }
+                                @endphp
+
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: {{ number_format(abs($percentage), 2) }}%"></div>
+                                </div>
+
+                                <span class="progress-description {{ $percentage > 0 ? 'text-warning' : '' }}">
+                                  {{ number_format(abs($percentage), 2) }} % {{ $percentage > 0 ? 'Increase' : 'Decrease' }} From {{ date('Y', strtotime('-1 year')) }}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box bg-default">
+                            <span class="info-box-icon"><i class="fa fa-line-chart"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text mt-3 pb-1">Total Profit</span>
+                                <span class="info-box-number mb-3"><span>&#8358;</span>{{ $profit }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
                 </div>
 				<div class="row">
 					<div class="col-md-6">

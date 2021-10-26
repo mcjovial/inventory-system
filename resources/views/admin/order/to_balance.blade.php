@@ -76,7 +76,7 @@
                                             <td>{{ $order->created_at->toFormattedDateString() }}</td>
                                             <td>{{ $order->total_products }}</td>
                                             <td>{{ $order->total }}</td>
-                                            <td>{{ $order->due }}</td>
+                                            <td>{{ $order->debt }}</td>
                                             <td>{{ $order->payment_status }}</td>
                                             <td><span class="badge badge-warning">{{ $order->order_status }}</span></td>
 
@@ -84,7 +84,7 @@
                                                 <a href="{{ route('admin.order.show', $order->id) }}" class="btn btn-success">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ route('admin.order.create_balance', $order->id) }}" class="btn
+                                                <a href="{{ route('admin.order.pay_out', $order->id) }}" class="btn
 													btn-info">
                                                     <i class="fa fa-balance-scale" aria-hidden="true"></i>
                                                 </a>

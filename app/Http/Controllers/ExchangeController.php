@@ -136,7 +136,7 @@ class ExchangeController extends Controller
             $x_in->save();
         }
 
-        $due = $c_total - $x_total;
+        $debt = $c_total - $x_total;
 
         $order = new Order();
         $order->customer_id =  $customer->id;
@@ -144,13 +144,13 @@ class ExchangeController extends Controller
         $order->customer_phone = $customer->phone;
         $order->payment_status = 'exchange';
         $order->pay = $x_total;
-        $order->due = $due;
+        $order->debt = $debt;
         $order->order_date = date('Y-m-d');
         $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
         $order->total_products = Cart::sum('quantity');
         $order->sub_total = $sub_total;
-        $order->owing = $order->due > 0 ? true : false;
-        $order->to_balance = $order->due < 0 ? true : false;
+        $order->owing = $order->debt > 0 ? true : false;
+        $order->to_balance = $order->debt < 0 ? true : false;
         $order->vat = $tax;
         $order->total = $c_total;
         $order->save();

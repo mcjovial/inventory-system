@@ -47,15 +47,14 @@
                                         <div class="col-md-7">
                                             <div class="form-group">
                                                 <label>Customer</label>
-                                                <input type="text" class="form-control" name="name" value="{{ $order->customer->name }}" placeholder="Enter Name">
+                                                <input type="text" class="form-control" name="name" value="{{ $order->customer_name }}" placeholder="Enter Name">
                                             </div>
                                             <div class="form-group">
                                                 <label>Amount</label>
-                                                <input type="number" class="form-control" name="amount" value="{{ abs($order->due) }}" placeholder="Enter Email">
+                                                <input type="number" class="form-control" name="amount" value="{{ abs($order->debt) }}" placeholder="Enter Email">
                                             </div>
                                             <div class="form-group">
-                                                <label>Balance Type [Paid-Out]</label><br>
-                                                <input type="checkbox" name="pay_out" id="pay_out">
+                                                <input type="hidden" name="pay_out" value="0">
                                             </div>
                                             <div class="form-group">
                                                 <label>Description</label>

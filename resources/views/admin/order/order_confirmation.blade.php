@@ -123,7 +123,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Due</th>
-                                                <td class="text-right"><span>&#8358;</span>{{ number_format($order->due, 2) }}</td>
+                                                <td class="text-right"><span>&#8358;</span>{{ number_format($order->debt, 2) }}</td>
                                             </tr>
                                         </table>
                                     </div>

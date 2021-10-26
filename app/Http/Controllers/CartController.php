@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Product;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -52,10 +53,13 @@ class CartController extends Controller
 
         $cart = new Cart();
         $cart->product_id = $request->input('product_id');
+        $product = Product::find($cart->product_id);
+
         $cart->name = $request->input('name');
         $cart->quantity = $request->input('quantity');
         $cart->price = $request->input('price');
         $cart->total = $cart->quantity * $cart->price;
+        $cart->total_cost = $cart->quantity * $product->cost_price_bottle;
         $cart->save();
 
         Toastr::success('Drink successfully added to cart', 'Success');
@@ -95,6 +99,10 @@ class CartController extends Controller
     {
         $cart->quantity = $request->input('quantity');
         $cart->total = $cart->quantity * $cart->price;
+        $product = Product::find($cart->product_id);
+
+        $cart->total_cost = $cart->quantity * $product->cost_price_bottle;
+
         $cart->save();
 
         Toastr::success('Cart Updated Successfully', 'Success');

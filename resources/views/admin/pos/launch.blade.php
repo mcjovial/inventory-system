@@ -106,7 +106,7 @@
                                                         <td>
                                                             <input type="number" name="cartons" class="form-control" value="{{ $product->cartons }}">
                                                         </td>
-                                                        <td>12</td>
+                                                        <td>{{ $product->product->launch_cartons }}</td>
                                                         <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>
                                                         <td> <span>&#8358;</span> {{ number_format($product->total, 2) }}</td>
                                                         <td>

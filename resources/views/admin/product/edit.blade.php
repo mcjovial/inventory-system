@@ -90,10 +90,10 @@
                                                 <label>Buying Date</label>
                                                 <input type="date" class="form-control" name="buying_date" value="{{ $product->buying_date }}">
                                             </div>
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label>Expire Date</label>
                                                 <input type="date" class="form-control" name="expire_date" value="{{ $product->expire_date }}">
-                                            </div>
+                                            </div> --}}
                                             <div class="form-group">
                                                 <label>Cost price per Pack</label>
                                                 <input type="number" class="form-control" name="cost_price_pack" value="{{ $product->cost_price_pack }}" placeholder="Enter Cost Price Per Pack">

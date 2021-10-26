@@ -113,7 +113,6 @@ class DuesController extends Controller
         $input = $request->except('_token');
         $rules = [
             // 'customer_id' =>    'required',
-
         ];
 
         $validation = Validator::make($input, $rules);

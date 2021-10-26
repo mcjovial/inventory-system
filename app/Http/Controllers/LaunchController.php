@@ -43,11 +43,13 @@ class LaunchController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $product = Product::find($request->input('product_id'));
+
         $cart = new Cart();
         $cart->product_id = $request->input('product_id');
         $cart->name = $request->input('name');
         $cart->cartons = $request->input('cartons');
-        $cart->quantity = $cart->cartons * 12;
+        $cart->quantity = $cart->cartons * $product->launch_cartons;
         $cart->price = $request->input('price');
         $cart->total = $cart->quantity * $cart->price;
         // $cart->exchange = $request->input('exchange') ? '1' : '0';
@@ -62,8 +64,10 @@ class LaunchController extends Controller
     public function cart_update(Request $request, $id)
     {
         $cart = Cart::find($id);
+        $product = Product::find($cart->product_id);
+
         $cart->cartons = $request->input('cartons');
-        $cart->quantity = $cart->cartons * 12;
+        $cart->quantity = $cart->cartons * $product->launch_cartons;
         $cart->total = $cart->quantity * $cart->price;
         $cart->save();
 
@@ -157,6 +161,6 @@ class LaunchController extends Controller
         Cart::truncate();
 
         Toastr::success('Invoice created successfully', 'Success');
-        return redirect()->route('admin.order.pending');
+        return redirect()->route('admin.order.approved');
     }
 }

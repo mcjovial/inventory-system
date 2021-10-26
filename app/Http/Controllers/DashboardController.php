@@ -36,6 +36,15 @@ class DashboardController extends Controller
 
         $expenses = Expense::all();
 
+        $profit = Order::sum('total');
+        $today_profit = $today->sum('total') - $today->sum('total_cost');
+        $month_profit = $month->sum('total') - $month->sum('total_cost');
+        $year_profit = $year->sum('total') - $year->sum('total_cost');
+        $yesterday_profit = $yesterday->sum('total') - $yesterday->sum('total_cost');
+        $previous_month_profit = $previous_month->sum('total') - $previous_month->sum('total_cost');
+        $previous_year_profit = $previous_year->sum('total') - $previous_year->sum('total_cost');
+        // dd($year_profit);
+
         // for charts
         $current_sales = Order::select(
             DB::raw('sum(total) as sums'),
@@ -53,6 +62,6 @@ class DashboardController extends Controller
 
 
 
-        return view('admin.dashboard', compact('today','yesterday' ,'month','previous_month', 'year', 'previous_year', 'sales', 'today_expenses', 'yesterday_expenses', 'month_expenses', 'previous_month_expenses', 'year_expenses', 'previous_year_expenses', 'expenses', 'current_sales', 'current_expenses'));
+        return view('admin.dashboard', compact('profit', 'today','yesterday' ,'month','previous_month', 'year', 'previous_year', 'sales', 'today_expenses', 'yesterday_expenses', 'month_expenses', 'previous_month_expenses', 'year_expenses', 'previous_year_expenses', 'expenses', 'current_sales', 'current_expenses', 'today_profit', 'month_profit', 'year_profit', 'yesterday_profit', 'previous_month_profit', 'previous_year_profit'));
     }
 }

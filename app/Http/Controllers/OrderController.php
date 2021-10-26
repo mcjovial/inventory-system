@@ -50,7 +50,7 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $order->order_status = 'confirmed';
-        $order->owing = $order->due > 0 ? true : false;
+        $order->owing = $order->debt > 0 ? true : false;
         $order->save();
 
         Toastr::success('Payment has been Confirmed!', 'Success');
@@ -89,16 +89,17 @@ class OrderController extends Controller
         $balance->description = $request->input('description');
         $balance->amount = $request->input('amount');
         $balance->pay_out = $request->input('pay_out') ? true : false;
+        dd($balance);
         $balance->save();
 
         $order = Order::findOrFail($request->input('order_id'));
-        $order->due = 0;
+        $order->debt = 0;
         if ($request->input('pay_out')) {
             $order->to_balance = false;
         } else {
             $order->owing = false;
         }
-        $order->pay += abs($order->due);
+        $order->pay += abs($order->debt);
         $order->save();
 
         Toastr::success('Order balanced successfully', 'Success!!!');

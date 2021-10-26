@@ -16,10 +16,16 @@ class BalanceController extends Controller
         return view('admin.balance.index', compact('balances'));
     }
 
-    public function create($id) {
+    public function pay_out($id) {
         $order = Order::find($id);
 
-        return view('admin.balance.create', compact('order'));
+        return view('admin.balance.pay_out', compact('order'));
+    }
+
+    public function recieved($id) {
+        $order = Order::find($id);
+        // dd($order);
+        return view('admin.balance.recieved', compact('order'));
     }
 
     public function store(Request $request)
@@ -43,8 +49,18 @@ class BalanceController extends Controller
         $balance->order_id = $request->input('order_id');
         $balance->description = $request->input('description');
         $balance->amount = $request->input('amount');
-        $balance->pay_out = $request->input('pay_out');
+        $balance->pay_out = $request->input('pay_out') ? true : false;
         $balance->save();
+
+        $order = Order::findOrFail($request->input('order_id'));
+        $order->debt = 0;
+        if ($request->input('pay_out')) {
+            $order->to_balance = false;
+        } else {
+            $order->owing = false;
+        }
+        $order->pay += abs($order->debt);
+        $order->save();
 
         Toastr::success('Order balanced successfully', 'Success!!!');
         return redirect()->route('admin.balance.index');
@@ -78,6 +94,7 @@ class BalanceController extends Controller
         $balance->description = $request->input('description');
         $balance->amount = $request->input('amount');
         $balance->pay_out = $request->input('pay_out');
+        dd($balance);
         $balance->save();
 
         Toastr::success('Balanced updated successfully', 'Success!!!');

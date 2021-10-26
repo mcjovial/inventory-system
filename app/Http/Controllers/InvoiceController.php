@@ -7,6 +7,7 @@ use App\Customer;
 use App\Order;
 use \stdClass;
 use App\OrderDetail;
+use App\Product;
 use App\Setting;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -30,17 +31,21 @@ class InvoiceController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $man_customer = new \stdClass();
-        $man_customer->id = 100000000;
-        $man_customer->name = $request->input('name');
-        $man_customer->phone = $request->input('phone');
+        if (!isset($man_customer)){
+            $man_customer = new \stdClass();
+            $man_customer->id = 100000000;
+            $man_customer->name = $request->input('name');
+            $man_customer->phone = $request->input('phone');
+        }
         // dd($man_customer);
 
         $customer_id = $request->input('customer_id');
         $customer = $customer_id ? Customer::findOrFail($customer_id) : $man_customer;
         $contents = Cart::all();
         $company = Setting::latest()->first();
-        return view('admin.invoice', compact('customer', 'contents', 'company'));
+
+        $drinks = Product::all();
+        return view('admin.invoice', compact('customer', 'contents', 'company', 'drinks'));
     }
 
     public function print($customer_id)
@@ -87,7 +92,7 @@ class InvoiceController extends Controller
         $debt = $total - $pay;
 
         $order = new Order();
-        // $order->customer_id =  $request->input('customer_id');
+        $order->customer_id =  $request->input('customer_id');
         $order->customer_name = $request->input('customer_name');
         $order->customer_phone = $request->input('customer_phone');
         $order->payment_status = $request->input('payment_status');
@@ -98,16 +103,26 @@ class InvoiceController extends Controller
         $order->total_products = Cart::sum('quantity');
         $order->sub_total = $sub_total;
         $order->owing = $order->debt > 0 ? true : false;
+        $order->to_balance = $order->debt < 0 ? true : false;
         $order->vat = $tax;
         $order->total = $total;
+        // dd($order);
         $order->save();
 
         $order_id = $order->id;
         $contents = Cart::all();
-        // dd($order);
 
         foreach ($contents as $content)
         {
+            $product = Product::find($content->product_id);
+            $product->stock -= $content->quantity;
+            $product->save();
+
+            // cummulating the total cost for each product in the order
+            $order = Order::find($order_id);
+            $order->total_cost += $content->total_cost;
+            $order->save();
+
             $order_detail = new OrderDetail();
             $order_detail->order_id = $order_id;
             $order_detail->product_id = $content->id;
@@ -121,10 +136,5 @@ class InvoiceController extends Controller
 
         Toastr::success('Invoice created successfully', 'Success');
         return redirect()->route('admin.order.pending');
-
-
     }
-
-
-
 }

@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('order_date');
             $table->string('order_status');
             $table->integer('total_products');
+            $table->integer('total_cost');
             $table->float('sub_total');
             $table->float('vat');
             $table->float('total');
