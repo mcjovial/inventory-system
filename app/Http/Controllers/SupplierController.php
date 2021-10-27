@@ -49,7 +49,6 @@ class SupplierController extends Controller
             'phone' => 'required | unique:suppliers',
             'address' => 'required',
             'city' => 'required',
-            'photo' => 'required | image',
             'type' => 'required | integer',
         ];
 

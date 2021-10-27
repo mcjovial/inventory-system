@@ -23,7 +23,9 @@ class SupplyController extends Controller
     public function index()
     {
         $drinks = Product::all();
-        $supplies = Supply::latest()->get();
+        $supplies = Supply::latest()->with('product', 'supplier')->get();
+        // $products = Product::latest()->with('category', 'supplier')->get();
+        // dd($supplies[0]->drink);
         return view('admin.supply.index', compact('drinks', 'supplies'));
     }
 
@@ -51,7 +53,8 @@ class SupplyController extends Controller
         $rules = [
             'product_id'  => 'required | integer',
             'supplier_id'   => 'required | integer',
-            'quantity'       => 'required'
+            'quantity'       => 'required',
+            'cost_per_pack'     => 'required | integer',
         ];
 
         $validation = Validator::make($inputs, $rules);
@@ -66,6 +69,13 @@ class SupplyController extends Controller
         $supply->save();
 
         $drink = Product::findOrFail($supply->product_id);
+        $drink->cost_price_pack = $request->input('cost_per_pack');
+        $num = $drink->bottles_per_pack;
+        $pieces = $request->input('quantity') * $num;
+        $drink->stock += $pieces;
+        $drink->cost_price_bottle = $drink->cost_price_pack / $num;
+        $drink->save();
+
         $date = Carbon::now();
 
         $expense = new Expense();

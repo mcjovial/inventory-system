@@ -154,22 +154,22 @@
                             <!-- this row will not appear when printing -->
                             <div class="row no-print">
                                 <div class="col-12">
-                                    @if($order->order_status === 'confirmed')
+                                    {{-- @if($order->order_status === 'confirmed')
                                         <a href="{{ route('admin.invoice.order_print', $order->id) }}" target="_blank" class="btn btn-default">
                                             <i class="fa fa-print"></i> Print
                                         </a>
-                                    @endif
+                                    @endif --}}
                                     @if($order->order_status === 'pending')
                                         <a href="{{ route('admin.order.confirm', $order->id) }}" class="btn btn-success float-right">
                                             <i class="fa fa-credit-card"></i>
                                             Confirm Payment
                                         </a>
                                     @endif
-                                    @if($order->order_status === 'confirmed')
+                                    {{-- @if($order->order_status === 'confirmed')
                                         <a href="{{ route('admin.order.download', $order->id) }}" target="_blank" class="btn btn-primary float-right" style="margin-right: 5px;">
                                             <i class="fa fa-download"></i> Generate PDF
                                         </a>
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </div>
                         </div>

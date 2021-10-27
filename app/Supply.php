@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Supply extends Model
 {
-    public function drink()
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }

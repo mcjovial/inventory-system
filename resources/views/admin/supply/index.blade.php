@@ -65,10 +65,10 @@
                                     @foreach($supplies as $key => $supply)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $supply->drink->name }}</td>
+                                            <td>{{ $supply->product->name }}</td>
                                             <td>{{ $supply->supplier->name }}</td>
                                             <td>{{ $supply->quantity }}</td>
-                                            <td>{{ $supply->quantity * $supply->drink->cost_price_pack }}</td>
+                                            <td>{{ $supply->quantity * $supply->product->cost_price_pack }}</td>
                                             <td>{{ $supply->created_at->toFormattedDateString() }}</td>
                                             <td>
                                                 <a href="{{ route('admin.supply.edit', $supply->id) }}" class="btn btn-info">
