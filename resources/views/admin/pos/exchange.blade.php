@@ -44,20 +44,31 @@
                                     </h3>
                                 </div>
                                 <div class="card-body">
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label>Select Customer</label>
-                                        <select name="customer_id" class="form-control">
+                                        <datalist name="customer_id" class="form-control" id="suggestions">
                                             <option value="" disabled selected>Select a Customer</option>
                                             @foreach($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                             @endforeach
-                                        </select>
+                                            <input  autoComplete="on" list="suggestions"/>
+                                        </datalist>
+                                    </div> --}}
+                                    <div class="form-group">
+                                        <label for="exampleDataList" class="form-label">Customer Name</label>
+                                        <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                                        <datalist id="datalistOptions" >
+                                            <option value="" selected>Select a Customer</option>
+                                            @foreach($customers as $customer)
+                                                <option value="{{ $customer->name }}">
+                                            @endforeach
+                                        </datalist>
                                     </div>
                                     <div><hr></div>
                                     <div>
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter Name">
+                                            <input type="text" class="form-control" name="full_name" value="{{ old('name') }}" placeholder="Enter Name">
                                         </div>
                                         <div class="form-group">
                                             <label>Phone</label>
@@ -65,71 +76,85 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    @if($cart_products->count() < 1)
-                                        <div class="alert alert-danger">
-                                            No Product Added
-                                        </div>
-                                    @else
-                                        <table class="table table-bordered table-striped text-center mb-3">
-                                            <thead>
-                                            <tr>
-                                                <th>S.N</th>
-                                                <th>Name</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
-                                                <th>Sub Total</th>
-                                                <th>Update</th>
-                                                <th>Delete</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($exchange_products as $product)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td class="text-left">{{ $product->name }}</td>
-
-                                                    <form action="{{ route('admin.exchange.update', $product->id) }}" method="post">
-                                                        @csrf
-                                                        {{-- @method('PUT') --}}
-                                                        <td>
-                                                            <input type="number" name="quantity" class="form-control" value="{{ $product->quantity }}">
-                                                        </td>
-                                                        <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>
-                                                        <td> <span>&#8358;</span> {{ number_format($product->total, 2) }}</td>
-                                                        <td>
-                                                            <button type="submit" class="btn btn-sm btn-success">
-                                                                <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                                            </button>
-                                                        </td>
-                                                    </form>
-
-                                                    <td>
-                                                        <button class="btn btn-danger" type="button" onclick="deleteItem({{ $product->id }})">
-                                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                                        </button>
-                                                        <form id="delete-form-{{ $product->id }}" action="{{ route('admin.cart.destroy', $product->id) }}" method="post"
-                                                            style="display:none;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
-                                    @endif
-
-                                    <div class="alert alert-info">
-                                        <p>Quantity : {{ $exchange->sum('quantity') }}</p>
-                                        <p>Sub Total :  <span>&#8358;</span> {{ $exchange->sum('total') }}</p>
-                                        Tax :  <span>&#8358;</span> {{ 0 }}
-                                    </div>
-                                    <div class="alert alert-success">
-                                        Total :  <span>&#8358;</span> {{ $exchange->sum('total') }}
-                                    </div>
-                                </div>
                             </form>
+                            <div class="card-body">
+                                @if($exchange_products->count() < 1)
+                                    <div class="alert alert-danger">
+                                        No Product Added
+                                    </div>
+                                @else
+                                    <table class="table table-bordered table-striped text-center mb-3">
+                                        <thead>
+                                        <tr>
+                                            <th>S.N</th>
+                                            <th>Name</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Sub Total</th>
+                                            <th>Update</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($exchange_products as $product)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-left">{{ $product->name }}</td>
+
+                                                {{-- <form action="{{ route('admin.exchange', $product->id) }}" method="post">
+                                                    @csrf
+                                                    <td>
+                                                        <input type="number" name="quantity" class="form-control" value="{{ $product->quantity }}">
+                                                    </td>
+                                                    <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>
+                                                    <td> <span>&#8358;</span> {{ number_format($product->total, 2) }}</td>
+                                                    <td>
+                                                        <button type="submit" class="btn btn-sm btn-success">
+                                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        </button>
+                                                    </td>
+                                                </form> --}}
+
+                                                <form action="{{ route('admin.xchange.update', $product->id) }}" method="post">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <td>
+                                                        <input type="number" name="quantity" class="form-control" value="{{ $product->quantity }}">
+                                                    </td>
+                                                    <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>
+                                                    <td> <span>&#8358;</span> {{ number_format($product->total, 2) }}</td>
+                                                    <td>
+                                                        <button type="submit" class="btn btn-sm btn-success">
+                                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        </button>
+                                                    </td>
+                                                </form>
+
+                                                <td>
+                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $product->id }})">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                    <form id="delete-form-{{ $product->id }}" action="{{ route('admin.xchange.destroy', $product->id) }}" method="post"
+                                                        style="display:none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
+
+                                <div class="alert alert-info">
+                                    <p>Quantity : {{ $exchange->sum('quantity') }}</p>
+                                    <p>Sub Total :  <span>&#8358;</span> {{ $exchange->sum('total') }}</p>
+                                    Tax :  <span>&#8358;</span> {{ 0 }}
+                                </div>
+                                <div class="alert alert-success">
+                                    Total :  <span>&#8358;</span> {{ $exchange->sum('total') }}
+                                </div>
+                            </div>
                         </div>
 
                         <div class="card card-default">

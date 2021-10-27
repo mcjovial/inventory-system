@@ -61,6 +61,7 @@ class ExchangeController extends Controller
 
     public function update(Request $request, $id)
     {
+        dd($request);
         $exchange = Exchange::find($id);
         $exchange->quantity = $request->input('quantity');
         $exchange->total = $exchange->quantity * $exchange->price;
@@ -72,29 +73,36 @@ class ExchangeController extends Controller
 
     public function final_invoice(Request $request)
     {
-        $inputs = $request->except('_token');
-        $rules = [
-        //   'payment_status' => 'required',
-          'customer_id' => 'integer',
-        ];
-        $customMessages = [
-            // 'payment_status.required' => 'Select a Payment method first!.',
-        ];
+        // $inputs = $request->except('_token');
+        // $rules = [
+        // //   'payment_status' => 'required',
+        // //   'name' => 'integer',
+        // ];
+        // $customMessages = [
+        //     // 'payment_status.required' => 'Select a Payment method first!.',
+        // ];
 
-        $validator = Validator::make($inputs, $rules, $customMessages);
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator)->withInput();
+        // $validator = Validator::make($inputs, $rules, $customMessages);
+        // if ($validator->fails())
+        // {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
+
+        function split_name($name) {
+            $name = trim($name);
+            $last_name = (strpos($name, ' ') === false) ? '' : preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+            $first_name = trim( preg_replace('#'.preg_quote($last_name,'#').'#', '', $name ) );
+            return array($first_name, $last_name);
         }
 
         $man_customer = new \stdClass();
-        $man_customer->id = 100000000;
-        $man_customer->name = $request->input('name');
+        // $man_customer->id = 100000000;
+        $man_customer->name = $request->input('full_name');
         $man_customer->phone = $request->input('phone');
         // dd($man_customer);
 
-        $customer_id = $request->input('customer_id');
-        $customer = $customer_id ? Customer::findOrFail($customer_id) : $man_customer;
+        $customer_name = strtolower($request->input('name'));
+        $customer = $customer_name ? Customer::where('name', $customer_name)->first() : $man_customer;
         // dd($customer);
 
         // cart stuffs
@@ -139,25 +147,25 @@ class ExchangeController extends Controller
         $debt = $c_total - $x_total;
 
         $order = new Order();
-        $order->customer_id =  $customer->id;
+        // $order->customer_id =  $customer->id;
         $order->customer_name = $customer->name;
         $order->customer_phone = $customer->phone;
         $order->payment_status = 'exchange';
         $order->pay = $x_total;
         $order->debt = $debt;
         $order->order_date = date('Y-m-d');
-        $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
+        $order->order_status = 'confirmed';
         $order->total_products = Cart::sum('quantity');
         $order->sub_total = $sub_total;
         $order->owing = $order->debt > 0 ? true : false;
         $order->to_balance = $order->debt < 0 ? true : false;
         $order->vat = $tax;
         $order->total = $c_total;
+        // dd($order);
         $order->save();
 
         $order_id = $order->id;
         $contents = Cart::all();
-        // dd($order);
 
         foreach ($contents as $content)
         {

@@ -39,11 +39,13 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::resource('expense', 'ExpenseController');
     Route::resource('dues', 'DuesController');
     Route::resource('sales', 'SalesController');
+    Route::resource('xchange', 'XchangeController');
 
     Route::get('exchange', 'ExchangeController@create')->name('exchange.create');
     Route::post('exchange/store', 'ExchangeController@store')->name('exchange.store');
-    Route::post('exchange/{id}', 'ExchangeController@update')->name('exchange.update');
+    Route::post('exchange/{id}', 'ExchangeController@update')->name('exchange');
     Route::post('exchange', 'ExchangeController@final_invoice')->name('exchange.invoice');
+    Route::get('exchange/{id}', 'ExchangeController@destroy')->name('exchange.destroy');
 
     Route::get('launch', 'LaunchController@create')->name('launch.create');
     Route::post('launch/store', 'LaunchController@store')->name('launch.store');
