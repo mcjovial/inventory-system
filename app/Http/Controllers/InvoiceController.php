@@ -17,30 +17,29 @@ class InvoiceController extends Controller
 {
     public function create(Request $request)
     {
-        $inputs = $request->except('_token');
-        $rules = [
-          'customer_id' => 'integer',
-        ];
-        $customMessages = [
-            // 'customer_id.required' => 'Select a Customer first!.',
-            'customer_id.integer' => 'Invalid Customer!.'
-        ];
-        $validator = Validator::make($inputs, $rules, $customMessages);
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        // $inputs = $request->except('_token');
+        // $rules = [
+        //   'customer_id' => 'integer',
+        // ];
+        // $customMessages = [
+        //     // 'customer_id.required' => 'Select a Customer first!.',
+        //     'customer_id.integer' => 'Invalid Customer!.'
+        // ];
+        // $validator = Validator::make($inputs, $rules, $customMessages);
+        // if ($validator->fails())
+        // {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
 
         if (!isset($man_customer)){
             $man_customer = new \stdClass();
-            $man_customer->id = 100000000;
-            $man_customer->name = $request->input('name');
+            $man_customer->name = $request->input('full_name');
             $man_customer->phone = $request->input('phone');
         }
         // dd($man_customer);
 
-        $customer_id = $request->input('customer_id');
-        $customer = $customer_id ? Customer::findOrFail($customer_id) : $man_customer;
+        $customer_name = strtolower($request->input('name'));
+        $customer = $customer_name ? Customer::where('name', $customer_name)->first() : $man_customer;
         $contents = Cart::all();
         $company = Setting::latest()->first();
 
@@ -70,19 +69,19 @@ class InvoiceController extends Controller
     public function final_invoice(Request $request)
     {
         $inputs = $request->except('_token');
-        $rules = [
-          'payment_status' => 'required',
-          'customer_id' => 'integer',
-        ];
-        $customMessages = [
-            'payment_status.required' => 'Select a Payment method first!.',
-        ];
+        // $rules = [
+        //   'payment_status' => 'required',
+        //   'customer_id' => 'integer',
+        // ];
+        // $customMessages = [
+        //     'payment_status.required' => 'Select a Payment method first!.',
+        // ];
 
-        $validator = Validator::make($inputs, $rules, $customMessages);
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        // $validator = Validator::make($inputs, $rules, $customMessages);
+        // if ($validator->fails())
+        // {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
 
         $sub_total = str_replace(',', '', Cart::sum('total'));
         $tax = str_replace(',', '', 0);
@@ -92,7 +91,7 @@ class InvoiceController extends Controller
         $debt = $total - $pay;
 
         $order = new Order();
-        $order->customer_id =  $request->input('customer_id');
+        // $order->customer_id =  $request->input('customer_id');
         $order->customer_name = $request->input('customer_name');
         $order->customer_phone = $request->input('customer_phone');
         $order->payment_status = $request->input('payment_status');

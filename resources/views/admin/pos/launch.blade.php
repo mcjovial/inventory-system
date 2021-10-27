@@ -44,19 +44,21 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label>Select Customer</label>
-                                        <select name="customer_id" class="form-control">
-                                            <option value="" disabled selected>Select a Customer</option>
+                                        <label for="exampleDataList" class="form-label">Customer Name</label>
+                                        <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                                        <datalist id="datalistOptions" >
+                                            <option value="" selected>Select a Customer</option>
                                             @foreach($customers as $customer)
-                                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                                <option value="{{ $customer->name }}">
                                             @endforeach
-                                        </select>
+                                        </datalist>
                                     </div>
+
                                     <div><hr></div>
                                     <div>
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter Name">
+                                            <input type="text" class="form-control" name="full_name" value="{{ old('full_name') }}" placeholder="Enter Name">
                                         </div>
                                         <div class="form-group">
                                             <label>Phone</label>
