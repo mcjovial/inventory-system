@@ -55,6 +55,11 @@ class CartController extends Controller
         $cart->product_id = $request->input('product_id');
         $product = Product::find($cart->product_id);
 
+        if($product->stock < 1 || $product->stock < $request->input('quantity')){
+            Toastr::error('No stock!! Please seek supply.', 'Error');
+            return redirect()->back();
+        }
+
         $cart->name = $request->input('name');
         $cart->quantity = $request->input('quantity');
         $cart->price = $request->input('price');
@@ -100,6 +105,11 @@ class CartController extends Controller
         $cart->quantity = $request->input('quantity');
         $cart->total = $cart->quantity * $cart->price;
         $product = Product::find($cart->product_id);
+
+        if($product->stock < 1 || $product->stock < $request->input('quantity')){
+            Toastr::error('No stock!! Please seek supply.', 'Error');
+            return redirect()->back();
+        }
 
         $cart->total_cost = $cart->quantity * $product->cost_price_bottle;
 

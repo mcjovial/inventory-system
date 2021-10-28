@@ -169,6 +169,7 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Price</th>
+                                        <th>Stock Units</th>
                                         <th>Add To Cart</th>
                                     </tr>
                                     </tfoot>
@@ -185,6 +186,7 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $drink->name }}</td>
                                                 <td> <span>&#8358;</span> {{ number_format($drink->sell_price_bottle, 2) }}</td>
+                                                <td>{{ $drink->stock }}</td>
                                                 <td>
                                                     <button type="submit" class="btn btn-sm btn-success px-2">
                                                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
