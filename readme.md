@@ -69,3 +69,18 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Features
+- Product manager
+- Point of sale 
+- Staff manager
+- Salary Manager
+- Supply and suppliers manager
+- Expenses tracker
+- Transactions Manager
+- Financial report system
+- Members and customers
+- Users roles and permissions
+- Product launch and exchange manager
+ 
