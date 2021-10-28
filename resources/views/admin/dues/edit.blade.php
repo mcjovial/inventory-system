@@ -53,6 +53,10 @@
                                                 <input type="number" class="form-control" name="reg_fee" value="{{ $due->reg_fee }}" placeholder="Enter Registration Fee">
                                             </div>
                                             <div class="form-group">
+                                                <label>Year</label>
+                                                <input type="number" class="form-control" name="year" value="{{ $due->year }}" placeholder="Enter Year">
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Annual Dues</label>
                                                 <input type="number" class="form-control" name="annual" value="{{ $due->annual }}" placeholder="Enter Annual Dues">
                                             </div>

@@ -46,14 +46,13 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Phone</th>
+                                        <th>Year</th>
                                         <th>Registration fee</th>
                                         <th>Date paid</th>
-                                        <th>Annual dues</th>
+                                        <th>Annual Dues</th>
                                         <th>Date paid</th>
-                                        <th>Expiry date</th>
                                         <th>Welfare dues</th>
                                         <th>Date paid</th>
-                                        <th>Expiry date</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
@@ -62,14 +61,13 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Phone</th>
+                                        <th>Year</th>
                                         <th>Registration fee</th>
                                         <th>Date paid</th>
-                                        <th>Annual dues</th>
+                                        <th>Annual Dues</th>
                                         <th>Date paid</th>
-                                        <th>Expiry date</th>
                                         <th>Welfare dues</th>
                                         <th>Date paid</th>
-                                        <th>Expiry date</th>
                                         <th>Delete</th>
                                     </tr>
                                     </tfoot>
@@ -79,14 +77,13 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $due->customer->name }}</td>
                                             <td>{{ $due->customer->phone }}</td>
+                                            <td>{{ $due->year }}</td>
                                             <td>{{ $due->reg_fee }}</td>
                                             <td>{{ \Carbon\Carbon::parse($due->reg_fee_date)->toFormattedDateString() }}</td>
                                             <td>{{ $due->annual }}</td>
                                             <td>{{ \Carbon\Carbon::parse($due->annual_date)->toFormattedDateString() }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($due->annual_expire)->toFormattedDateString() }}</td>
                                             <td>{{ $due->welfare }}</td>
                                             <td>{{ \Carbon\Carbon::parse($due->welfare_date)->toFormattedDateString() }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($due->welfare_expire)->toFormattedDateString() }}</td>
                                             <td>
                                                 <a href="{{ route('admin.dues.edit', $due->id) }}" class="btn
 													btn-info">

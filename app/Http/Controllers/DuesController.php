@@ -57,6 +57,7 @@ class DuesController extends Controller
         $due = new Dues();
         $due->customer_id = $request->input('customer_id');
         $due->reg_fee = $request->input('reg_fee');
+        $due->year = $request->input('year');
         if ($request->input('reg_fee')) {
             $due->reg_fee_date = Carbon::now()->format('Y-m-d');
         }
@@ -64,13 +65,11 @@ class DuesController extends Controller
         $due->annual = $request->input('annual');
         if ($request->input('annual')) {
             $due->annual_date = Carbon::now()->format('Y-m-d');
-            $due->annual_expire = date('Y-m-d', strtotime('+1 years'));
         }
 
         $due->welfare = $request->input('welfare');
         if ($request->input('welfare')) {
             $due->welfare_date = Carbon::now()->format('Y-m-d');
-            $due->welfare_expire = date('Y-m-d', strtotime('+1 years'));
         }
         $due->save();
 
@@ -122,6 +121,7 @@ class DuesController extends Controller
 
         // $due->customer_id = $request->input('customer_id');
         $due->reg_fee = $request->input('reg_fee');
+        $due->year = $request->input('year');
         if ($request->input('reg_fee')) {
             $due->reg_fee_date = Carbon::now()->format('Y-m-d');
         }
@@ -129,13 +129,11 @@ class DuesController extends Controller
         $due->annual = $request->input('annual');
         if ($request->input('annual')) {
             $due->annual_date = Carbon::now()->format('Y-m-d');
-            $due->annual_expire = date('Y-m-d', strtotime('+1 years'));
         }
 
         $due->welfare = $request->input('welfare');
         if ($request->input('welfare')) {
             $due->welfare_date = Carbon::now()->format('Y-m-d');
-            $due->welfare_expire = date('Y-m-d', strtotime('+1 years'));
         }
         $due->save();
 

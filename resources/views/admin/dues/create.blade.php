@@ -59,6 +59,10 @@
                                                 <input type="number" class="form-control" name="reg_fee" value="{{ old('reg_fee') }}" placeholder="Enter Registration Fee">
                                             </div>
                                             <div class="form-group">
+                                                <label>Year</label>
+                                                <input type="number" class="form-control" name="year" value="{{ old('year') }}" placeholder="Enter Year">
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Annual Dues</label>
                                                 <input type="number" class="form-control" name="annual" value="{{ old('annual') }}" placeholder="Enter Annual Dues">
                                             </div>
