@@ -295,7 +295,8 @@
 						</li>
 					</ul>
 				</li>
-
+                @endif
+                @if (Auth::user()->hasRole('seller'))
 				<li class="nav-item has-treeview {{ Request::is('admin/order*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/order*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-money"></i>
@@ -337,7 +338,8 @@
 						</li>
 					</ul>
 				</li>
-
+                @endif
+                @if (Auth::user()->hasRole('admin'))
 				<li class="nav-item has-treeview {{ Request::is('admin/sales*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/sales*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>

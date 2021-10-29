@@ -65,7 +65,7 @@
                                     @foreach($balances as $key => $balance)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $balance->customer->name }}</td>
+                                            <td>{{ $balance->customer_name }}</td>
                                             <td>{{ $balance->amount }}</td>
                                             <td>
                                                 @if ($balance->pay_out)
@@ -84,14 +84,16 @@
 													btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $balance->id }})">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </button>
-                                                <form id="delete-form-{{ $balance->id }}" action="{{ route('admin.balance.destroy', $balance->id) }}"
-                                                      style="display:none;">
-                                                    @csrf
-                                                    {{-- @method('DELETE') --}}
-                                                </form>
+                                                @if (Auth::user()->hasRole('admin'))
+                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $balance->id }})">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                    <form id="delete-form-{{ $balance->id }}" action="{{ route('admin.balance.destroy', $balance->id) }}"
+                                                        style="display:none;">
+                                                        @csrf
+                                                        {{-- @method('DELETE') --}}
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

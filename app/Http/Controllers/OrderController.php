@@ -6,6 +6,7 @@ use App\Balance;
 use App\Expense;
 use App\Order;
 use App\OrderDetail;
+use App\Product;
 use App\Setting;
 use Barryvdh\DomPDF\Facade as PDF;
 use Brian2694\Toastr\Facades\Toastr;
@@ -70,9 +71,11 @@ class OrderController extends Controller
     }
 
     public function balance(Request $request, $id){
+        // dd($request);
         $inputs = $request->except('_token');
         $rules = [
-            'customer_id'       =>  'required | integer',
+            'customer_name'       =>  'required',
+            'customer_phone'       =>  'required',
             'order_id'          =>  'required | integer',
             'description'       =>  'required',
             'amount'            =>  'required | integer',
@@ -84,22 +87,30 @@ class OrderController extends Controller
         }
 
         $balance = new Balance();
-        $balance->customer_id = $request->input('customer_id');
+        $balance->customer_name = $request->input('customer_name');
+        $balance->customer_phone = $request->input('customer_phone');
         $balance->order_id = $request->input('order_id');
         $balance->description = $request->input('description');
         $balance->amount = $request->input('amount');
         $balance->pay_out = $request->input('pay_out') ? true : false;
-        dd($balance);
+        // dd($balance);
         $balance->save();
 
         $order = Order::findOrFail($request->input('order_id'));
-        $order->debt = 0;
         if ($request->input('pay_out')) {
             $order->to_balance = false;
+            $debt = abs($order->debt);
+            // dd($debt);
+            $order->pay -= $debt;
         } else {
             $order->owing = false;
+            $debt = abs($order->debt);
+            // dd($debt);
+            $order->pay += $debt;
         }
-        $order->pay += abs($order->debt);
+
+        $order->debt = 0;
+        // dd($order);
         $order->save();
 
         Toastr::success('Order balanced successfully', 'Success!!!');
@@ -130,20 +141,52 @@ class OrderController extends Controller
     // for sales report
     public function today_sales()
     {
-        $today = date('Y-m-d');
+        $day = date('Y-m-d');
 
-        $balance = Order::where('order_date', $today)->get();
+        $balance = Order::whereDate('order_date', $day)->get();
+        $products = Product::all();
+        $order_details = OrderDetail::whereDate('created_at', $day)->get();
 
         $orders = DB::table('orders')
             ->join('order_details', 'orders.id', '=', 'order_details.order_id')
             ->join('products', 'order_details.product_id', '=', 'products.id')
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
             ->select('customers.name as customer_name', 'products.name AS product_name', 'products.image', 'order_details.*')
-            ->where('orders.order_date' , '=', $today)
+            ->where('orders.order_date' , '=', $day)
             ->orderBy('order_details.created_at', 'desc')
             ->get();
 
-        return view('admin.sales.today', compact('orders', 'balance'));
+        return view('admin.sales.today', compact('orders', 'balance', 'products', 'order_details', 'day'));
+    }
+
+    public function day_sales(Request $request)
+    {
+        $day = $request->input('date');
+        // dd($day);
+        if ($day == null)
+        {
+            $day = date('Y-m-d');
+        } else {
+            $day = date('Y-m-d', strtotime($day));
+        }
+        // $date = "2021-10-22";
+        // dd(date('Y-m-d', strtotime($date)));
+        // $today = date('Y-m-d');
+
+        $balance = Order::whereDate('order_date', $day)->get();
+        $products = Product::all();
+        $order_details = OrderDetail::whereDate('created_at', $day)->get();
+
+        $orders = DB::table('orders')
+            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->join('products', 'order_details.product_id', '=', 'products.id')
+            ->join('customers', 'orders.customer_id', '=', 'customers.id')
+            ->select('customers.name as customer_name', 'products.name AS product_name', 'products.image', 'order_details.*')
+            ->where('orders.order_date' , '=', $day)
+            ->orderBy('order_details.created_at', 'desc')
+            ->get();
+
+        return view('admin.sales.today', compact('orders', 'balance', 'products', 'order_details', 'day'));
     }
 
     public function monthly_sales($month = null)
@@ -155,8 +198,11 @@ class OrderController extends Controller
         } else {
             $month = date('m', strtotime($month));
         }
+        // dd($month);
 
         $balance = Order::whereMonth('order_date', $month)->get();
+        $products = Product::all();
+        $order_details = OrderDetail::whereMonth('created_at', $month)->get();
 
         $orders = DB::table('orders')
             ->join('order_details', 'orders.id', '=', 'order_details.order_id')
@@ -167,12 +213,14 @@ class OrderController extends Controller
             ->orderBy('order_details.created_at', 'desc')
             ->get();
 
-        return view('admin.sales.month', compact('orders', 'month', 'balance'));
+        return view('admin.sales.month', compact('orders', 'month', 'balance', 'products', 'order_details',));
     }
 
     public function total_sales()
     {
         $balance = Order::all();
+        $products = Product::all();
+        $order_details = OrderDetail::all();
 
         $orders = DB::table('orders')
             ->join('order_details', 'orders.id', '=', 'order_details.order_id')
@@ -182,7 +230,7 @@ class OrderController extends Controller
             ->orderBy('order_details.created_at', 'desc')
             ->get();
 
-        return view('admin.sales.index', compact('balance', 'orders'));
+        return view('admin.sales.index', compact('balance', 'orders', 'products', 'order_details'));
     }
 
 

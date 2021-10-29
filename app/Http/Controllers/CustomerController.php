@@ -50,7 +50,7 @@ class CustomerController extends Controller
             'phone' => 'required | unique:customers',
             'address' => 'required',
             'city' => 'required',
-            'photo' => 'required | image',
+            'photo' => 'image',
         ];
 
         $validation = Validator::make($inputs, $rules);
@@ -97,6 +97,8 @@ class CustomerController extends Controller
         $due = new Dues();
         $due->customer_id = $customer_id;
         $due->reg_fee = $request->input('reg_fee');
+        $due->year = Carbon::now()->format('Y');
+
         if ($request->input('reg_fee')) {
             $due->reg_fee_date = Carbon::now()->format('Y-m-d');
         }
@@ -104,7 +106,7 @@ class CustomerController extends Controller
         $due->annual = $request->input('annual');
         if ($request->input('annual')) {
             $due->annual_date = Carbon::now()->format('Y-m-d');
-            $due->annual_expire = date('Y-m-d', strtotime('+1 years'));
+            // $due->annual_expire = date('Y-m-d', strtotime('+1 years'));
         }
 
         $due->welfare = $request->input('welfare');

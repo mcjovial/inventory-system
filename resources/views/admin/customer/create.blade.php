@@ -52,6 +52,10 @@
                                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Enter Email">
                                             </div>
                                             <div class="form-group">
+                                                <label>NIN</label>
+                                                <input type="text" class="form-control" name="nin" value="{{ old('nin') }}" placeholder="Enter Your NIN">
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Phone</label>
                                                 <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone">
                                             </div>
@@ -59,16 +63,12 @@
                                                 <label>Address</label>
                                                 <input type="text" class="form-control" name="address" value="{{ old('address') }}" placeholder="Enter Address">
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>City</label>
                                                 <input type="text" class="form-control" name="city" value="{{ old('city') }}" placeholder="Enter City">
                                             </div>
-                                            <div class="form-group">
-                                                <label>NIN</label>
-                                                <input type="text" class="form-control" name="nin" value="{{ old('nin') }}" placeholder="Enter Your NIN">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleInputFile">Photo</label>
                                                 <div class="input-group">
@@ -78,7 +78,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label>Account Holder</label>
                                                 <input type="text" class="form-control" name="account_holder" value="{{ old('account_holder') }}" placeholder="Enter Account Holder">
                                             </div>
@@ -89,7 +89,7 @@
                                             <div class="form-group">
                                                 <label>Bank Name</label>
                                                 <input type="text" class="form-control" name="bank_name" value="{{ old('bank_name') }}" placeholder="Enter Bank Name">
-                                            </div>
+                                            </div> --}}
                                             <div class="form-group">
                                                 <label>Registration Fee</label>
                                                 <input type="number" class="form-control" name="reg_fee" value="{{ old('reg_fee') }}" placeholder="Enter Registration Fee">

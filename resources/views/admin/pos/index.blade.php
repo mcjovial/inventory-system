@@ -161,6 +161,7 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Price</th>
+                                        <th>Stock Units</th>
                                         <th>Add To Cart</th>
                                     </tr>
                                     </thead>

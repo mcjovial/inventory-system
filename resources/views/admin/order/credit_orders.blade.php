@@ -47,7 +47,8 @@
                                         <th>Date</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
-                                        <th>Payment Status</th>
+                                        <th>Debt</th>
+                                        <th>Payment Method</th>
                                         <th>Order Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -74,8 +75,8 @@
                                             <td>{{ $order->customer_phone }}</td>
                                             <td>{{ $order->created_at->toFormattedDateString() }}</td>
                                             <td>{{ $order->total_products }}</td>
-                                            <td>{{ $order->total }}</td>
-                                            <td>{{ $order->debt }}</td>
+                                            <td><span>&#8358;</span>{{ $order->total }}</td>
+                                            <td><span>&#8358;</span>{{ $order->debt }}</td>
                                             <td>{{ $order->payment_status }}</td>
                                             <td><span class="badge badge-warning">{{ $order->order_status }}</span></td>
 
@@ -87,14 +88,16 @@
 													btn-info">
                                                     <i class="fa fa-balance-scale" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $order->id }})">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </button>
-                                                <form id="delete-form-{{ $order->id }}" action="{{ route('admin.order.destroy', $order->id) }}" method="post"
-                                                      style="display:none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                                @if (Auth::user()->hasRole('admin'))
+                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $order->id }})">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                    <form id="delete-form-{{ $order->id }}" action="{{ route('admin.order.destroy', $order->id) }}" method="post"
+                                                        style="display:none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

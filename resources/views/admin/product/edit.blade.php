@@ -116,7 +116,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Launching Price</label>
-                                                <input type="number" class="form-control" name="launching_price" value="{{ $product->launching_price }}" placeholder="Enter Price for Launching">
+                                                <input type="number" class="form-control" name="launching_price" value="{{ $product->launch_price }}" placeholder="Enter Price for Launching">
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary float-md-right">Update $product</button>
+                                    <button type="submit" class="btn btn-primary float-md-right">Update Product</button>
                                 </div>
                             </form>
                         </div>

@@ -46,7 +46,7 @@
                                         <th>Image</th>
                                         <th>Category</th>
                                         <th>Stock</th>
-                                        <th>Buying Date</th>
+                                        {{-- <th>Buying Date</th> --}}
                                         <th>Cost Per Pack</th>
                                         <th>Bottle Per Pack</th>
                                         <th>Cost Per Bottle</th>
@@ -63,7 +63,7 @@
                                         <th>Image</th>
                                         <th>Category</th>
                                         <th>Stock</th>
-                                        <th>Buying Date</th>
+                                        {{-- <th>Buying Date</th> --}}
                                         <th>Cost Per Pack</th>
                                         <th>Bottle Per Pack</th>
                                         <th>Cost Per Bottle</th>
@@ -84,12 +84,12 @@
                                             <td>{{ $product->category->name }}</td>
                                             {{-- <td>{{ $product->supplier->name }}</td> --}}
                                             <td>{{ $product->stock }}</td>
-                                            <td>{{ $product->buying_date->toFormattedDateString() }}</td>
-                                            <td>{{ number_format($product->cost_price_pack, 2) }}</td>
+                                            {{-- <td>{{ $product->buying_date->toFormattedDateString() }}</td> --}}
+                                            <td><span>&#8358;</span>{{ number_format($product->cost_price_pack, 2) }}</td>
                                             <td>{{ $product->bottles_per_pack }}</td>
-                                            <td>{{ number_format($product->cost_price_bottle, 2) }}</td>
-                                            <td>{{ number_format($product->sell_price_bottle, 2) }}</td>
-                                            <td>{{ number_format($product->launch_price, 2) }}</td>
+                                            <td><span>&#8358;</span>{{ number_format($product->cost_price_bottle, 2) }}</td>
+                                            <td><span>&#8358;</span>{{ number_format($product->sell_price_bottle, 2) }}</td>
+                                            <td><span>&#8358;</span>{{ number_format($product->launch_price, 2) }}</td>
                                             <td>{{ $product->launch_cartons }}</td>
                                             <td>
                                                 <a href="{{ route('admin.product.show', $product->id) }}" class="btn btn-success">

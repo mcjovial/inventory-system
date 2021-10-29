@@ -54,8 +54,7 @@ class ProductController extends Controller
             'stock' => 'required',
             'cost_price_pack' => 'required',
             'image' => 'image',
-            'cost_price_bottle' => 'required',
-            'buying_date' => 'required | date',
+            'buying_date' => ' date',
             'expire_date' => 'date',
             'sell_price_bottle' => 'required',
             'bottles_per_pack' => 'required',
@@ -91,11 +90,12 @@ class ProductController extends Controller
         $product->stock = $request->input('stock');
         $product->launch_cartons = $request->input('launch_cartons');
         $product->cost_price_pack = $request->input('cost_price_pack');
-        $product->cost_price_bottle = $request->input('cost_price_bottle');
+        $product->bottles_per_pack = $request->input('bottles_per_pack');
+        $product->cost_price_bottle = $request->input('cost_price_pack') / $request->input('bottles_per_pack');
         $product->buying_date = $request->input('buying_date');
         $product->expire_date = $request->input('expire_date');
         $product->sell_price_bottle = $request->input('sell_price_bottle');
-        $product->bottles_per_pack = $request->input('bottles_per_pack');
+        // $product->bottles_per_pack = $request->input('bottles_per_pack');
         $product->launch_price = $request->input('launching_price');
         $product->image = $imageName;
         $product->save();
@@ -146,7 +146,7 @@ class ProductController extends Controller
             'cost_price_pack' => 'required',
             'image' => 'image',
             'cost_price_bottle' => 'required',
-            'buying_date' => 'required | date',
+            'buying_date' => 'date',
             'expire_date' => 'date',
             'sell_price_bottle' => 'required',
             'bottles_per_pack' => 'required',
@@ -200,7 +200,9 @@ class ProductController extends Controller
         $product->stock = $request->input('stock');
         $product->launch_cartons = $request->input('launch_cartons');
         $product->cost_price_pack = $request->input('cost_price_pack');
-        $product->cost_price_bottle = $request->input('cost_price_bottle');
+        // $product->cost_price_bottle = $request->input('cost_price_bottle');
+        $product->cost_price_bottle = $request->input('cost_price_pack') / $request->input('bottles_per_pack');
+
         $product->buying_date = $buying_date;
         $product->expire_date = $expire_date;
         $product->sell_price_bottle = $request->input('sell_price_bottle');

@@ -122,7 +122,7 @@
                                                 <td class="text-right"><span>&#8358;</span>{{ number_format($order->pay, 2) }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Due</th>
+                                                <th>Debt</th>
                                                 <td class="text-right"><span>&#8358;</span>{{ number_format($order->debt, 2) }}</td>
                                             </tr>
                                         </table>
@@ -159,11 +159,13 @@
                                             <i class="fa fa-print"></i> Print
                                         </a>
                                     @endif --}}
-                                    @if($order->order_status === 'pending')
-                                        <a href="{{ route('admin.order.confirm', $order->id) }}" class="btn btn-success float-right">
-                                            <i class="fa fa-credit-card"></i>
-                                            Confirm Payment
-                                        </a>
+                                    @if (Auth::user()->hasRole('admin'))
+                                        @if($order->order_status === 'pending')
+                                            <a href="{{ route('admin.order.confirm', $order->id) }}" class="btn btn-success float-right">
+                                                <i class="fa fa-credit-card"></i>
+                                                Confirm Payment
+                                            </a>
+                                        @endif
                                     @endif
                                     {{-- @if($order->order_status === 'confirmed')
                                         <a href="{{ route('admin.order.download', $order->id) }}" target="_blank" class="btn btn-primary float-right" style="margin-right: 5px;">

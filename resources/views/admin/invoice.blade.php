@@ -190,7 +190,6 @@
                                     <option value="cash">Cash</option>
                                     <option value="transfer">Transfer</option>
                                     <option value="credit">Credit</option>
-                                    <option value="exchange">Exchange</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">

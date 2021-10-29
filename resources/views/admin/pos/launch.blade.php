@@ -43,6 +43,14 @@
                                     </h3>
                                 </div>
                                 <div class="card-body">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputState">Payment Method</label>
+                                        <select name="pay" class="form-control" required >
+                                            <option value="" disabled selected>Choose a Payment Method</option>
+                                            <option value="cash">Cash</option>
+                                            <option value="transfer">Transfer</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label for="exampleDataList" class="form-label">Customer Name</label>
                                         <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">

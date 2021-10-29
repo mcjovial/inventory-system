@@ -48,7 +48,7 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>City</th>
-                                        <th>Account Holder</th>
+                                        <th>Address</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -62,7 +62,7 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>City</th>
-                                        <th>Account Holder</th>
+                                        <th>Address</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -77,9 +77,9 @@
                                             </td>
                                             <td>{{ $customer->nin }}</td>
                                             <td>{{ $customer->email }}</td>
-                                            <td>0{{ $customer->phone }}</td>
                                             <td>{{ $customer->city }}</td>
-                                            <td>{{ $customer->account_holder }}</td>
+                                            <td>{{ $customer->address }}</td>
+                                            <td>{{ $customer->phone }}</td>
                                             <td>
                                                 @if(!$customer->dues->reg_fee || !$customer->dues->annual || !$customer->dues->welfare)
                                                     <span class="badge badge-warning">Not-up-to-date</span>
@@ -88,13 +88,11 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('admin.customer.show', $customer->id) }}" class="btn btn-success">
-                                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                                </a>
                                                 <a href="{{ route('admin.customer.edit', $customer->id) }}" class="btn
 													btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
+                                                @if (Auth::user()->hasRole('admin'))
                                                 <button class="btn btn-danger" type="button" onclick="deleteItem({{ $customer->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
@@ -103,6 +101,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

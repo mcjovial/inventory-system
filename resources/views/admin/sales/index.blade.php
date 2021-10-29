@@ -36,10 +36,18 @@
                             <div class="card-header">
                                 <h3 class="card-title">
                                     TOTAL SALES REPORT
-                                    <small class="text-danger pull-right">
+                                    {{-- <small class="text-danger pull-right">
                                         <span class="badge badge-info">Total Sales : <span>&#8358;</span>{{ $balance->sum('total') }}</span>
                                         <span class="badge badge-success">Paid : <span>&#8358;</span>{{ $balance->sum('pay') }}</span>
                                         <span class="badge badge-warning">Debt : <span>&#8358;</span>{{ $balance->sum('debt') }}</span>
+                                    </small> --}}
+                                    <small class="text-danger pull-right">
+                                        <span class="badge badge-info">Total Sales : <span>&#8358;</span>{{ $balance->sum('total') }}</span>
+                                        <span class="badge badge-secondary">Cash at hand : <span>&#8358;</span>{{ $balance->where('payment_status', 'cash')->where('order_status', 'confirmed')->sum('pay') }}</span>
+                                        <span class="badge badge-success">Cash in bank : <span>&#8358;</span>{{ $balance->where('payment_status', 'transfer')->where('order_status', 'confirmed')->sum('pay') }}</span>
+                                        <span class="badge badge-primary">Exchange : <span>&#8358;</span>{{ $balance->where('payment_status', 'exchange')->where('order_status', 'confirmed')->sum('pay') }}</span>
+                                        <span class="badge badge-warning">Credit : <span>&#8358;</span>{{ $balance->where('payment_status', 'credit')->where('order_status', 'confirmed')->sum('pay') }}</span>
+                                        <span class="badge badge-danger">Debt : <span>&#8358;</span>{{ $balance->sum('debt') }}</span>
                                     </small>
                                 </h3>
                             </div>
@@ -47,31 +55,25 @@
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped text-center">
                                     <thead>
-                                    <tr>
-                                        <th>Serial</th>
-                                        <th>Product Title</th>
-                                        <th>Image</th>
-                                        <th>Customer Name</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th>Time</th>
-                                        <th>Delete</th>
-                                    </tr>
+                                        <tr>
+                                            <th>Serial</th>
+                                            <th>Product Title</th>
+                                            <th>Image</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
                                     </thead>
                                     <tfoot>
-                                    <tr>
-                                        <th>Serial</th>
-                                        <th>Product Title</th>
-                                        <th>Image</th>
-                                        <th>Customer Name</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th>Time</th>
-                                        <th>Delete</th>
-                                    </tr>
+                                        <tr>
+                                            <th>Serial</th>
+                                            <th>Product Title</th>
+                                            <th>Image</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
                                     </tfoot>
                                     <tbody>
-                                    @foreach($orders as $order)
+                                    {{-- @foreach($orders as $order)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $order->product_name }}</td>
@@ -93,7 +95,22 @@
                                                 </form>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
+                                        @foreach($products as $product)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $product->name }}</td>
+                                                <td>
+                                                    <img class="img-rounded" width="40" height="30" src="{{ URL::asset('storage/product/'. $product->image) }}" alt="{{ $product->name }}">
+                                                </td>
+                                                <td>
+                                                    {{ $order_details->where('product_id', $product->id)->sum('quantity') }}
+                                                </td>
+                                                <td>
+                                                    <span>&#8358;</span>{{ number_format($order_details->where('product_id', $product->id)->sum('total'), 2) }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
 
                                 </table>

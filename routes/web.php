@@ -76,19 +76,20 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::get('order/approved', 'OrderController@approved_order')->name('order.approved');
     Route::get('order/confirm/{id}', 'OrderController@order_confirm')->name('order.confirm');
     Route::get('order/credit', 'OrderController@credit_order')->name('order.credit');
-    Route::get('order/to-balance', 'OrderController@to_balance')->name('order.to_balance');
+    Route::get('order/tobalance', 'OrderController@to_balance')->name('order.to_balance');
     Route::delete('order/delete/{id}', 'OrderController@destroy')->name('order.destroy');
     Route::get('order/download/{id}', 'OrderController@download')->name('order.download');
     Route::post('order/balance/{id}', 'OrderController@balance')->name('order.balance');
 
     Route::get('order/balance', 'BalanceController@index')->name('balance.index');
-    Route::get('order/balance/{id}', 'BalanceController@pay_out')->name('order.pay_out');
+    Route::get('order/balance/payout/{id}', 'BalanceController@pay_out')->name('order.payout');
     Route::get('order/balance/{id}', 'BalanceController@recieved')->name('order.recieved');
     Route::get('order/balance/{id}/edit', 'BalanceController@edit')->name('balance.edit');
     Route::post('order/balance/{id}/update', 'BalanceController@update')->name('balance.update');
     Route::get('order/balance/{id}/destroy', 'BalanceController@destroy')->name('balance.destroy');
 
     Route::get('sales-today', 'OrderController@today_sales')->name('sales.today');
+    Route::post('sales-day', 'OrderController@day_sales')->name('sales.day');
     Route::get('sales-monthly/{month?}', 'OrderController@monthly_sales')->name('sales.monthly');
     Route::get('sales-total','OrderController@total_sales')->name('sales.total');
 

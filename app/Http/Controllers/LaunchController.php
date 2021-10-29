@@ -12,6 +12,8 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+use function PHPSTORM_META\type;
+
 class LaunchController extends Controller
 {
     public function create(){
@@ -45,6 +47,11 @@ class LaunchController extends Controller
 
         $product = Product::find($request->input('product_id'));
 
+        if($product->stock < 1 || $product->stock < ($request->input('cartons') * 12)){
+            Toastr::error('No stock!! Please seek supply.', 'Error');
+            return redirect()->back();
+        }
+
         $cart = new Cart();
         $cart->product_id = $request->input('product_id');
         $cart->name = $request->input('name');
@@ -66,6 +73,11 @@ class LaunchController extends Controller
         $cart = Cart::find($id);
         $product = Product::find($cart->product_id);
 
+        if($product->stock < 1 || $product->stock < ($request->input('cartons') * 12)){
+            Toastr::error('No stock!! Please seek supply.', 'Error');
+            return redirect()->back();
+        }
+        
         $cart->cartons = $request->input('cartons');
         $cart->quantity = $cart->cartons * $product->launch_cartons;
         $cart->total = $cart->quantity * $cart->price;
@@ -129,7 +141,7 @@ class LaunchController extends Controller
         // $order->customer_id =  $customer->id;
         $order->customer_name = $customer->name;
         $order->customer_phone = $customer->phone;
-        $order->payment_status = 'launching';
+        $order->payment_status = $request->input('pay');
         $order->pay = $c_total;
         $order->debt = $debt;
         $order->order_date = date('Y-m-d');
