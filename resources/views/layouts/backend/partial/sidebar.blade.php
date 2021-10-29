@@ -385,6 +385,23 @@
 						</li>
 					</ul>
 				</li>
+                <li class="nav-item has-treeview {{ Request::is('admin/users*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-users"></i>
+						<p>
+							Users Manager
+							<i class="right fa fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.users.index') }}" class="nav-link {{ Request::is('admin/dues/index') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Users</p>
+							</a>
+						</li>
+					</ul>
+				</li>
 
 				<li class="nav-header">MENU</li>
 				<li class="nav-item has-treeview">

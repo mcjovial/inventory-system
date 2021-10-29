@@ -40,6 +40,7 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::resource('dues', 'DuesController');
     Route::resource('sales', 'SalesController');
     Route::resource('xchange', 'XchangeController');
+    Route::resource('users', 'UserController');
 
     Route::get('exchange', 'ExchangeController@create')->name('exchange.create');
     Route::post('exchange/store', 'ExchangeController@store')->name('exchange.store');
