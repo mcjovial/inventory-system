@@ -22,7 +22,8 @@
 		<nav class="mt-2">
 			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 				<!-- Add icons to the links using the .nav-icon class
-					 with font-awesome or any other icon font library -->
+					with font-awesome or any other icon font library -->
+                    @if (Auth::user()->hasRole('admin'))
 				<li class="nav-item has-treeview">
 					<a href="{{ route('admin.dashboard') }}" class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-dashboard"></i>
@@ -31,6 +32,8 @@
 						</p>
 					</a>
 				</li>
+                @endif
+                @if (Auth::user()->hasRole('seller'))
 				<li class="nav-item has-treeview">
 					<a href="{{ route('admin.pos.index') }}" class="nav-link {{ Request::is('admin/pos') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-window-maximize"></i>
@@ -249,6 +252,8 @@
 						</li>
 					</ul>
 				</li>
+                @endif
+                @if (Auth::user()->hasRole('admin'))
 				<li class="nav-item has-treeview {{ Request::is('admin/expense*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/expense*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-credit-card"></i>
@@ -362,6 +367,8 @@
 						</li>
 					</ul>
 				</li>
+                @endif
+                @if (Auth::user()->hasRole('secretary'))
                 <li class="nav-item has-treeview {{ Request::is('admin/dues*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/dues*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-gg"></i>
@@ -385,6 +392,8 @@
 						</li>
 					</ul>
 				</li>
+                @endif
+                @if (Auth::user()->hasRole('admin'))
                 <li class="nav-item has-treeview {{ Request::is('admin/users*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-users"></i>
@@ -438,7 +447,7 @@
 						@csrf
 					</form>
 				</li>
-
+                @endif
 			</ul>
 		</nav>
 		<!-- /.sidebar-menu -->
