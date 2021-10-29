@@ -41,6 +41,7 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::resource('sales', 'SalesController');
     Route::resource('xchange', 'XchangeController');
     Route::resource('users', 'UserController');
+    Route::resource('role', 'RoleController');
 
     Route::get('exchange', 'ExchangeController@create')->name('exchange.create');
     Route::post('exchange/store', 'ExchangeController@store')->name('exchange.store');

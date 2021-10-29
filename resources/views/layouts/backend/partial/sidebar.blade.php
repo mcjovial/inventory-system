@@ -395,9 +395,25 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
-							<a href="{{ route('admin.users.index') }}" class="nav-link {{ Request::is('admin/dues/index') ? 'active' : '' }}">
+							<a href="{{ route('admin.users.index') }}" class="nav-link {{ Request::is('admin/users/index') ? 'active' : '' }}">
 								<i class="fa fa-circle-o nav-icon"></i>
 								<p>Users</p>
+							</a>
+						</li>
+					</ul>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.role.create') }}" class="nav-link {{ Request::is('admin/role/create') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Add Roles</p>
+							</a>
+						</li>
+					</ul>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.role.index') }}" class="nav-link {{ Request::is('admin/role/index') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Roles</p>
 							</a>
 						</li>
 					</ul>
