@@ -42,7 +42,7 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label>Name</label>
                                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter Name">
@@ -57,17 +57,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Phone</label>
-                                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone">
+                                                <input type="number" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone">
                                             </div>
                                             <div class="form-group">
                                                 <label>Address</label>
                                                 <input type="text" class="form-control" name="address" value="{{ old('address') }}" placeholder="Enter Address">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                <input type="text" class="form-control" name="city" value="{{ old('city') }}" placeholder="Enter City">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputFile">Photo</label>
@@ -78,29 +72,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- <div class="form-group">
-                                                <label>Account Holder</label>
-                                                <input type="text" class="form-control" name="account_holder" value="{{ old('account_holder') }}" placeholder="Enter Account Holder">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Account Number</label>
-                                                <input type="text" class="form-control" name="account_number" value="{{ old('account_number') }}" placeholder="Enter Account Number">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Bank Name</label>
-                                                <input type="text" class="form-control" name="bank_name" value="{{ old('bank_name') }}" placeholder="Enter Bank Name">
-                                            </div> --}}
                                             <div class="form-group">
                                                 <label>Registration Fee</label>
                                                 <input type="number" class="form-control" name="reg_fee" value="{{ old('reg_fee') }}" placeholder="Enter Registration Fee">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Annual Dues</label>
-                                                <input type="number" class="form-control" name="annual" value="{{ old('annual') }}" placeholder="Enter Annual Dues">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>welfare Dues</label>
-                                                <input type="number" class="form-control" name="welfare" value="{{ old('welfare') }}" placeholder="Enter Welfare Dues">
                                             </div>
                                         </div>
                                     </div>

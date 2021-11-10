@@ -69,10 +69,6 @@
                                                 <label>Units in Stock</label>
                                                 <input type="number" class="form-control" name="stock" value="{{ old('stock') }}" placeholder="Enter Stock units">
                                             </div>
-                                            <div class="form-group">
-                                                <label>Launch Qty</label>
-                                                <input type="number" class="form-control" name="launch_cartons" value="{{ old('launch_cartons') }}" placeholder="Enter Stock units">
-                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -85,14 +81,6 @@
                                                 </div>
                                             </div>
 
-                                            {{-- <div class="form-group">
-                                                <label>Buying Date</label>
-                                                <input type="date" class="form-control" name="buying_date" value="{{ old('buying_date') }}">
-                                            </div> --}}
-                                            {{-- <div class="form-group">
-                                                <label>Expire Date</label>
-                                                <input type="date" class="form-control" name="expire_date" value="{{ old('expire_date') }}">
-                                            </div> --}}
                                             <div class="form-group">
                                                 <label>Cost price per Pack</label>
                                                 <input type="number" class="form-control" name="cost_price_pack" value="{{ old('cost_price_pack') }}" placeholder="Enter Cost Price Per Pack">
@@ -101,17 +89,9 @@
                                                 <label>Amount of Bottles in a Pack</label>
                                                 <input type="number" class="form-control" name="bottles_per_pack" value="{{ old('bottles_per_pack') }}" placeholder="Enter Number of Bottles in a Pack">
                                             </div>
-                                            {{-- <div class="form-group">
-                                                <label>Cost Price per Bottle</label>
-                                                <input type="number" class="form-control" name="cost_price_bottle" value="{{ old('cost_price_bottle') }}" placeholder="Enter Cost Price Per Bottle">
-                                            </div> --}}
                                             <div class="form-group">
                                                 <label>Selling Price per Bottle</label>
                                                 <input type="number" class="form-control" name="sell_price_bottle" value="{{ old('sell_price_bottle') }}" placeholder="Enter Selling Price Per Bottle">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Launching Price</label>
-                                                <input type="number" class="form-control" name="launching_price" value="{{ old('launching_price') }}" placeholder="Enter Price for Launching">
                                             </div>
                                         </div>
                                     </div>

@@ -47,7 +47,6 @@
                                         <th>NIN</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>City</th>
                                         <th>Address</th>
                                         <th>Status</th>
                                         <th>Actions</th>
@@ -61,7 +60,6 @@
                                         <th>NIN</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>City</th>
                                         <th>Address</th>
                                         <th>Status</th>
                                         <th>Actions</th>
@@ -77,9 +75,8 @@
                                             </td>
                                             <td>{{ $customer->nin }}</td>
                                             <td>{{ $customer->email }}</td>
-                                            <td>{{ $customer->city }}</td>
-                                            <td>{{ $customer->address }}</td>
                                             <td>{{ $customer->phone }}</td>
+                                            <td>{{ $customer->address }}</td>
                                             <td>
                                                 @if(!$customer->dues->reg_fee || !$customer->dues->annual || !$customer->dues->welfare)
                                                     <span class="badge badge-warning">Not-up-to-date</span>

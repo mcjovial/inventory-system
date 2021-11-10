@@ -49,7 +49,6 @@ class CustomerController extends Controller
             'email' => 'required| email | unique:customers',
             'phone' => 'required | unique:customers',
             'address' => 'required',
-            'city' => 'required',
             'photo' => 'image',
         ];
 
@@ -157,7 +156,6 @@ class CustomerController extends Controller
             'email' => 'required| email',
             'phone' => 'required',
             'address' => 'required',
-            'city' => 'required',
             'photo' => 'image',
         ];
 
