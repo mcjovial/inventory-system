@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Pos')
+@section('title', 'Bulk')
 
 @push('css')
     <!-- DataTables -->
@@ -18,7 +18,7 @@
                     <div class="col-sm-6 offset-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Pos</li>
+                            <li class="breadcrumb-item active">Bulk</li>
                         </ol>
                     </div>
                 </div>
@@ -32,21 +32,25 @@
                     <!-- left column -->
                     <div class="col-md-7">
                         <div class="card">
-                            <form action="{{ route('admin.invoice.create') }}" method="post">
+                            <form action="{{ route('admin.bulk.invoice') }}" method="post">
                                 @csrf
                                 <div class="card-header">
                                     <h3 class="card-title">
                                         Customer
                                         <span>
-                                            <a href="{{ route('admin.exchange.create') }}" class="btn btn-sm btn-secondary float-md-right">Exchange</a>
-                                            <a href="{{ route('admin.launch.create') }}" class="btn btn-sm btn-warning float-md-right">Launch</a>
-                                            <a href="{{ route('admin.bulk.create') }}" class="btn btn-sm btn-success float-md-right">Bulk</a>
                                             <button type="submit" class="btn btn-sm btn-info float-md-right ml-3">Create Invoice</button>
-                                            <a href="{{ route('admin.customer.create') }}" class="btn btn-sm btn-primary float-md-right">Add New Customer</a>
                                         </span>
                                     </h3>
                                 </div>
                                 <div class="card-body">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputState">Payment Method</label>
+                                        <select name="pay" class="form-control" required >
+                                            <option value="" disabled selected>Choose a Payment Method</option>
+                                            <option value="cash">Cash</option>
+                                            <option value="transfer">Transfer</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label for="exampleDataList" class="form-label">Customer Name</label>
                                         <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
@@ -57,6 +61,7 @@
                                             @endforeach
                                         </datalist>
                                     </div>
+
                                     <div><hr></div>
                                     <div>
                                         <div class="form-group">
@@ -88,49 +93,51 @@
                                 @else
                                     <table class="table table-bordered table-striped text-center mb-3">
                                         <thead>
-                                        <tr>
-                                            <th>S.N</th>
-                                            <th>Name</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Sub Total</th>
-                                            <th>Update</th>
-                                            <th>Delete</th>
-                                        </tr>
+                                            <tr>
+                                                <th>S.N</th>
+                                                <th>Name</th>
+                                                <th>Number of Crates</th>
+                                                <th>Quantity Per Crate</th>
+                                                <th>Price</th>
+                                                <th>Sub Total</th>
+                                                <th>Update</th>
+                                                <th>Delete</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($cart_products as $product)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td class="text-left">{{ $product->name }}</td>
+                                            @foreach($cart_products as $product)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td class="text-left">{{ $product->name }}</td>
 
-                                                <form action="{{ route('admin.cart.update', $product->id) }}" method="post">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <td>
-                                                        <input type="number" name="quantity" class="form-control" value="{{ $product->quantity }}">
-                                                    </td>
-                                                    <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>
-                                                    <td> <span>&#8358;</span> {{ number_format($product->total, 2) }}</td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-sm btn-success">
-                                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                                        </button>
-                                                    </td>
-                                                </form>
-
-                                                <td>
-                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $product->id }})">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </button>
-                                                    <form id="delete-form-{{ $product->id }}" action="{{ route('admin.cart.destroy', $product->id) }}" method="post"
-                                                        style="display:none;">
+                                                    <form action="{{ route('admin.bulk.cart_update', $product->id) }}" method="post">
                                                         @csrf
-                                                        @method('DELETE')
+                                                        {{-- @method('PUT') --}}
+                                                        <td>
+                                                            <input type="number" name="crates" class="form-control" value="{{ $product->cartons }}">
+                                                        </td>
+                                                        <td>{{ $product->product->bottles_per_pack }}</td>
+                                                        <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>
+                                                        <td> <span>&#8358;</span> {{ number_format($product->total, 2) }}</td>
+                                                        <td>
+                                                            <button type="submit" class="btn btn-sm btn-success">
+                                                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                            </button>
+                                                        </td>
                                                     </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+
+                                                    <td>
+                                                        <button class="btn btn-danger" type="button" onclick="deleteItem({{ $product->id }})">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                        <form id="delete-form-{{ $product->id }}" action="{{ route('admin.cart.destroy', $product->id) }}" method="post"
+                                                            style="display:none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 @endif
@@ -162,7 +169,6 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Price</th>
-                                        <th>Stock Units</th>
                                         <th>Add To Cart</th>
                                     </tr>
                                     </thead>
@@ -171,24 +177,22 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Price</th>
-                                        <th>Stock Units</th>
                                         <th>Add To Cart</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
                                     @foreach($drinks as $key => $drink)
                                         <tr>
-                                            <form action="{{ route('admin.cart.store') }}" method="post">
+                                            <form action="{{ route('admin.bulk.cart_store') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="product_id" value="{{ $drink->id }}">
                                                 <input type="hidden" name="name" value="{{ $drink->name }}">
-                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="cartons" value="1">
                                                 <input type="hidden" name="price" value="{{ $drink->sell_price_bottle }}">
 
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $drink->name }}</td>
                                                 <td> <span>&#8358;</span> {{ number_format($drink->sell_price_bottle, 2) }}</td>
-                                                <td>{{ $drink->stock }}</td>
                                                 <td>
                                                     <button type="submit" class="btn btn-sm btn-success px-2">
                                                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
@@ -198,7 +202,6 @@
                                         </tr>
                                     @endforeach
                                     </tbody>
-
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -280,7 +283,4 @@
             })
         }
     </script>
-
-
-
 @endpush

@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->float('vat');
             $table->float('total');
             $table->boolean('launch')->default(false);
+            $table->boolean('bulk')->default(false);
             $table->boolean('owing');
             $table->boolean('to_balance');
             $table->string('payment_status');

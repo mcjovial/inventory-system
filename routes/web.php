@@ -55,6 +55,12 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::post('launch', 'LaunchController@final_invoice')->name('launch.invoice');
     Route::post('launch/cart-store', 'LaunchController@cart_store')->name('launch.cart_store');
 
+    Route::get('bulk', 'BulkController@create')->name('bulk.create');
+    Route::post('bulk/store', 'BulkController@store')->name('bulk.store');
+    Route::post('bulk/cart/{id}', 'BulkController@cart_update')->name('bulk.cart_update');
+    Route::post('bulk', 'BulkController@final_invoice')->name('bulk.invoice');
+    Route::post('bulk/cart-store', 'BulkController@cart_store')->name('bulk.cart_store');
+
     Route::get('order/balance', 'BalanceController@index')->name('balance.index');
     Route::get('order/balance/{id}', 'BalanceController@create')->name('order.create_balance');
     Route::get('order/balance/{id}/edit', 'BalanceController@edit')->name('balance.edit');
