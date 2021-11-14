@@ -74,7 +74,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Registration Fee</label>
-                                                <input type="number" class="form-control" name="reg_fee" value="{{ old('reg_fee') }}" placeholder="Enter Registration Fee">
+                                                <input type="number" class="form-control" name="reg_fee" value="{{ old('reg_fee') }}" placeholder="{{ $settings->reg_fee }}">
                                             </div>
                                         </div>
                                     </div>

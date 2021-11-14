@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\Dues;
+use App\Setting;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,8 +32,9 @@ class DuesController extends Controller
     public function create()
     {
         $customers = Customer::all();
+        $settings = Setting::first();
 
-        return view('admin.dues.create', compact('customers'));
+        return view('admin.dues.create', compact('customers', 'settings'));
     }
 
     /**
@@ -46,6 +48,7 @@ class DuesController extends Controller
         $input = $request->except('_token');
         $rules = [
             'customer_id' =>    'required',
+            'year' => 'required | integer'
 
         ];
 
@@ -71,6 +74,13 @@ class DuesController extends Controller
         if ($request->input('welfare')) {
             $due->welfare_date = Carbon::now()->format('Y-m-d');
         }
+
+        if(!$due->annual || !$due->welfare) {
+            $due->status = false;
+        } else {
+            $due->status = true;
+        }
+
         $due->save();
 
         Toastr::success('Dues Successfully Paid', 'Success!!!');
@@ -97,7 +107,9 @@ class DuesController extends Controller
     public function edit(Dues $due)
     {
         $customer = Customer::all();
-        return view('admin.dues.edit', compact('due', 'customer'));
+        $settings = Setting::first();
+
+        return view('admin.dues.edit', compact('due', 'customer','settings'));
     }
 
     /**

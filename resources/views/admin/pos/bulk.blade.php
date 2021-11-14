@@ -114,7 +114,7 @@
                                                         @csrf
                                                         {{-- @method('PUT') --}}
                                                         <td>
-                                                            <input type="number" name="crates" class="form-control" value="{{ $product->cartons }}">
+                                                            <input type="number" name="crates" class="form-control" value="{{ $product->crates }}">
                                                         </td>
                                                         <td>{{ $product->product->bottles_per_pack }}</td>
                                                         <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>

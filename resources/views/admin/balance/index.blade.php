@@ -80,10 +80,10 @@
                                                 {{-- <a href="{{ route('admin.pos.show', $order->id) }}" class="btn btn-success">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a> --}}
-                                                <a href="{{ route('admin.balance.edit', $balance->id) }}" class="btn
+                                                {{-- <a href="{{ route('admin.balance.edit', $balance->id) }}" class="btn
 													btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </a>
+                                                </a> --}}
                                                 @if (Auth::user()->hasRole('admin'))
                                                     <button class="btn btn-danger" type="button" onclick="deleteItem({{ $balance->id }})">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>

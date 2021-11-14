@@ -55,20 +55,16 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Registration Fee</label>
-                                                <input type="number" class="form-control" name="reg_fee" value="{{ old('reg_fee') }}" placeholder="Enter Registration Fee">
-                                            </div>
-                                            <div class="form-group">
                                                 <label>Year</label>
-                                                <input type="number" class="form-control" name="year" value="{{ old('year') }}" placeholder="Enter Year">
+                                                <input type="number" class="form-control" name="year" value="{{ old('year') }}" placeholder="{{ $settings->year }}">
                                             </div>
                                             <div class="form-group">
                                                 <label>Annual Dues</label>
-                                                <input type="number" class="form-control" name="annual" value="{{ old('annual') }}" placeholder="Enter Annual Dues">
+                                                <input type="number" class="form-control" name="annual" value="{{ old('annual') }}" placeholder="{{ $settings->annual }}">
                                             </div>
                                             <div class="form-group">
                                                 <label>welfare Dues</label>
-                                                <input type="number" class="form-control" name="welfare" value="{{ old('welfare') }}" placeholder="Enter Welfare Dues">
+                                                <input type="number" class="form-control" name="welfare" value="{{ old('welfare') }}" placeholder="{{ $settings->welfare }}">
                                             </div>
                                         </div>
                                     </div>

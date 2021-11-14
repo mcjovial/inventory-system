@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Setting;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
@@ -67,6 +68,14 @@ class SettingController extends Controller
         //
     }
 
+    public function dues_report()
+    {
+        $custormers = Customer::all();
+
+        return view('admin.dues.report');
+    }
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -82,10 +91,11 @@ class SettingController extends Controller
           'email' => 'required',
           'mobile' => 'required',
           'address' => 'required',
-          'city' => 'required',
-          'country' => 'required',
-          'zip_code' => 'required',
           'logo' => 'image | nullable',
+          'year' => 'required',
+          'reg_fee' => 'required',
+          'annual' => 'required',
+          'welfare' => 'required'
         ];
 
         $validation = Validator::make($inputs, $rules);
@@ -127,10 +137,14 @@ class SettingController extends Controller
         $setting->email = $request->input('email');
         $setting->phone = $request->input('phone');
         $setting->address = $request->input('address');
-        $setting->city = $request->input('city');
+        // $setting->city = $request->input('city');
         $setting->mobile = $request->input('mobile');
-        $setting->zip_code = $request->input('zip_code');
-        $setting->country = $request->input('country');
+        // $setting->zip_code = $request->input('zip_code');
+        $setting->country = 'Nigeria';
+        $setting->year = $request->input('year');
+        $setting->reg_fee = $request->input('reg_fee');
+        $setting->annual = $request->input('annual');
+        $setting->welfare = $request->input('welfare');
         $setting->logo = $imageName;
         $setting->save();
 

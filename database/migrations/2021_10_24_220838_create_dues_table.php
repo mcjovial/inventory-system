@@ -17,12 +17,11 @@ class CreateDuesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
             $table->integer('year');
-            $table->integer('reg_fee')->nullable();
-            $table->dateTime('reg_fee_date')->nullable();
             $table->integer('annual')->nullable();
             $table->dateTime('annual_date')->nullable();
             $table->integer('welfare')->nullable();
             $table->dateTime('welfare_date')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }

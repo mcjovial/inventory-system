@@ -13,6 +13,6 @@ class Customer extends Model
 
     public function dues()
     {
-        return $this->hasOne(Dues::class);
+        return $this->hasMany(Dues::class);
     }
 }

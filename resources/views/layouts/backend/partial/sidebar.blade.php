@@ -392,6 +392,12 @@
 								<p>All Dues</p>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.employee.index') }}" class="nav-link {{ Request::is('admin/dues/report') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Dues Report</p>
+							</a>
+						</li>
 					</ul>
 				</li>
                 @endif

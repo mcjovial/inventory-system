@@ -20,6 +20,8 @@ class CreateCustomersTable extends Migration
             $table->integer('phone');
             $table->string('address');
             $table->string('nin');
+            $table->boolean('status');
+            $table->integer('debt');
             $table->string('city')->nullable();
             $table->string('shop_name')->nullable();
             $table->string('photo')->nullable();

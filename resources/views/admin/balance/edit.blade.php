@@ -47,7 +47,7 @@
                                         <div class="col-md-7">
                                             <div class="form-group">
                                                 <label>Customer</label>
-                                                <input type="text" class="form-control" name="name" value="{{ $balance->customer->name }}" disabled>
+                                                <input type="text" class="form-control" name="name" value="{{ $balance->customer_name }}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label>Amount</label>

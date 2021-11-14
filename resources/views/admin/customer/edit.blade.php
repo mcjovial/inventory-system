@@ -77,8 +77,8 @@
                                                 </p>
                                             </div>
                                             <div class="form-group">
-                                                <label>Registration Fee</label>
-                                                <input type="number" class="form-control" name="reg_fee" value="{{ $customer->dues->reg_fee }}" placeholder="Enter Registration Fee">
+                                                <label>Registration Fee <span class="text-danger"> <span>&#8358;</span>[{{ $customer->debt > 0 ? $customer->debt : '0' }}]</span></label>
+                                                <input type="number" class="form-control" name="reg_fee" value="{{ $settings->reg_fee - $customer->debt }}" placeholder="{{ $settings->reg_fee }}">
                                             </div>
                                         </div>
                                     </div>

@@ -23,7 +23,11 @@ class CreateSettingsTable extends Migration
             $table->string('logo')->default('logo.png');
             $table->string('city')->default('Nsukka');
             $table->string('country')->default('Nigeria');
-            $table->integer('zip_code')->default(1000);
+            // $table->integer('zip_code')->default(1000);
+            $table->string('year');
+            $table->integer('reg_fee');
+            $table->integer('annual');
+            $table->integer('welfare');
             $table->timestamps();
         });
     }

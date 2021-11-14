@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Customers')
+@section('title', 'Dues Report')
 
 @push('css')
     <!-- DataTables -->
@@ -18,7 +18,7 @@
                     <div class="col-sm-6 offset-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Customer</li>
+                            <li class="breadcrumb-item active">Dues Report</li>
                         </ol>
                     </div>
                 </div>
@@ -34,7 +34,9 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">CUSTOMERS LISTS</h3>
+                                <h3 class="card-title">
+                                    DUES REPORT
+                                </h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -43,66 +45,39 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
-                                        <th>Image</th>
-                                        <th>NIN</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Address</th>
-                                        <th>Status</th>
-                                        <th>Debt</th>
-                                        <th>Actions</th>
+                                        <th>2018</th>
+                                        <th>2019</th>
+                                        <th>2020</th>
+                                        <th>2021</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
-                                        <th>Image</th>
-                                        <th>NIN</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Address</th>
-                                        <th>Status</th>
-                                        <th>Debt</th>
-                                        <th>Actions</th>
+                                        <th>2018</th>
+                                        <th>2019</th>
+                                        <th>2020</th>
+                                        <th>2021</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    @foreach($customers as $key => $customer)
+                                    @foreach($customers as $customer)
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $customer->name }}</td>
-                                            <td>
-                                                <img class="img-rounded" style="height:35px; width: 35px;" src="{{ URL::asset("storage/customer/".$customer->photo) }}" alt="{{ $customer->name }}">
-                                            </td>
-                                            <td>{{ $customer->nin }}</td>
-                                            <td>{{ $customer->email }}</td>
-                                            <td>{{ $customer->phone }}</td>
-                                            <td>{{ $customer->address }}</td>
-                                            <td>
-                                                @if(!$customer->status)
-                                                    <span class="badge badge-warning">Not-up-to-date</span>
-                                                @else
-                                                    <span class="badge badge-success">Up-to-date</span>
-                                                @endif
-                                            </td>
-                                            <td><span>&#8358;</span>{{ $customer->debt }}</td>
-                                            <td>
-                                                <a href="{{ route('admin.customer.edit', $customer->id) }}" class="btn
-													btn-info">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </a>
-                                                @if (Auth::user()->hasRole('admin'))
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $customer->id }})">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </button>
-                                                <form id="delete-form-{{ $customer->id }}" action="{{ route('admin.customer.destroy', $customer->id) }}" method="post"
-                                                      style="display:none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
-                                                @endif
-                                            </td>
+                                            {{-- @foreach($customer->dues as $dues)
+                                                <td>{{ $dues->year }}</td>
+                                            @endforeach --}}
+                                            {{-- <td>{{ $due->customer->phone }}</td>
+                                            <td>{{ $due->year }}</td>
+                                            <td>{{ $due->reg_fee }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($due->reg_fee_date)->toFormattedDateString() }}</td>
+                                            <td>{{ $due->annual }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($due->annual_date)->toFormattedDateString() }}</td>
+                                            <td>{{ $due->welfare }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($due->welfare_date)->toFormattedDateString() }}</td> --}}
+
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -188,7 +163,4 @@
             })
         }
     </script>
-
-
-
 @endpush

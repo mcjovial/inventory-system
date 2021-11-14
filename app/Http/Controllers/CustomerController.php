@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\Dues;
+use App\Setting;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,7 +33,9 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('admin.customer.create');
+        $settings = Setting::first();
+
+        return view('admin.customer.create', compact('settings'));
     }
 
     /**
@@ -45,7 +48,7 @@ class CustomerController extends Controller
     {
         $inputs = $request->except('_token');
         $rules = [
-            'name' => 'required | min:3',
+            'name' => 'required | min:3 | unique:customers',
             'email' => 'required| email | unique:customers',
             'phone' => 'required | unique:customers',
             'address' => 'required',
@@ -75,6 +78,9 @@ class CustomerController extends Controller
             $imageName = 'default.png';
         }
 
+        $settings = Setting::first();
+
+
         $customer = new Customer();
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
@@ -87,6 +93,13 @@ class CustomerController extends Controller
         $customer->account_number = $request->input('account_number');
         $customer->bank_name = $request->input('bank_name');
         $customer->bank_branch = $request->input('bank_branch');
+        if ($request->input('reg_fee') != $settings->reg_fee){
+            $customer->status = false;
+            $customer->debt = $settings->reg_fee - $request->input('reg_fee');
+        } else {
+            $customer->status = true;
+            $customer->debt = $settings->reg_fee - $request->input('reg_fee');
+        }
         $customer->photo = $imageName;
         $customer->save();
 
@@ -138,7 +151,8 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return view('admin.customer.edit', compact('customer'));
+        $settings = Setting::first();
+        return view('admin.customer.edit', compact('customer', 'settings'));
     }
 
     /**
@@ -189,6 +203,8 @@ class CustomerController extends Controller
             $imageName = $customer->photo;
         }
 
+        $settings = Setting::first();
+
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
         $customer->phone = $request->input('phone');
@@ -200,6 +216,13 @@ class CustomerController extends Controller
         $customer->account_number = $request->input('account_number');
         $customer->bank_name = $request->input('bank_name');
         $customer->bank_branch = $request->input('bank_branch');
+        if ($request->input('reg_fee') != $settings->reg_fee){
+            $customer->status = false;
+            $customer->debt = $settings->reg_fee - $request->input('reg_fee');
+        } else {
+            $customer->status = true;
+            $customer->debt = $settings->reg_fee - $request->input('reg_fee');
+        }
         $customer->photo = $imageName;
         $customer->save();
 
