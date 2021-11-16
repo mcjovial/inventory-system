@@ -381,6 +381,12 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
+							<a href="{{ route('admin.year.index') }}" class="nav-link {{ Request::is('admin/year') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Year</p>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a href="{{ route('admin.dues.create') }}" class="nav-link {{ Request::is('admin/dues/create') ? 'active' : '' }}">
 								<i class="fa fa-circle-o nav-icon"></i>
 								<p>Pay</p>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Year;
 use App\Customer;
 use App\Employee;
 use Brian2694\Toastr\Facades\Toastr;
@@ -22,7 +23,8 @@ class EmployeeController extends Controller
     public function index()
     {
         $customers = Customer::latest()->get();
-        return view('admin.dues.report', compact('customers'));
+        $years = Year::all();
+        return view('admin.dues.report', compact('customers', 'years'));
     }
 
     /**

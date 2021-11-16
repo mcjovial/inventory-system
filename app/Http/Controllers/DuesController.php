@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Year;
 use App\Dues;
 use App\Setting;
 use Brian2694\Toastr\Facades\Toastr;
@@ -33,8 +34,9 @@ class DuesController extends Controller
     {
         $customers = Customer::all();
         $settings = Setting::first();
+        $years = Year::all();
 
-        return view('admin.dues.create', compact('customers', 'settings'));
+        return view('admin.dues.create', compact('customers', 'settings', 'years'));
     }
 
     /**
@@ -48,10 +50,13 @@ class DuesController extends Controller
         $input = $request->except('_token');
         $rules = [
             'customer_id' =>    'required',
-            'year' => 'required | integer'
+            'year_id' => 'required | integer'
 
         ];
 
+        $settings = Setting::first();
+
+        // dd($request);
         $validation = Validator::make($input, $rules);
         if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput();
@@ -59,11 +64,11 @@ class DuesController extends Controller
 
         $due = new Dues();
         $due->customer_id = $request->input('customer_id');
-        $due->reg_fee = $request->input('reg_fee');
-        $due->year = $request->input('year');
-        if ($request->input('reg_fee')) {
-            $due->reg_fee_date = Carbon::now()->format('Y-m-d');
-        }
+        // $due->reg_fee = $request->input('reg_fee');
+        $due->year_id = $request->input('year_id');
+        // if ($request->input('reg_fee')) {
+        //     $due->reg_fee_date = Carbon::now()->format('Y-m-d');
+        // }
 
         $due->annual = $request->input('annual');
         if ($request->input('annual')) {
@@ -75,10 +80,13 @@ class DuesController extends Controller
             $due->welfare_date = Carbon::now()->format('Y-m-d');
         }
 
-        if(!$due->annual || !$due->welfare) {
+        if($due->annual != $settings->annual || $due->welfare != $settings->welfare) {
             $due->status = false;
+            $due->debt += $settings->annual - $request->input('annual');
+            $due->debt += $settings->welfare - $request->input('welfare');
         } else {
             $due->status = true;
+            $due->debt = 0;
         }
 
         $due->save();
@@ -132,11 +140,11 @@ class DuesController extends Controller
         }
 
         // $due->customer_id = $request->input('customer_id');
-        $due->reg_fee = $request->input('reg_fee');
+        // $due->reg_fee = $request->input('reg_fee');
         $due->year = $request->input('year');
-        if ($request->input('reg_fee')) {
-            $due->reg_fee_date = Carbon::now()->format('Y-m-d');
-        }
+        // if ($request->input('reg_fee')) {
+        //     $due->reg_fee_date = Carbon::now()->format('Y-m-d');
+        // }
 
         $due->annual = $request->input('annual');
         if ($request->input('annual')) {
@@ -147,6 +155,16 @@ class DuesController extends Controller
         if ($request->input('welfare')) {
             $due->welfare_date = Carbon::now()->format('Y-m-d');
         }
+
+        if(!$due->annual != $settings->annual || !$due->welfare != $settings->welfare) {
+            $due->status = false;
+            $due->debt += $settings->annual - $request->input('annual');
+            $due->debt += $settings->welfare - $request->input('welfare');
+        } else {
+            $due->status = true;
+            $due->debt = 0;
+        }
+
         $due->save();
 
         Toastr::success('Dues Updated Successfully', 'Success!!!');
@@ -161,6 +179,10 @@ class DuesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $dues = Dues::find($id);
+        $dues->delete();
+        
+        Toastr::success('Dues Successfully Deleted', 'Success!!!');
+        return redirect()->route('admin.dues.index');
     }
 }

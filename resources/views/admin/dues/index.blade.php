@@ -47,13 +47,13 @@
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Year</th>
-                                        <th>Registration fee</th>
-                                        <th>Date paid</th>
                                         <th>Annual Dues</th>
                                         <th>Date paid</th>
                                         <th>Welfare dues</th>
                                         <th>Date paid</th>
-                                        <th>Delete</th>
+                                        <th>Status</th>
+                                        <th>Debt</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -62,13 +62,13 @@
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Year</th>
-                                        <th>Registration fee</th>
-                                        <th>Date paid</th>
                                         <th>Annual Dues</th>
                                         <th>Date paid</th>
                                         <th>Welfare dues</th>
                                         <th>Date paid</th>
-                                        <th>Delete</th>
+                                        <th>Status</th>
+                                        <th>Debt</th>
+                                        <th>Action</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
@@ -77,26 +77,32 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $due->customer->name }}</td>
                                             <td>{{ $due->customer->phone }}</td>
-                                            <td>{{ $due->year }}</td>
-                                            <td>{{ $due->reg_fee }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($due->reg_fee_date)->toFormattedDateString() }}</td>
+                                            <td>{{ $due->year->number }}</td>
                                             <td>{{ $due->annual }}</td>
                                             <td>{{ \Carbon\Carbon::parse($due->annual_date)->toFormattedDateString() }}</td>
                                             <td>{{ $due->welfare }}</td>
                                             <td>{{ \Carbon\Carbon::parse($due->welfare_date)->toFormattedDateString() }}</td>
                                             <td>
+                                                @if(!$due->status)
+                                                    <span class="badge badge-warning">Not-up-to-date</span>
+                                                @else
+                                                    <span class="badge badge-success">Up-to-date</span>
+                                                @endif
+                                            </td>
+                                            <td><span>&#8358;</span>{{ $due->debt }}</td>
+                                            <td>
                                                 <a href="{{ route('admin.dues.edit', $due->id) }}" class="btn
 													btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                {{-- <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem({{ $due->id }})">
+                                                <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem({{ $due->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
-                                                <form id="delete-form-{{ $due->id }}" action="{{ route('admin.expense.destroy', $due->id) }}" method="post"
+                                                <form id="delete-form-{{ $due->id }}" action="{{ route('admin.dues.destroy', $due->id) }}" method="post"
                                                       style="display:none;">
                                                     @csrf
                                                     @method('DELETE')
-                                                </form> --}}
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Edit Dues')
+@section('title', 'Create Year')
 
 @push('css')
 
@@ -17,7 +17,7 @@
                     <div class="col-sm-6 offset-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Dues</li>
+                            <li class="breadcrumb-item active">Create Year</li>
                         </ol>
                     </div>
                 </div>
@@ -33,41 +33,26 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Edit Dues</h3>
+                                <h3 class="card-title">Create Year</h3>
                             </div>
                             <!-- /.card-header -->
 
                             <!-- form start -->
-                            <form role="form" action="{{ route('admin.dues.update', $due->id) }}" method="post" enctype="multipart/form-data">
+                            <form role="form" action="{{ route('admin.year.store') }}" method="post">
                                 @csrf
-                                @method('PUT')
                                 <div class="card-body">
                                     <div class="row">
-
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label>Member</label>
-                                                <input type="number" class="form-control" name="" value="{{ $due->customer->name }}" disabled>
-                                            </div>
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Year</label>
-                                                <input type="number" class="form-control" name="year" value="{{ $due->year->number }}" placeholder="{{ $settings->year }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Annual Dues <span class="text-danger"> <span>&#8358;</span>[{{ $settings->annual - $due->annual > 0 ? $settings->annual - $due->annual : '0' }}]</span></label>
-                                                <input type="number" class="form-control" name="annual" value="{{ $due->annual }}" placeholder="{{ $settings->annual }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>welfare Dues <span class="text-danger"> <span>&#8358;</span>[{{ $settings->welfare - $due->welfare > 0 ? $settings->welfare - $due->welfare : '0' }}]</span></label>
-                                                <input type="number" class="form-control" name="welfare" value="{{ $due->welfare }}" placeholder="{{ $settings->welfare }}">
+                                                <input type="text" class="form-control" name="number" value="{{ old('number') }}" placeholder="Enter Year">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
-
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary float-md-right">Pay</button>
+                                    <button type="submit" class="btn btn-primary float-md-right">Create Year</button>
                                 </div>
                             </form>
                         </div>

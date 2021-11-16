@@ -16,12 +16,15 @@ class CreateDuesTable extends Migration
         Schema::create('dues', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
-            $table->integer('year');
+            $table->unsignedBigInteger('year_id');
             $table->integer('annual')->nullable();
             $table->dateTime('annual_date')->nullable();
             $table->integer('welfare')->nullable();
             $table->dateTime('welfare_date')->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('status');
+            $table->integer('debt');
+            $table->foreign('year_id')->references('id')->on('years')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Year;
 use App\Customer;
 use App\Setting;
 use Brian2694\Toastr\Facades\Toastr;
@@ -146,6 +147,10 @@ class SettingController extends Controller
         $setting->annual = $request->input('annual');
         $setting->welfare = $request->input('welfare');
         $setting->logo = $imageName;
+
+        $year = new Year();
+        $year->number = $request->input('year');
+        $year->save();
         $setting->save();
 
         Toastr::success('Setting Successfully Updated', 'Success!!!');

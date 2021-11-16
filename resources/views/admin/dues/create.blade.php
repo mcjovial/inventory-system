@@ -56,7 +56,12 @@
 
                                             <div class="form-group">
                                                 <label>Year</label>
-                                                <input type="number" class="form-control" name="year" value="{{ old('year') }}" placeholder="{{ $settings->year }}">
+                                                <select name="year_id" class="form-control">
+                                                    <option value="" disabled selected>Select Year</option>
+                                                    @foreach($years as $year)
+                                                        <option value="{{ $year->id }}">{{ $year->number }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label>Annual Dues</label>

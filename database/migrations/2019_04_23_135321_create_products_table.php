@@ -21,8 +21,6 @@ class CreateProductsTable extends Migration
             $table->string('stock');
             $table->integer('launch_cartons');
             $table->string('image')->nullable();
-            $table->dateTime('buying_date');
-            $table->dateTime('expire_date')->nullable();
             $table->float('cost_price_pack');
             $table->float('cost_price_bottle');
             $table->float('sell_price_bottle');

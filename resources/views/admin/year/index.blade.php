@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Dues Report')
+@section('title', 'Year')
 
 @push('css')
     <!-- DataTables -->
@@ -18,7 +18,7 @@
                     <div class="col-sm-6 offset-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Dues Report</li>
+                            <li class="breadcrumb-item active">Years</li>
                         </ol>
                     </div>
                 </div>
@@ -34,9 +34,10 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">
-                                    DUES REPORT
-                                </h3>
+                                <h3 class="card-title">YEARS</h3>
+                                <div class="float-right">
+                                    <a href="{{ route('admin.year.create') }}" class="btn btn-primary">ADD</a>
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -44,42 +45,43 @@
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Name</th>
-                                        @foreach($years as $year)
-                                            <th>{{ $year->number }}</th>
-                                        @endforeach
+                                        <th>Year</th>
+                                        <th>Total Dues</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Name</th>
-                                        @foreach($years as $year)
-                                            <th>{{ $year->number }}</th>
-                                        @endforeach
+                                        <th>Year</th>
+                                        <th>Total Dues</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </tfoot>
-                                    {{-- {{ dd($customers[0]->dues->where('year', '2021')->first()->welfare)}}m --}}
                                     <tbody>
-                                        @foreach($customers as $customer)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $customer->name }}</td>
-                                                @foreach($years as $year)
-                                                    <td>
-                                                        {{-- @if(!$year->dues->where('customer_id', $customer->id)->first()->status)
-                                                            <span class="badge badge-danger">Not-up-to-date <span><strong><span>&#8358;</span>{{ $year->dues->where('customer_id', $customer->id)->first()->debt }}]</strong></span></span>
-                                                        @else
-                                                            <span class="badge badge-success">Up-to-date</span>
-                                                        @endif --}}
-
-                                                        {{$customer->dues->where('year_id', $year->id)->first()}}
-                                                    </td>
-                                                @endforeach
-                                                {{-- <td>{{ \Carbon\Carbon::parse($due->welfare_date)->toFormattedDateString() }}</td> --}}
-                                            </tr>
-                                        @endforeach
+                                    @foreach($years as $key => $year)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $year->number }}</td>
+                                            <td>{{ $year->dues->count() }}</td>
+                                            <td>
+                                                {{-- <a href="{{ route('admin.year.edit', $year->id) }}" class="btn
+													btn-info">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a> --}}
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $year->id }})">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                                <form id="delete-form-{{ $year->id }}" action="{{ route('admin.year.destroy', $year->id) }}" method="post"
+                                                      style="display:none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
+
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -87,6 +89,7 @@
                         <!-- /.card -->
                     </div>
                     <!--/.col (left) -->
+
                 </div>
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -160,4 +163,7 @@
             })
         }
     </script>
+
+
+
 @endpush

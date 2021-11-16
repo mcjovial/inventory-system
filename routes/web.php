@@ -35,6 +35,7 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::resource('sale', 'SalesController');
     Route::resource('salary', 'SalaryController');
     Route::resource('category', 'CategoryController');
+    Route::resource('year', 'YearController');
     Route::resource('product', 'ProductController');
     Route::resource('expense', 'ExpenseController');
     Route::resource('dues', 'DuesController');
