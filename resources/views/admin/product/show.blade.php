@@ -57,10 +57,6 @@
                                                 <p>{{ $product->category->name }}</p>
                                             </div>
                                             <div class="form-group">
-                                                <label>Supplier</label>
-                                                <p>{{ $product->supplier->name }}</p>
-                                            </div>
-                                            <div class="form-group">
                                                 <label>Stock Units</label>
                                                 <p>{{ $product->stock }}</p>
                                             </div>
@@ -70,14 +66,6 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Buying Date</label>
-                                                <p>{{ $product->buying_date->toFormattedDateString() }}</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Expire Date</label>
-                                                <p>{{ $product->expire_date->toFormattedDateString() }}</p>
-                                            </div>
                                             <div class="form-group">
                                                 <label>Cost Price Per Pack</label>
                                                 <p><span>&#8358;</span>{{ number_format($product->cost_price_pack, 2) }}</p>

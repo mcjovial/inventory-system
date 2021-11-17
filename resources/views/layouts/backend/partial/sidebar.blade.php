@@ -42,6 +42,8 @@
 						</p>
 					</a>
 				</li>
+				@endif
+
 				{{-- <li class="nav-item has-treeview {{ Request::is('admin/employee*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/employee*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
@@ -111,6 +113,7 @@
 						</li>
 					</ul>
 				</li>
+				@if (Auth::user()->hasRole('admin'))
 				<li class="nav-item has-treeview {{ Request::is('admin/supplier*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/supplier*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
