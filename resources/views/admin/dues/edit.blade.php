@@ -47,11 +47,13 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Member</label>
-                                                <input type="number" class="form-control" name="" value="{{ $due->customer->name }}" disabled>
+                                                <input type="number" class="form-control" name="" value="{{ $due->customer->name }}" placeholder="{{ $due->customer->name }}">
+                                                <input type="number" class="form-control" name="customer_id" value="{{ $due->customer->id }}" hidden>
                                             </div>
                                             <div class="form-group">
                                                 <label>Year</label>
-                                                <input type="number" class="form-control" name="year" value="{{ $due->year->number }}" placeholder="{{ $settings->year }}">
+                                                <input type="number" class="form-control" name="" value="{{ $due->year->number }}" placeholder="{{ $due->year->number }}">
+                                                <input type="number" class="form-control" name="year_id" value="{{ $due->year->id }}" hidden>
                                             </div>
                                             <div class="form-group">
                                                 <label>Annual Dues <span class="text-danger"> <span>&#8358;</span>[{{ $settings->annual - $due->annual > 0 ? $settings->annual - $due->annual : '0' }}]</span></label>

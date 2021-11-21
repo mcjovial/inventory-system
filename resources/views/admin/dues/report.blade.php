@@ -72,8 +72,21 @@
                                                         @else
                                                             <span class="badge badge-success">Up-to-date</span>
                                                         @endif --}}
-
-                                                        {{$customer->dues->where('year_id', $year->id)->first()}}
+                                                        {{-- @php
+                                                            $status = $customer->dues->where('year_id', $year->id)->first();
+                                                            $array = json_decode(json_encode($status), true);
+                                                       @endphp
+                                                        
+                                                        {{ $status['status'] }} --}}
+                                                        {{-- {{$customer->dues->where('year_id', $year->id)->first()}} --}}
+                                                        @foreach ($customer->dues->where('year_id', $year->id) as $item)
+                                                            {{-- {{$item->status}} --}}
+                                                            @if ($item->status)
+                                                            [<small><span>&#8358;</span>{{ $item->annual + $item->welfare }}]</small><span class="badge badge-success">Up-to-date</span>
+                                                            @else
+                                                            [<small><span>&#8358;</span>{{ $item->annual + $item->welfare }}] </small><span class="badge badge-danger">Not-up-to-date </span> [<small><span>&#8358;</span>{{ $item->debt }}]</small>
+                                                            @endif
+                                                        @endforeach
                                                     </td>
                                                 @endforeach
                                                 {{-- <td>{{ \Carbon\Carbon::parse($due->welfare_date)->toFormattedDateString() }}</td> --}}
