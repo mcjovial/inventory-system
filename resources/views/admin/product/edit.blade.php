@@ -58,15 +58,6 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label>Supplier Name</label>
-                                                <select name="supplier_id" class="form-control">
-                                                    <option value="" disabled selected>Select a Supplier</option>
-                                                    @foreach($suppliers as $supplier)
-                                                        <option value="{{ $supplier->id }}" {{ $product->supplier->id == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
                                                 <label>Units in Stock</label>
                                                 <input type="number" class="form-control" name="stock" value="{{ $product->stock }}" placeholder="Enter Stock Units">
                                             </div>
@@ -86,10 +77,6 @@
                                                 </div>
                                                 <img class="mt-2" width="50" height="40" src="{{ URL::asset('storage/product/'. $product->image) }}" alt="{{ $product->name }}">
                                             </div>
-                                            <div class="form-group">
-                                                <label>Buying Date</label>
-                                                <input type="date" class="form-control" name="buying_date" value="{{ $product->buying_date }}">
-                                            </div>
                                             {{-- <div class="form-group">
                                                 <label>Expire Date</label>
                                                 <input type="date" class="form-control" name="expire_date" value="{{ $product->expire_date }}">
@@ -99,24 +86,12 @@
                                                 <input type="number" class="form-control" name="cost_price_pack" value="{{ $product->cost_price_pack }}" placeholder="Enter Cost Price Per Pack">
                                             </div>
                                             <div class="form-group">
-                                                <label>Cost Price per Bottle</label>
-                                                <input type="number" class="form-control" name="cost_price_bottle" value="{{ $product->cost_price_bottle }}" placeholder="Enter Cost Price Per Bottle">
-                                            </div>
-                                            <div class="form-group">
                                                 <label>Selling Price per Bottle</label>
-                                                <input type="number" class="form-control" name="sell_price_bottle" value="{{ $product->sell_price_bottle }}" placeholder="Enter Selling Price Per Bottle">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Launching Price</label>
                                                 <input type="number" class="form-control" name="sell_price_bottle" value="{{ $product->sell_price_bottle }}" placeholder="Enter Selling Price Per Bottle">
                                             </div>
                                             <div class="form-group">
                                                 <label>Amount of Bottles in a Pack</label>
                                                 <input type="number" class="form-control" name="bottles_per_pack" value="{{ $product->bottles_per_pack }}" placeholder="Enter Number of Bottles in a Pack">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Launching Price</label>
-                                                <input type="number" class="form-control" name="launching_price" value="{{ $product->launch_price }}" placeholder="Enter Price for Launching">
                                             </div>
                                         </div>
                                     </div>

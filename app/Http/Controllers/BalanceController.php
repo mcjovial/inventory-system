@@ -50,6 +50,7 @@ class BalanceController extends Controller
         $balance->description = $request->input('description');
         $balance->amount = $request->input('amount');
         $balance->pay_out = $request->input('pay_out') ? true : false;
+        // dd($request);
         $balance->save();
 
         $order = Order::findOrFail($request->input('order_id'));

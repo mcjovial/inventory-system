@@ -42,6 +42,7 @@
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
+                                        <th>Seller</th>
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Date</th>
@@ -55,6 +56,7 @@
                                     <tfoot>
                                     <tr>
                                         <th>Serial</th>
+                                        <th>Seller</th>
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Date</th>
@@ -69,6 +71,7 @@
                                     @foreach($approveds as $key => $order)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
+                                            <td>{{ $order->seller }}</td>
                                             <td>{{ $order->customer_name }}</td>
                                             <td>{{ $order->customer_phone }}</td>
                                             <td>{{ $order->created_at->toFormattedDateString() }}</td>

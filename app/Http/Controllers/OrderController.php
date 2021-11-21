@@ -74,8 +74,8 @@ class OrderController extends Controller
         // dd($request);
         $inputs = $request->except('_token');
         $rules = [
-            'customer_name'       =>  'required',
-            'customer_phone'       =>  'required',
+            'customer_id'       =>  'required',
+            // 'customer_phone'       =>  'required',
             'order_id'          =>  'required | integer',
             'description'       =>  'required',
             'amount'            =>  'required | integer',
@@ -87,13 +87,14 @@ class OrderController extends Controller
         }
 
         $balance = new Balance();
-        $balance->customer_name = $request->input('customer_name');
-        $balance->customer_phone = $request->input('customer_phone');
+        $balance->customer_id = $request->input('customer_id');
+        // $balance-> = $request->input('customer_name');
+        // $balance->customer_phone = $request->input('customer_phone');
         $balance->order_id = $request->input('order_id');
         $balance->description = $request->input('description');
         $balance->amount = $request->input('amount');
-        $balance->pay_out = $request->input('pay_out') ? true : false;
-        // dd($balance);
+        $balance->pay_out = $request->input('pay_out');
+        // dd($balance->pay_out);
         $balance->save();
 
         $order = Order::findOrFail($request->input('order_id'));

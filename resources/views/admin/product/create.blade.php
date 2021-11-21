@@ -57,15 +57,6 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label>Supplier Name</label>
-                                                <select name="supplier_id" class="form-control">
-                                                    <option value="" disabled selected>Select a Supplier</option>
-                                                    @foreach($suppliers as $supplier)
-                                                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
                                                 <label>Units in Stock</label>
                                                 <input type="number" class="form-control" name="stock" value="{{ old('stock') }}" placeholder="Enter Stock units">
                                             </div>

@@ -118,6 +118,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $suppliers = Supplier::all();
+        // dd($product);
         return view('admin.product.edit', compact('product', 'categories', 'suppliers'));
     }
 
@@ -137,7 +138,6 @@ class ProductController extends Controller
             'stock' => 'required',
             'cost_price_pack' => 'required',
             'image' => 'image',
-            'cost_price_bottle' => 'required',
             'sell_price_bottle' => 'required',
             'bottles_per_pack' => 'required',
         ];
