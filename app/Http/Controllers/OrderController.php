@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Balance;
 use App\Expense;
 use App\Order;
@@ -55,7 +56,7 @@ class OrderController extends Controller
         $order->save();
 
         Toastr::success('Payment has been Confirmed!', 'Success');
-        return redirect()->back();
+        return redirect()->route('admin.order.approved');
     }
 
     public function destroy($id)
@@ -87,6 +88,7 @@ class OrderController extends Controller
         }
 
         $balance = new Balance();
+        $balance->seller = Auth::user()->name;
         $balance->customer_id = $request->input('customer_id');
         // $balance-> = $request->input('customer_name');
         // $balance->customer_phone = $request->input('customer_phone');

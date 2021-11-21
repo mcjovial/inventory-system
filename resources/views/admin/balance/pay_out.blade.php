@@ -41,8 +41,8 @@
                             <form role="form" action="{{ route('admin.order.balance', $order->id) }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
-                                    <input type="hidden" name="customer_name" value="{{ $order->customer_name }}">
-                                    <input type="hidden" name="customer_phone" value="{{ $order->customer_phone }}">
+                                    {{-- <input type="hidden" name="customer_name" value="{{ $order->customer_name }}"> --}}
+                                    <input type="hidden" name="customer_id" value="{{ $order->customer_id }}">
                                     <input type="hidden" name="order_id" value="{{ $order->id }}">
                                     <div class="row">
                                         <div class="col-md-7">

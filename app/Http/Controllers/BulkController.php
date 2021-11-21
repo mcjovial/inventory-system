@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Bulk;
 use App\Cart;
 use App\Customer;
@@ -84,20 +85,21 @@ class BulkController extends Controller
 
     public function final_invoice(Request $request)
     {
-        // $inputs = $request->except('_token');
-        // $rules = [
-        // //   'payment_status' => 'required',
-        //   'customer_id' => 'integer',
-        // ];
-        // $customMessages = [
-        //     // 'payment_status.required' => 'Select a Payment method first!.',
-        // ];
+        $inputs = $request->except('_token');
+        $rules = [
+          'pay' => 'required',
+          'name' => 'required',
+        ];
+        $customMessages = [
+            'pay.required' => 'Select a Payment method first!.',
+            'name.required' => 'Select a Customer!.',
+        ];
 
-        // $validator = Validator::make($inputs, $rules, $customMessages);
-        // if ($validator->fails())
-        // {
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
+        $validator = Validator::make($inputs, $rules, $customMessages);
+        if ($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $man_customer = new \stdClass();
         // $man_customer->id = 100000000;
@@ -133,15 +135,16 @@ class BulkController extends Controller
         $debt = $c_total - $c_total;
 
         $order = new Order();
-        // $order->customer_id =  $customer->id;
+        $order->customer_id =  $customer->id;
+        $order->seller = Auth::user()->name;
         $order->customer_name = $customer->name;
         $order->customer_phone = $customer->phone;
         $order->payment_status = $request->input('pay');
         $order->pay = $c_total;
         $order->debt = $debt;
         $order->order_date = date('Y-m-d');
-        // $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
-        $order->order_status = 'confirmed';
+        $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
+        // $order->order_status = 'confirmed';
         $order->total_products = Cart::sum('quantity');
         $order->bulk = true;
         $order->sub_total = $sub_total;
@@ -169,6 +172,11 @@ class BulkController extends Controller
         Cart::truncate();
 
         Toastr::success('Invoice created successfully', 'Success');
-        return redirect()->route('admin.order.approved');
+        
+        if ($order->order_status == 'pending') {
+            return redirect()->route('admin.order.pending');
+        } else {
+            return redirect()->route('admin.order.approved');
+        }
     }
 }

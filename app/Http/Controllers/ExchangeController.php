@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Cart;
 use App\Customer;
 use App\Exchange;
@@ -73,20 +74,22 @@ class ExchangeController extends Controller
 
     public function final_invoice(Request $request)
     {
-        // $inputs = $request->except('_token');
-        // $rules = [
-        // //   'payment_status' => 'required',
-        // //   'name' => 'integer',
-        // ];
-        // $customMessages = [
-        //     // 'payment_status.required' => 'Select a Payment method first!.',
-        // ];
+        // dd($request);
+        $inputs = $request->except('_token');
+        $rules = [
+        //   'payment_status' => 'required',
+          'name' => 'required',
+        ];
+        $customMessages = [
+            // 'payment_status.required' => 'Select a Payment method first!.',
+            'name.required' => 'Please select  a user!'
+        ];
 
-        // $validator = Validator::make($inputs, $rules, $customMessages);
-        // if ($validator->fails())
-        // {
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
+        $validator = Validator::make($inputs, $rules, $customMessages);
+        if ($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         function split_name($name) {
             $name = trim($name);
@@ -102,7 +105,7 @@ class ExchangeController extends Controller
         // dd($man_customer);
 
         $customer_name = strtolower($request->input('name'));
-        $customer = $customer_name ? Customer::where('name', $customer_name)->first() : $man_customer;
+        $customer = Customer::where('name', $customer_name)->first();
         // dd($customer);
 
         // cart stuffs
@@ -147,7 +150,8 @@ class ExchangeController extends Controller
         $debt = $c_total - $x_total;
 
         $order = new Order();
-        // $order->customer_id =  $customer->id;
+        $order->customer_id =  $customer->id;
+        $order->seller = Auth::user()->name;
         $order->customer_name = $customer->name;
         $order->customer_phone = $customer->phone;
         $order->payment_status = 'exchange';
@@ -182,6 +186,6 @@ class ExchangeController extends Controller
         Exchange::truncate();
 
         Toastr::success('Invoice created successfully', 'Success');
-        return redirect()->route('admin.order.pending');
+        return redirect()->route('admin.order.approved');
     }
 }

@@ -30,60 +30,151 @@
             <div class="container-fluid">
                 <div class="row">
                     <!-- left column -->
-                    <div class="col-md-7">
+
+                    <div class="col-md-5">
+                        <!-- general form elements -->
                         <div class="card">
-                            <form action="{{ route('admin.exchange.invoice') }}" method="post">
-                                @csrf
+                            <div class="card-header">
+                                <h3 class="card-title">Drinks</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-xl">
+                                    <thead>
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Add To Cart</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Add To Cart</th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    @foreach($drinks as $key => $drink)
+                                        <tr>
+                                            <form action="{{ route('admin.exchange.store') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $drink->id }}">
+                                                <input type="hidden" name="name" value="{{ $drink->name }}">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="price" value="{{ $drink->sell_price_bottle }}">
+
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $drink->name }}</td>
+                                                <td> <span>&#8358;</span> {{ number_format($drink->sell_price_bottle, 2) }}</td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-sm btn-success px-2">
+                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <div class="col-md-7">
+
+                        <div class="card card-default">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fa fa-info"></i>
+                                    Exchange Out
+                                </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                @if($cart_products->count() < 1)
+                                    <div class="alert alert-danger">
+                                        No Product Added
+                                    </div>
+                                @else
+                                    <table class="table table-bordered table-striped text-center mb-3 table-responsive-xl">
+                                        <thead>
+                                        <tr>
+                                            <th>S.N</th>
+                                            <th>Name</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Sub Total</th>
+                                            <th>Update</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cart_products as $product)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="text-left">{{ $product->name }}</td>
+
+                                                <form action="{{ route('admin.cart.update', $product->id) }}" method="post">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <td>
+                                                        <input type="number" name="quantity" class="form-control" value="{{ $product->quantity }}">
+                                                    </td>
+                                                    <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>
+                                                    <td> <span>&#8358;</span> {{ number_format($product->total, 2) }}</td>
+                                                    <td>
+                                                        <button type="submit" class="btn btn-sm btn-success">
+                                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        </button>
+                                                    </td>
+                                                </form>
+
+                                                <td>
+                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $product->id }})">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                    <form id="delete-form-{{ $product->id }}" action="{{ route('admin.cart.destroy', $product->id) }}" method="post"
+                                                        style="display:none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
+
+                                <div class="alert alert-info">
+                                    <p>Quantity : {{ $cart->sum('quantity') }}</p>
+                                    <p>Sub Total :  <span>&#8358;</span> {{ $cart->sum('total') }}</p>
+                                    Tax :  <span>&#8358;</span> {{ 0 }}
+                                </div>
+                                <div class="alert alert-success">
+                                    Total :  <span>&#8358;</span> {{ $cart->sum('total') }}
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
                                 <div class="card-header">
                                     <h3 class="card-title">
                                         Exchange In
-                                        <span>
-                                            <button type="submit" class="btn btn-sm btn-info float-md-right ml-3">Create Invoice</button>
-                                            {{-- <a href="{{ route('admin.customer.create') }}" class="btn btn-sm btn-primary float-md-right">Add New</a> --}}
-                                        </span>
                                     </h3>
                                 </div>
-                                <div class="card-body">
-                                    {{-- <div class="form-group">
-                                        <label>Select Customer</label>
-                                        <datalist name="customer_id" class="form-control" id="suggestions">
-                                            <option value="" disabled selected>Select a Customer</option>
-                                            @foreach($customers as $customer)
-                                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                                            @endforeach
-                                            <input  autoComplete="on" list="suggestions"/>
-                                        </datalist>
-                                    </div> --}}
-                                    <div class="form-group">
-                                        <label for="exampleDataList" class="form-label">Customer Name</label>
-                                        <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-                                        <datalist id="datalistOptions" >
-                                            <option value="" selected>Select a Customer</option>
-                                            @foreach($customers as $customer)
-                                                <option value="{{ $customer->name }}">
-                                            @endforeach
-                                        </datalist>
-                                    </div>
-                                    <div><hr></div>
-                                    <div>
-                                        <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" name="full_name" value="{{ old('name') }}" placeholder="Enter Name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone">
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="card-body">
+
                                 @if($exchange_products->count() < 1)
                                     <div class="alert alert-danger">
                                         No Product Added
                                     </div>
                                 @else
-                                    <table class="table table-bordered table-striped text-center mb-3">
+                                    <table class="table table-bordered table-striped text-center mb-3 table-responsive-xl">
                                         <thead>
                                         <tr>
                                             <th>S.N</th>
@@ -155,137 +246,34 @@
                                     Total :  <span>&#8358;</span> {{ $exchange->sum('total') }}
                                 </div>
                             </div>
-                        </div>
+                            <form action="{{ route('admin.exchange.invoice') }}" method="post">
+                                @csrf
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        Customer
+                                    </h3>
+                                </div>
 
-                        <div class="card card-default">
-                            <div class="card-header">
-                                <h3 class="card-title">
-                                    <i class="fa fa-info"></i>
-                                    Exchange Out
-                                </h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                @if($cart_products->count() < 1)
-                                    <div class="alert alert-danger">
-                                        No Product Added
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="exampleDataList" class="form-label">Customer Name</label>
+                                        <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                                        <datalist id="datalistOptions" >
+                                            <option value="" selected>Select a Customer</option>
+                                            @foreach($customers as $customer)
+                                                <option value="{{ $customer->name }}">
+                                            @endforeach
+                                        </datalist>
                                     </div>
-                                @else
-                                    <table class="table table-bordered table-striped text-center mb-3">
-                                        <thead>
-                                        <tr>
-                                            <th>S.N</th>
-                                            <th>Name</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Sub Total</th>
-                                            <th>Update</th>
-                                            <th>Delete</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($cart_products as $product)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td class="text-left">{{ $product->name }}</td>
-
-                                                <form action="{{ route('admin.cart.update', $product->id) }}" method="post">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <td>
-                                                        <input type="number" name="quantity" class="form-control" value="{{ $product->quantity }}">
-                                                    </td>
-                                                    <td> <span>&#8358;</span> {{ $price = number_format($product->price, 2) }}</td>
-                                                    <td> <span>&#8358;</span> {{ number_format($product->total, 2) }}</td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-sm btn-success">
-                                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                                        </button>
-                                                    </td>
-                                                </form>
-
-                                                <td>
-                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $product->id }})">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </button>
-                                                    <form id="delete-form-{{ $product->id }}" action="{{ route('admin.cart.destroy', $product->id) }}" method="post"
-                                                        style="display:none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                @endif
-
-                                <div class="alert alert-info">
-                                    <p>Quantity : {{ $cart->sum('quantity') }}</p>
-                                    <p>Sub Total :  <span>&#8358;</span> {{ $cart->sum('total') }}</p>
-                                    Tax :  <span>&#8358;</span> {{ 0 }}
                                 </div>
-                                <div class="alert alert-success">
-                                    Total :  <span>&#8358;</span> {{ $cart->sum('total') }}
+                                <div class="card-footer">
+                                    <span>
+                                        <button type="submit" class="btn btn-sm btn-info float-md-right ml-3">Create Invoice</button>
+                                        {{-- <a href="{{ route('admin.customer.create') }}" class="btn btn-sm btn-primary float-md-right">Add New</a> --}}
+                                    </span>
                                 </div>
-                            </div>
-                            <!-- /.card-body -->
+                            </form>
                         </div>
-                    </div>
-
-                    <div class="col-md-5">
-                        <!-- general form elements -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Drinks</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center">
-                                    <thead>
-                                    <tr>
-                                        <th>Serial</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Add To Cart</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Serial</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Add To Cart</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    @foreach($drinks as $key => $drink)
-                                        <tr>
-                                            <form action="{{ route('admin.exchange.store') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="product_id" value="{{ $drink->id }}">
-                                                <input type="hidden" name="name" value="{{ $drink->name }}">
-                                                <input type="hidden" name="quantity" value="1">
-                                                <input type="hidden" name="price" value="{{ $drink->sell_price_bottle }}">
-
-                                                <td>{{ $key + 1 }}</td>
-                                                <td>{{ $drink->name }}</td>
-                                                <td> <span>&#8358;</span> {{ number_format($drink->sell_price_bottle, 2) }}</td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-sm btn-success px-2">
-                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                    </button>
-                                                </td>
-                                            </form>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
                     </div>
                     <!--/.col (left) -->
 

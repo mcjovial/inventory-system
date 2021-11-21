@@ -42,6 +42,7 @@
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
+                                        <th>Seller</th>
                                         <th>Customer</th>
                                         <th>Amount</th>
                                         <th>Type</th>
@@ -53,6 +54,7 @@
                                     <tfoot>
                                     <tr>
                                         <th>Serial</th>
+                                        <th>Seller</th>
                                         <th>Customer</th>
                                         <th>Amount</th>
                                         <th>Type</th>
@@ -65,7 +67,8 @@
                                     @foreach($balances as $key => $balance)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $balance->customer_name }}</td>
+                                            <td>{{ $balance->seller }}</td>
+                                            <td>{{ $balance->customer->name }}</td>
                                             <td>{{ $balance->amount }}</td>
                                             <td>
                                                 @if ($balance->pay_out)

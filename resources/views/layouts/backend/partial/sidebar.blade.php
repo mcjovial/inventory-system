@@ -322,7 +322,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('admin.order.to_balance') }}" class="nav-link {{ Request::is('admin/order/to-balance') ? 'active' : '' }}">
+							<a href="{{ route('admin.order.to_balance') }}" class="nav-link {{ Request::is('admin/order/tobalance') ? 'active' : '' }}">
 								<i class="fa fa-circle-o nav-icon"></i>
 								<p>To-Balance</p>
 							</a>

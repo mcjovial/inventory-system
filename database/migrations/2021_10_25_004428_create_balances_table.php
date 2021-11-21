@@ -15,6 +15,7 @@ class CreateBalancesTable extends Migration
     {
         Schema::create('balances', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('seller');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('order_id');
             $table->text('description');

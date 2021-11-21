@@ -77,7 +77,13 @@
                                             <td>{{ $order->created_at->toFormattedDateString() }}</td>
                                             <td>{{ $order->total_products }}</td>
                                             <td><span>&#8358;</span>{{ $order->total }}</td>
-                                            <td>{{ $order->payment_status }}</td>
+                                            @if ($order->launch)
+                                                <td>{{ $order->payment_status  }} <small>[Launch]</small></td>
+                                            @elseif ($order->bulk)
+                                                <td>{{ $order->payment_status  }} <small>[Bulk]</small></td>
+                                            @else
+                                                <td>{{ $order->payment_status  }}</td>
+                                            @endif
                                             <td><span class="badge badge-success">{{ $order->order_status }}</span></td>
 
                                             <td>
