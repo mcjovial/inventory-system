@@ -36,7 +36,7 @@ class DashboardController extends Controller
 
         $expenses = Expense::all();
 
-        $profit = Order::sum('total');
+        $profit = Order::sum('total') - Order::sum('total_cost');
         $today_profit = $today->sum('total') - $today->sum('total_cost');
         $month_profit = $month->sum('total') - $month->sum('total_cost');
         $year_profit = $year->sum('total') - $year->sum('total_cost');
