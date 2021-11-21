@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->string('customer_name')->nullable();
             $table->integer('customer_phone')->nullable();
+            $table->string('seller');
             $table->string('order_date');
             $table->string('order_status');
             $table->integer('total_products');

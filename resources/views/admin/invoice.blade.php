@@ -135,7 +135,7 @@
                             <!-- this row will not appear when printing -->
                             <div class="row no-print">
                                 <div class="col-12">
-                                    <form action="{{ route('admin.invoice.print') }}" method="post">
+                                    <form action="" method="post">
                                         @csrf
                                         <input type="hidden" name="customer_name" value="{{ $customer->name }}">
                                         <input type="hidden" name="customer_phone" value="{{ $customer->phone }}">

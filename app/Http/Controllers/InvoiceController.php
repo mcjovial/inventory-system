@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Cart;
 use App\Customer;
 use App\Order;
@@ -17,25 +18,25 @@ class InvoiceController extends Controller
 {
     public function create(Request $request)
     {
-        // $inputs = $request->except('_token');
-        // $rules = [
-        //   'customer_id' => 'integer',
-        // ];
-        // $customMessages = [
-        //     // 'customer_id.required' => 'Select a Customer first!.',
-        //     'customer_id.integer' => 'Invalid Customer!.'
-        // ];
-        // $validator = Validator::make($inputs, $rules, $customMessages);
-        // if ($validator->fails())
-        // {
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
-
-        if (!isset($man_customer)){
-            $man_customer = new \stdClass();
-            $man_customer->name = $request->input('full_name');
-            $man_customer->phone = $request->input('phone');
+        $inputs = $request->except('_token');
+        $rules = [
+          'name' => 'required',
+        ];
+        $customMessages = [
+            'name.required' => 'Select a Customer first!.',
+            // 'name.string' => 'Invalid Customer!.'
+        ];
+        $validator = Validator::make($inputs, $rules, $customMessages);
+        if ($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        // if (!isset($man_customer)){
+        //     $man_customer = new \stdClass();
+        //     $man_customer->name = $request->input('full_name');
+        //     $man_customer->phone = $request->input('phone');
+        // }
         // dd($man_customer);
 
         $customer_name = strtolower($request->input('name'));
@@ -70,11 +71,13 @@ class InvoiceController extends Controller
     {
         // $inputs = $request->except('_token');
         // $rules = [
-        //   'payment_status' => 'required',
-        //   'customer_id' => 'integer',
+        //     'pay' => 'required',
+        // //   'payment_status' => 'required',
+        // //   'customer_id' => 'integer',
         // ];
         // $customMessages = [
-        //     'payment_status.required' => 'Select a Payment method first!.',
+        //     'pay.required' => 'Input amount!',
+        // //     'payment_status.required' => 'Select a Payment method first!.',
         // ];
 
         // $validator = Validator::make($inputs, $rules, $customMessages);
@@ -87,25 +90,27 @@ class InvoiceController extends Controller
         $tax = str_replace(',', '', 0);
         $total = str_replace(',', '', Cart::sum('total'));
 
-        $pay = $request->input('payment_status') == 'cash' ? $request->input('cash') : $request->input('pay');
+        $pay = $request->input('pay');
         $debt = $total - $pay;
+        // dd($debt. ' '. $request->input('payment_status'));
 
         $order = new Order();
-        // $order->customer_id =  $request->input('customer_id');
+        $order->customer_id =  $request->input('customer_id');
+        $order->seller = Auth::user()->name;
         $order->customer_name = $request->input('customer_name');
         $order->customer_phone = $request->input('customer_phone');
         $order->payment_status = $request->input('payment_status');
         $order->pay = $pay;
         $order->debt = $debt;
         $order->order_date = date('Y-m-d');
-        $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
+        $order->order_status = $request->input('payment_status') != 'transfer' ? 'confirmed' : 'pending';
         $order->total_products = Cart::sum('quantity');
         $order->sub_total = $sub_total;
         $order->owing = $order->debt > 0 ? true : false;
         $order->to_balance = $order->debt < 0 ? true : false;
         $order->vat = $tax;
         $order->total = $total;
-        // dd($order);
+        // dd($order->seller);
         $order->save();
 
         $order_id = $order->id;
@@ -134,6 +139,11 @@ class InvoiceController extends Controller
         Cart::truncate();
 
         Toastr::success('Invoice created successfully', 'Success');
-        return redirect()->route('admin.order.pending');
+
+        if ($order->order_status == 'pending') {
+            return redirect()->route('admin.order.pending');
+        } else {
+            return redirect()->route('admin.order.approved');
+        }
     }
 }

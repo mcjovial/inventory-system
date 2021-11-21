@@ -93,13 +93,13 @@ class CustomerController extends Controller
         $customer->account_number = $request->input('account_number');
         $customer->bank_name = $request->input('bank_name');
         $customer->bank_branch = $request->input('bank_branch');
-        
+        $customer->debt = $settings->reg_fee - $request->input('reg_fee');
+        $customer->reg_fee = $request->input('reg_fee');
+
         if ($request->input('reg_fee') != $settings->reg_fee){
             $customer->status = false;
-            $customer->debt = $settings->reg_fee - $request->input('reg_fee');
         } else {
             $customer->status = true;
-            $customer->debt = $settings->reg_fee - $request->input('reg_fee');
         }
         $customer->photo = $imageName;
         $customer->save();
@@ -217,35 +217,18 @@ class CustomerController extends Controller
         $customer->account_number = $request->input('account_number');
         $customer->bank_name = $request->input('bank_name');
         $customer->bank_branch = $request->input('bank_branch');
-        if ($request->input('reg_fee') != $settings->reg_fee){
+        $customer->reg_fee = $request->input('reg_fee');
+        $customer->debt = $settings->reg_fee - $customer->reg_fee;
+
+        if ($customer->reg_fee != $settings->reg_fee){
             $customer->status = false;
-            $customer->debt = $settings->reg_fee - $request->input('reg_fee');
         } else {
             $customer->status = true;
-            $customer->debt = $settings->reg_fee - $request->input('reg_fee');
         }
+
         $customer->photo = $imageName;
         $customer->save();
 
-        $due = Dues::where('customer_id', $customer->id)->first();
-        $due->reg_fee = $request->input('reg_fee');
-        if ($request->input('reg_fee')) {
-            $due->reg_fee_date = Carbon::now()->format('Y-m-d');
-        }
-
-        $due->annual = $request->input('annual');
-        if ($request->input('annual')) {
-            $due->annual_date = Carbon::now()->format('Y-m-d');
-            $due->annual_expire = date('Y-m-d', strtotime('+1 years'));
-        }
-
-        $due->welfare = $request->input('welfare');
-        if ($request->input('welfare')) {
-            $due->welfare_date = Carbon::now()->format('Y-m-d');
-            $due->welfare_expire = date('Y-m-d', strtotime('+1 years'));
-        }
-        $customer->save();
-        $due->save();
 
         Toastr::success('Customer Successfully Updated', 'Success!!!');
         return redirect()->route('admin.customer.index');

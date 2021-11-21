@@ -29,48 +29,66 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-md-5">
+                        <!-- general form elements -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">POS</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-xl">
+                                    <thead>
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Stock Units</th>
+                                        <th>Add To Cart</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Stock Units</th>
+                                        <th>Add To Cart</th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    @foreach($drinks as $key => $drink)
+                                        <tr>
+                                            <form action="{{ route('admin.cart.store') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $drink->id }}">
+                                                <input type="hidden" name="name" value="{{ $drink->name }}">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="price" value="{{ $drink->sell_price_bottle }}">
+
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $drink->name }}</td>
+                                                <td> <span>&#8358;</span> {{ number_format($drink->sell_price_bottle, 2) }}</td>
+                                                <td>{{ $drink->stock }}</td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-sm btn-success px-2">
+                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!--/.col (left) -->
                     <!-- left column -->
                     <div class="col-md-7">
-                        <div class="card">
-                            <form action="{{ route('admin.invoice.create') }}" method="post">
-                                @csrf
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        Customer
-                                        <span>
-                                            <a href="{{ route('admin.exchange.create') }}" class="btn btn-sm btn-secondary float-md-right">Exchange</a>
-                                            <a href="{{ route('admin.launch.create') }}" class="btn btn-sm btn-warning float-md-right">Launch</a>
-                                            <a href="{{ route('admin.bulk.create') }}" class="btn btn-sm btn-success float-md-right">Bulk</a>
-                                            <button type="submit" class="btn btn-sm btn-info float-md-right ml-3">Create Invoice</button>
-                                            <a href="{{ route('admin.customer.create') }}" class="btn btn-sm btn-primary float-md-right">Add New Customer</a>
-                                        </span>
-                                    </h3>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="exampleDataList" class="form-label">Customer Name</label>
-                                        <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-                                        <datalist id="datalistOptions" >
-                                            <option value="" selected>Select a Customer</option>
-                                            @foreach($customers as $customer)
-                                                <option value="{{ $customer->name }}">
-                                            @endforeach
-                                        </datalist>
-                                    </div>
-                                    <div><hr></div>
-                                    <div>
-                                        <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" name="full_name" value="{{ old('full_name') }}" placeholder="Enter Name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone">
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
 
                         <div class="card card-default">
                             <div class="card-header">
@@ -86,7 +104,7 @@
                                         No Product Added
                                     </div>
                                 @else
-                                    <table class="table table-bordered table-striped text-center mb-3">
+                                    <table class="table table-bordered table-striped text-center mb-3 table-responsive-xl">
                                         <thead>
                                         <tr>
                                             <th>S.N</th>
@@ -146,66 +164,51 @@
                             </div>
                             <!-- /.card-body -->
                         </div>
-                    </div>
-
-                    <div class="col-md-5">
-                        <!-- general form elements -->
                         <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">POS</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center">
-                                    <thead>
-                                    <tr>
-                                        <th>Serial</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Stock Units</th>
-                                        <th>Add To Cart</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Serial</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Stock Units</th>
-                                        <th>Add To Cart</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    @foreach($drinks as $key => $drink)
-                                        <tr>
-                                            <form action="{{ route('admin.cart.store') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="product_id" value="{{ $drink->id }}">
-                                                <input type="hidden" name="name" value="{{ $drink->name }}">
-                                                <input type="hidden" name="quantity" value="1">
-                                                <input type="hidden" name="price" value="{{ $drink->sell_price_bottle }}">
-
-                                                <td>{{ $key + 1 }}</td>
-                                                <td>{{ $drink->name }}</td>
-                                                <td> <span>&#8358;</span> {{ number_format($drink->sell_price_bottle, 2) }}</td>
-                                                <td>{{ $drink->stock }}</td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-sm btn-success px-2">
-                                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                    </button>
-                                                </td>
-                                            </form>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
+                            <form action="{{ route('admin.invoice.create') }}" method="post">
+                                @csrf
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        Customer
+                                        <span>
+                                            <a href="{{ route('admin.customer.create') }}" class="btn btn-sm btn-primary float-md-right">Add New Customer</a>
+                                        </span>
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="exampleDataList" class="form-label">Customer Name</label>
+                                        <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                                        <datalist id="datalistOptions" >
+                                            <option value="" selected>Select a Customer</option>
+                                            @foreach($customers as $customer)
+                                                <option value="{{ $customer->name }}">
+                                            @endforeach
+                                        </datalist>
+                                    </div>
+                                    {{-- <div><hr></div>
+                                    <div>
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" name="full_name" value="{{ old('full_name') }}" placeholder="Enter Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone">
+                                        </div>
+                                    </div> --}}
+                                </div>
+                                <div class="card-footer">
+                                    <span>
+                                        <a href="{{ route('admin.exchange.create') }}" class="btn btn-sm btn-secondary float-md-right">Exchange</a>
+                                        <a href="{{ route('admin.launch.create') }}" class="btn btn-sm btn-warning float-md-right">Launch</a>
+                                        <a href="{{ route('admin.bulk.create') }}" class="btn btn-sm btn-success float-md-right">Bulk</a>
+                                        <button type="submit" class="btn btn-sm btn-info float-md-right ml-3">Create Invoice</button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!--/.col (left) -->
 
                 </div>
                 <!-- /.row -->
