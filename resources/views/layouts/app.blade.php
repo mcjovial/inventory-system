@@ -68,6 +68,9 @@
                                 </div>
                             </li>
                         @endguest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('report') }}">{{ __('Dues Report') }}</a>
+                        </li>
                     </ul>
                 </div>
             </div>

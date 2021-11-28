@@ -76,6 +76,14 @@ class SettingController extends Controller
         return view('admin.dues.report');
     }
 
+    public function report(){
+        $customers = Customer::all();
+        $years = Year::all();
+
+        return view('dues_report', compact('customers', 'years'));
+
+    }
+
 
     /**
      * Update the specified resource in storage.
