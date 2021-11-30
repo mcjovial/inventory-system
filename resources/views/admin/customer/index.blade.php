@@ -77,7 +77,7 @@
                                     @foreach($customers as $key => $customer)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $customer->sur_name.' '.$customer->first_name.' '.$customer->other_name }}</td>
+                                            <td>{{ $customer->full_name }}</td>
                                             <td>
                                                 <img class="img-rounded" style="height:35px; width: 35px;" src="{{ URL::asset("storage/customer/".$customer->photo) }}" alt="{{ $customer->name }}">
                                             </td>

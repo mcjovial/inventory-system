@@ -21,6 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dues-report', 'SettingController@report')->name('report');
+Route::get('/members', 'SettingController@member')->name('member');
+Route::post('/members', 'SettingController@member_post')->name('member_search');
+Route::post('/members/{id}/update', 'SettingController@member_update')->name('member_update');
 
 
 // Admin Group

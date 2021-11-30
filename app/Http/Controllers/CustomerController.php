@@ -83,6 +83,7 @@ class CustomerController extends Controller
         $customer->sur_name = $request->input('sur_name');
         $customer->first_name = $request->input('first_name');
         $customer->other_name = $request->input('other_name');
+        $customer->full_name = $customer->sur_name.' '.$customer->first_name.' '.$customer->other_name;
         $customer->b_month = $request->input('b_month');
         $customer->b_day = $request->input('b_day');
         $customer->email = $request->input('email');
@@ -181,6 +182,7 @@ class CustomerController extends Controller
         $customer->sur_name = $request->input('sur_name');
         $customer->first_name = $request->input('first_name');
         $customer->other_name = $request->input('other_name');
+        $customer->full_name = $customer->sur_name.' '.$customer->first_name.' '.$customer->other_name;
         $customer->b_month = $request->input('b_month');
         $customer->b_day = $request->input('b_day');
         $customer->email = $request->input('email');

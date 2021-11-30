@@ -84,6 +84,92 @@ class SettingController extends Controller
 
     }
 
+    public function member(){
+        $customers = Customer::all();
+
+        return view('member', compact('customers'));
+    }
+
+    public function member_post(Request $request){
+        $customer = Customer::where('full_name', $request->name)->first();
+        $settings = Setting::first();
+
+        return view('member_form', compact('customer', 'settings'));
+    }
+
+    public function member_update(Request $request, $id)
+    {
+        $inputs = $request->except('_token');
+        $rules = [
+            'email' => 'required| email',
+            'phone' => 'required',
+            'address' => 'required',
+            'photo' => 'image',
+        ];
+
+        $validation = Validator::make($inputs, $rules);
+        if ($validation->fails())
+        {
+            return redirect()->back()->withErrors($validation)->withInput();
+        }
+
+        $customer = Customer::find($id);
+
+        $image = $request->file('photo');
+        $slug =  Str::slug($request->input('name'));
+        if (isset($image))
+        {
+            $currentDate = Carbon::now()->toDateString();
+            $imageName = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+            if (!Storage::disk('public')->exists('customer'))
+            {
+                Storage::disk('public')->makeDirectory('customer');
+            }
+
+            // delete old photo
+            if (Storage::disk('public')->exists('customer/'. $customer->photo))
+            {
+                Storage::disk('public')->delete('customer/'. $customer->photo);
+            }
+
+            $postImage = Image::make($image)->resize(480, 320)->stream();
+            Storage::disk('public')->put('customer/'.$imageName, $postImage);
+        } else
+        {
+            $imageName = $customer->photo;
+        }
+
+        $settings = Setting::first();
+
+        $customer->sur_name = $request->input('sur_name');
+        $customer->first_name = $request->input('first_name');
+        $customer->other_name = $request->input('other_name');
+        $customer->full_name = $customer->sur_name.' '.$customer->first_name.' '.$customer->other_name;
+        $customer->b_month = $request->input('b_month');
+        $customer->b_day = $request->input('b_day');
+        $customer->email = $request->input('email');
+        $customer->phone = $request->input('phone');
+        $customer->pow = $request->input('pow');
+        $customer->address = $request->input('address');
+        $customer->type = $request->input('type');
+        $customer->state = $request->input('state');
+        $customer->reg_fee = $request->input('reg_fee');
+        $customer->debt = $settings->reg_fee - $customer->reg_fee;
+
+        if ($customer->reg_fee != $settings->reg_fee){
+            $customer->status = false;
+        } else {
+            $customer->status = true;
+        }
+
+        $customer->photo = $imageName;
+        dd($customer);
+        $customer->save();
+
+
+        Toastr::success('Customer Successfully Updated', 'Success!!!');
+        return redirect()->route('admin.customer.index');
+    }
 
     /**
      * Update the specified resource in storage.
