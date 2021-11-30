@@ -48,7 +48,6 @@ class CustomerController extends Controller
     {
         $inputs = $request->except('_token');
         $rules = [
-            'name' => 'required | min:3 | unique:customers',
             'email' => 'required| email | unique:customers',
             'phone' => 'required | unique:customers',
             'address' => 'required',
@@ -80,19 +79,18 @@ class CustomerController extends Controller
 
         $settings = Setting::first();
 
-
         $customer = new Customer();
-        $customer->name = $request->input('name');
+        $customer->sur_name = $request->input('sur_name');
+        $customer->first_name = $request->input('first_name');
+        $customer->other_name = $request->input('other_name');
+        $customer->b_month = $request->input('b_month');
+        $customer->b_day = $request->input('b_day');
         $customer->email = $request->input('email');
         $customer->phone = $request->input('phone');
+        $customer->pow = $request->input('pow');
         $customer->address = $request->input('address');
-        $customer->city = $request->input('city');
-        $customer->nin = $request->input('nin');
-        $customer->shop_name = $request->input('shop_name');
-        $customer->account_holder = $request->input('account_holder');
-        $customer->account_number = $request->input('account_number');
-        $customer->bank_name = $request->input('bank_name');
-        $customer->bank_branch = $request->input('bank_branch');
+        $customer->type = $request->input('type');
+        $customer->state = $request->input('state');
         $customer->debt = $settings->reg_fee - $request->input('reg_fee');
         $customer->reg_fee = $request->input('reg_fee');
 
@@ -103,31 +101,6 @@ class CustomerController extends Controller
         }
         $customer->photo = $imageName;
         $customer->save();
-
-        // $customer_id = $customer->id;
-        // $date = Carbon::now();
-
-        // $due = new Dues();
-        // $due->customer_id = $customer_id;
-        // $due->reg_fee = $request->input('reg_fee');
-        // $due->year = Carbon::now()->format('Y');
-
-        // if ($request->input('reg_fee')) {
-        //     $due->reg_fee_date = Carbon::now()->format('Y-m-d');
-        // }
-
-        // $due->annual = $request->input('annual');
-        // if ($request->input('annual')) {
-        //     $due->annual_date = Carbon::now()->format('Y-m-d');
-        //     // $due->annual_expire = date('Y-m-d', strtotime('+1 years'));
-        // }
-
-        // $due->welfare = $request->input('welfare');
-        // if ($request->input('welfare')) {
-        //     $due->welfare_date = Carbon::now()->format('Y-m-d');
-        //     $due->welfare_expire = date('Y-m-d', strtotime('+1 years'));
-        // }
-        // $due->save();
 
         Toastr::success('Customer Successfully Created', 'Success!!!');
         return redirect()->route('admin.customer.index');
@@ -167,7 +140,6 @@ class CustomerController extends Controller
     {
         $inputs = $request->except('_token');
         $rules = [
-            'name' => 'required | min:3',
             'email' => 'required| email',
             'phone' => 'required',
             'address' => 'required',
@@ -206,17 +178,17 @@ class CustomerController extends Controller
 
         $settings = Setting::first();
 
-        $customer->name = $request->input('name');
+        $customer->sur_name = $request->input('sur_name');
+        $customer->first_name = $request->input('first_name');
+        $customer->other_name = $request->input('other_name');
+        $customer->b_month = $request->input('b_month');
+        $customer->b_day = $request->input('b_day');
         $customer->email = $request->input('email');
         $customer->phone = $request->input('phone');
+        $customer->pow = $request->input('pow');
         $customer->address = $request->input('address');
-        $customer->city = $request->input('city');
-        $customer->nin = $request->input('nin');
-        $customer->shop_name = $request->input('shop_name');
-        $customer->account_holder = $request->input('account_holder');
-        $customer->account_number = $request->input('account_number');
-        $customer->bank_name = $request->input('bank_name');
-        $customer->bank_branch = $request->input('bank_branch');
+        $customer->type = $request->input('type');
+        $customer->state = $request->input('state');
         $customer->reg_fee = $request->input('reg_fee');
         $customer->debt = $settings->reg_fee - $customer->reg_fee;
 

@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Customers')
+@section('title', 'Members')
 
 @push('css')
     <!-- DataTables -->
@@ -18,7 +18,7 @@
                     <div class="col-sm-6 offset-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Customer</li>
+                            <li class="breadcrumb-item active">Members</li>
                         </ol>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">CUSTOMERS LISTS</h3>
+                                <h3 class="card-title">MEMBERS' LISTS</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -44,9 +44,12 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Image</th>
-                                        <th>NIN</th>
+                                        <th>State</th>
+                                        <th>Category</th>
+                                        <th>Birth Date</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Place of work</th>
                                         <th>Address</th>
                                         <th>Status</th>
                                         <th>Debt</th>
@@ -58,9 +61,12 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Image</th>
-                                        <th>NIN</th>
+                                        <th>State</th>
+                                        <th>Category</th>
+                                        <th>Birth Date</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Place of work</th>
                                         <th>Address</th>
                                         <th>Status</th>
                                         <th>Debt</th>
@@ -71,13 +77,16 @@
                                     @foreach($customers as $key => $customer)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $customer->name }}</td>
+                                            <td>{{ $customer->sur_name.' '.$customer->first_name.' '.$customer->other_name }}</td>
                                             <td>
                                                 <img class="img-rounded" style="height:35px; width: 35px;" src="{{ URL::asset("storage/customer/".$customer->photo) }}" alt="{{ $customer->name }}">
                                             </td>
-                                            <td>{{ $customer->nin }}</td>
+                                            <td><span>{{ ucfirst($customer->state) }}</span></td>
+                                            <td><span>{{ ucfirst($customer->type) }}</span></td>
+                                            <td>{{ $customer->b_day.'-'.$customer->b_month }}</td>
                                             <td>{{ $customer->email }}</td>
                                             <td>{{ $customer->phone }}</td>
+                                            <td>{{ $customer->pow }}</td>
                                             <td>{{ $customer->address }}</td>
                                             <td>
                                                 @if(!$customer->status)

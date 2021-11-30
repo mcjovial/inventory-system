@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Update Customer')
+@section('title', 'Update Member')
 
 @push('css')
 
@@ -17,7 +17,7 @@
                     <div class="col-sm-6 offset-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Update Customer</li>
+                            <li class="breadcrumb-item active">Update Member</li>
                         </ol>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Update Customer</h3>
+                                <h3 class="card-title">Update Member</h3>
                             </div>
                             <!-- /.card-header -->
 
@@ -45,8 +45,38 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label>Name</label>
-                                                <input type="text" class="form-control" name="name" value="{{ $customer->name }}" placeholder="Enter Name">
+                                                <label>Surname</label>
+                                                <input type="text" class="form-control" name="sur_name" value="{{ $customer->sur_name }}" placeholder="Enter Surname">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>First Name</label>
+                                                <input type="text" class="form-control" name="first_name" value="{{ $customer->first_name }}" placeholder="Enter First Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Other Name</label>
+                                                <input type="text" class="form-control" name="other_name" value="{{ $customer->other_name }}" placeholder="Enter Other Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Birth Month</label>
+                                                <select name="b_month" class="form-control" required>
+                                                    <option value="" disabled selected>Select a Month</option>
+                                                    <option value="january" {{ $customer->b_month == 'january' ? 'selected' : '' }}>January</option>
+                                                    <option value="february" {{ $customer->b_month == 'february' ? 'selected' : '' }}>February</option>
+                                                    <option value="march" {{ $customer->b_month == 'march' ? 'selected' : '' }}>March</option>
+                                                    <option value="april" {{ $customer->b_month == 'april' ? 'selected' : '' }}>April</option>
+                                                    <option value="may" {{ $customer->b_month == 'may' ? 'selected' : '' }}>May</option>
+                                                    <option value="june" {{ $customer->b_month == 'june' ? 'selected' : '' }}>June</option>
+                                                    <option value="july" {{ $customer->b_month == 'july' ? 'selected' : '' }}>July</option>
+                                                    <option value="august" {{ $customer->b_month == 'august' ? 'selected' : '' }}>August</option>
+                                                    <option value="september" {{ $customer->b_month == 'september' ? 'selected' : '' }}>September</option>
+                                                    <option value="october" {{ $customer->b_month == 'october' ? 'selected' : '' }}>October</option>
+                                                    <option value="november" {{ $customer->b_month == 'november' ? 'selected' : '' }}>November</option>
+                                                    <option value="december" {{ $customer->b_month == 'december' ? 'selected' : '' }}>December</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Birth day</label>
+                                                <input type="number" class="form-control" name="b_day" value="{{ $customer->b_day }}" placeholder="Enter Birth day" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Email</label>
@@ -56,13 +86,32 @@
                                                 <label>Phone</label>
                                                 <input type="number" class="form-control" name="phone" value="{{ $customer->phone }}" placeholder="Enter Phone">
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Place of Work</label>
+                                                <input type="text" class="form-control" name="pow" value="{{ $customer->pow }}" placeholder="Enter Place of work or department" required>
+                                            </div>
                                             <div class="form-group">
                                                 <label>Address</label>
                                                 <input type="text" class="form-control" name="address" value="{{ $customer->address }}" placeholder="Enter Address">
                                             </div>
                                             <div class="form-group">
-                                                <label>NIN</label>
-                                                <input type="text" class="form-control" name="nin" value="{{ $customer->nin }}" placeholder="Enter Your NIN">
+                                                <label>Type</label>
+                                                <select name="type" class="form-control" required>
+                                                    <option value="member" {{ $customer->type == 'member' ? 'selected' : '' }}>Member</option>
+                                                    <option value="asso-member" {{ $customer->type == 'asso-member' ? 'selected' : '' }}>Associate Member</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>State</label>
+                                                <select name="state" class="form-control" required>
+                                                    <option value="active" {{ $customer->state == 'active' ? 'selected' : '' }}>Active</option>
+                                                    <option value="suspended" {{ $customer->state == 'suspended' ? 'selected' : '' }}>Suspended</option>
+                                                    <option value="relocated" {{ $customer->state == 'relocated' ? 'selected' : '' }}>Relocated</option>
+                                                    <option value="withdrawn" {{ $customer->state == 'withdrawn' ? 'selected' : '' }}>Withdrawn</option>
+                                                    <option value="deceased" {{ $customer->state == 'deceased' ? 'selected' : '' }}>Deceased</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputFile">Photo</label>

@@ -94,7 +94,7 @@
 					<a href="#" class="nav-link {{ Request::is('admin/customer*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-address-card"></i>
 						<p>
-							Customer
+							Member
 							<i class="right fa fa-angle-left"></i>
 						</p>
 					</a>
@@ -102,13 +102,13 @@
 						<li class="nav-item">
 							<a href="{{ route('admin.customer.create') }}" class="nav-link {{ Request::is('admin/customer/create') ? 'active' : '' }}">
 								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Add Customer</p>
+								<p>Add Member</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="{{ route('admin.customer.index') }}" class="nav-link {{ Request::is('admin/customer') ? 'active' : '' }}">
 								<i class="fa fa-circle-o nav-icon"></i>
-								<p>All Customer</p>
+								<p>All Memebers</p>
 							</a>
 						</li>
 					</ul>

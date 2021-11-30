@@ -15,20 +15,21 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('sur_name')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('other_name')->nullable();
+            $table->string('b_month')->nullable();
+            $table->integer('b_day')->nullable();
             $table->string('email')->nullable();
-            $table->integer('phone');
-            $table->string('address');
-            $table->string('nin');
-            $table->boolean('status');
-            $table->integer('debt');
-            $table->integer('reg_fee');
-            $table->string('city')->nullable();
+            $table->integer('phone')->nullable();
+            $table->string('pow')->nullable();
+            $table->string('address')->nullable();
+            $table->string('type')->nullable();
+            $table->string('state')->nullable();
+            $table->boolean('status')->nullable();
+            $table->integer('debt')->nullable();
+            $table->integer('reg_fee')->nullable();
             $table->string('photo')->nullable();
-            $table->string('account_holder')->nullable();
-            $table->string('account_number')->nullable();
-            $table->string('bank_name')->nullable();
-            $table->string('bank_branch')->nullable();
             $table->timestamps();
         });
     }
