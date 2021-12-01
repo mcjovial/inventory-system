@@ -79,7 +79,7 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $customer->full_name }}</td>
                                             <td>
-                                                <img class="img-rounded" style="height:35px; width: 35px;" src="{{ URL::asset("storage/customer/".$customer->photo) }}" alt="{{ $customer->name }}">
+                                                <img class="img-rounded" style="height:35px; width: 35px;" src="{{ URL::asset("storage/customer/".$customer->photo) }}" alt="{{ $customer->full_name }}">
                                             </td>
                                             <td><span>{{ ucfirst($customer->state) }}</span></td>
                                             <td><span>{{ ucfirst($customer->type) }}</span></td>

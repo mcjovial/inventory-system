@@ -68,7 +68,7 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $balance->seller }}</td>
-                                            <td>{{ $balance->customer->name }}</td>
+                                            <td>{{ $balance->customer->full_name }}</td>
                                             <td>{{ $balance->amount }}</td>
                                             <td>
                                                 @if ($balance->pay_out)

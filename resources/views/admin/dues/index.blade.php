@@ -75,7 +75,7 @@
                                     @foreach($dues as $due)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $due->customer->name }}</td>
+                                            <td>{{ $due->customer->full_name }}</td>
                                             <td>{{ $due->customer->phone }}</td>
                                             <td>{{ $due->year->number }}</td>
                                             <td>{{ $due->annual }}</td>

@@ -134,7 +134,7 @@ class OrderController extends Controller
 
         $content = $pdf->download()->getOriginalContent();
 
-        Storage::put('public/pdf/'.$order->customer->name .'-'. str_pad($order->id,9,"0",STR_PAD_LEFT). '.pdf' ,$content) ;
+        Storage::put('public/pdf/'.$order->customer->full_name .'-'. str_pad($order->id,9,"0",STR_PAD_LEFT). '.pdf' ,$content) ;
 
         Toastr::success('PDF successfully saved', 'Success');
         return redirect()->back();

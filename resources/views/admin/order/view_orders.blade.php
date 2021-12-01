@@ -67,7 +67,7 @@
                                     @foreach($pendings as $key => $order)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $order->customer->name }}</td>
+                                            <td>{{ $order->customer->full_name }}</td>
                                             <td>{{ $order->created_at->toFormattedDateString() }}</td>
                                             <td>{{ $order->total_products }}</td>
                                             <td><span>&#8358;</span>{{ $order->total }}</td>
@@ -82,6 +82,10 @@
 													btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
+                                                <a href="{{ route('admin.create.flat', $order->id) }}" class="btn btn-secondary">
+                                                    Flat
+                                                </a>
+
                                                 @if (Auth::user()->hasRole('admin'))
                                                     <button class="btn btn-danger" type="button" onclick="deleteItem({{ $order->id }})">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>

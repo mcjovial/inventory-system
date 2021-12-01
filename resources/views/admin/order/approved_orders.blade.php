@@ -90,6 +90,9 @@
                                                 <a href="{{ route('admin.order.show', $order->id) }}" class="btn btn-success">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>
+                                                <a href="{{ route('admin.create.flat', $order->id) }}" class="btn btn-secondary">
+                                                    Flat
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

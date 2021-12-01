@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Create Dues')
+@section('title', 'Register Flat Drink')
 
 @push('css')
 
@@ -17,7 +17,7 @@
                     <div class="col-sm-6 offset-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Dues</li>
+                            <li class="breadcrumb-item active">Edit Flat</li>
                         </ol>
                     </div>
                 </div>
@@ -33,43 +33,45 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Pay Dues</h3>
+                                <h3 class="card-title">Edit Flat Drink</h3>
                             </div>
                             <!-- /.card-header -->
 
                             <!-- form start -->
-                            <form role="form" action="{{ route('admin.dues.store') }}" method="post" enctype="multipart/form-data">
+                            <form role="form" action="{{ route('admin.store.flat') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-
                                         <div class="col">
                                             <div class="form-group">
-                                                <label>Member</label>
-                                                <select name="customer_id" class="form-control">
-                                                    <option value="" disabled selected>Select a Member</option>
+                                                <label for="exampleDataList" class="form-label">Select Custormer</label>
+                                                <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                                                <datalist id="datalistOptions" >
+                                                    <option value="" selected>Select Customer</option>
                                                     @foreach($customers as $customer)
-                                                        <option value="{{ $customer->id }}">{{ $customer->full_name }} <div class="float-right text-danger">[NIN]: {{ $customer->nin }}</div> </option>
+                                                        <option value="{{ $customer->sur_name.' '.$customer->first_name.' '.$customer->other_name }}">
+                                                    @endforeach
+                                                </datalist>
+                                            </div>
+                                            <input type="number" name="order_id" value="{{ $order->id }}" hidden>
+                                            <div class="form-group">
+                                                <label>Select Drink</label>
+                                                <small class="text-danger">
+                                                    (required *)
+                                                </small>
+                                                <select name="product_id" class="form-control" required>
+                                                    <option value="" disabled>Select Drink</option>
+                                                    @foreach($drinks as $drink)
+                                                        <option value="{{ $drink->product->id }}">{{ $drink->product->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
-
                                             <div class="form-group">
-                                                <label>Year</label>
-                                                <select name="year_id" class="form-control">
-                                                    <option value="" disabled selected>Select Year</option>
-                                                    @foreach($years as $year)
-                                                        <option value="{{ $year->id }}">{{ $year->number }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Annual Dues</label>
-                                                <input type="number" class="form-control" name="annual" value="{{ old('annual') }}" placeholder="{{ $settings->annual }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>welfare Dues</label>
-                                                <input type="number" class="form-control" name="welfare" value="{{ old('welfare') }}" placeholder="{{ $settings->welfare }}">
+                                                <label>Quantity</label>
+                                                <small class="text-danger">
+                                                    (required *)
+                                                </small>
+                                                <input type="number" class="form-control" name="quantity" value="{{ old('quantity') }}" placeholder="Enter quantity" required>
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +79,7 @@
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary float-md-right">Pay</button>
+                                    <button type="submit" class="btn btn-primary float-md-right">Submit</button>
                                 </div>
                             </form>
                         </div>

@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Orders To-Balance')
+@section('title', 'Members')
 
 @push('css')
     <!-- DataTables -->
@@ -18,7 +18,7 @@
                     <div class="col-sm-6 offset-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">To-Balance</li>
+                            <li class="breadcrumb-item active">Flat Drinks</li>
                         </ol>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">TO-BALANCE LISTS</h3>
+                                <h3 class="card-title">FLAT DRINKS LISTS</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -42,68 +42,47 @@
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Seller</th>
-                                        <th>Name</th>
-                                        <th>Phone</th>
-                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th>Drink</th>
                                         <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th>Debt</th>
-                                        <th>Payment Status</th>
-                                        <th>Order Status</th>
+                                        <th>Price</th>
+                                        <th>Seller</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
-                                        <tr>
-                                            <th>Serial</th>
-                                            <th>Seller</th>
-                                            <th>Name</th>
-                                            <th>Phone</th>
-                                            <th>Date</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th>Debt</th>
-                                            <th>Payment Status</th>
-                                            <th>Order Status</th>
-                                            <th>Actions</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Customer</th>
+                                        <th>Drink</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Seller</th>
+                                        <th>Actions</th>
+                                    </tr>
                                     </tfoot>
                                     <tbody>
-                                    @foreach($credits as $key => $order)
+                                    @foreach($flats as $key => $flat)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $order->seller }}</td>
-                                            <td>{{ $order->customer_name }}</td>
-                                            <td>{{ $order->customer_phone }}</td>
-                                            <td>{{ $order->created_at->toFormattedDateString() }}</td>
-                                            <td>{{ $order->total_products }}</td>
-                                            <td><span>&#8358;</span>{{ $order->total }}</td>
-                                            <td><span>&#8358;</span>{{ $order->debt }}</td>
-                                            <td>{{ $order->payment_status }}</td>
-                                            <td><span class="badge badge-warning">{{ $order->order_status }}</span></td>
-
+                                            <td>{{ $flat->order->customer->full_name }}</td>
+                                            <td>{{ $drinks->where('id', $flat->product_id)->first()->name }}</td>
+                                            <td>{{ $flat->quantity }}</td>
+                                            <td>{{ $flat->total }}</td>
+                                            <td>{{ $flat->seller }}</td>
                                             <td>
-                                                <a href="{{ route('admin.order.show', $order->id) }}" class="btn btn-success">
-                                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="{{ route('admin.order.payout', $order->id) }}" class="btn
+                                                {{-- <a href="{{ route('admin.edit.flat', $flat->id) }}" class="btn
 													btn-info">
-                                                    <i class="fa fa-balance-scale" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="{{ route('admin.create.flat', $order->id) }}" class="btn btn-secondary">
-                                                    Flat
-                                                </a>
-
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a> --}}
                                                 @if (Auth::user()->hasRole('admin'))
-                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $order->id }})">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </button>
-                                                    <form id="delete-form-{{ $order->id }}" action="{{ route('admin.order.destroy', $order->id) }}" method="post"
-                                                        style="display:none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $flat->id }})">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                                <form id="delete-form-{{ $flat->id }}" action="{{ route('admin.destroy.flat', $flat->id) }}" method="post"
+                                                      style="display:none;">
+                                                    @csrf
+                                                </form>
                                                 @endif
                                             </td>
                                         </tr>

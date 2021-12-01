@@ -47,7 +47,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Member</label>
-                                                <input type="number" class="form-control" name="" value="{{ $due->customer->name }}" placeholder="{{ $due->customer->name }}">
+                                                <input type="number" class="form-control" name="" value="{{ $due->customer->full_name }}" placeholder="{{ $due->customer->full_name }}">
                                                 <input type="number" class="form-control" name="customer_id" value="{{ $due->customer->id }}" hidden>
                                             </div>
                                             <div class="form-group">

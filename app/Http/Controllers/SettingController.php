@@ -249,9 +249,6 @@ class SettingController extends Controller
 
         Toastr::success('Setting Successfully Updated', 'Success!!!');
         return redirect()->route('admin.setting.index');
-
-
-
     }
 
     /**

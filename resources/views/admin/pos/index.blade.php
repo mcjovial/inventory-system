@@ -182,7 +182,7 @@
                                         <datalist id="datalistOptions" >
                                             <option value="" selected>Select a Customer</option>
                                             @foreach($customers as $customer)
-                                                <option value="{{ $customer->name }}">
+                                                <option value="{{ $customer->full_name }}">
                                             @endforeach
                                         </datalist>
                                     </div>

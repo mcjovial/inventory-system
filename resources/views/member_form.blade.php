@@ -127,7 +127,7 @@
                                         </div>
                                     </div>
                                     <p class="mt-2">
-                                        <img width="50" height="50" src="{{ URL::asset("storage/customer/".$customer->photo) }}" alt="{{ $customer->name }}">
+                                        <img width="50" height="50" src="{{ URL::asset("storage/customer/".$customer->photo) }}" alt="{{ $customer->full_name }}">
                                     </p>
                                 </div>
                             </div>

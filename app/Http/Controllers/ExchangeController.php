@@ -152,7 +152,7 @@ class ExchangeController extends Controller
         $order = new Order();
         $order->customer_id =  $customer->id;
         $order->seller = Auth::user()->name;
-        $order->customer_name = $customer->name;
+        $order->customer_name = $customer->full_name;
         $order->customer_phone = $customer->phone;
         $order->payment_status = 'exchange';
         $order->pay = $x_total;

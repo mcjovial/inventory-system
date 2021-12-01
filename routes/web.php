@@ -113,4 +113,8 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::get('order-print/{order_id}', 'InvoiceController@order_print')->name('invoice.order_print');
     Route::post('invoice-final', 'InvoiceController@final_invoice')->name('invoice.final_invoice');
 
+    Route::get('flat', 'FlatController@index')->name('flat');
+    Route::get('flat/create/{order_id}', 'FlatController@create')->name('create.flat');
+    Route::post('flat/store', 'FlatController@store')->name('store.flat');
+    Route::post('flat/{id}/destroy', 'FlatController@destroy')->name('destroy.flat');
 });

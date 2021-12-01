@@ -62,7 +62,7 @@
                                 <div class="col-sm-4 invoice-col">
                                     To
                                     <address>
-                                        <strong>{{ $customer->name }}</strong><br>
+                                        <strong>{{ $customer->full_name }}</strong><br>
                                         Phone: (+234) {{ $customer->phone }}<br>
                                     </address>
                                 </div>
@@ -137,7 +137,7 @@
                                 <div class="col-12">
                                     <form action="" method="post">
                                         @csrf
-                                        <input type="hidden" name="customer_name" value="{{ $customer->name }}">
+                                        <input type="hidden" name="customer_name" value="{{ $customer->full_name }}">
                                         <input type="hidden" name="customer_phone" value="{{ $customer->phone }}">
                                         {{-- <a href="{{ route('admin.invoice.print', $customer->id) }}" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a> --}}
                                         <button type="button" data-toggle="modal" data-target="#paymentModal" class="btn btn-success float-left"><i class="fa fa-credit-card"></i>
@@ -167,7 +167,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">
-                            Invoice of {{ $customer->name }}
+                            Invoice of {{ $customer->full_name }}
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -179,7 +179,7 @@
                                 <p class="text-info float-right mb-3">Payable Total : <span>&#8358;</span>{{ $contents->sum('total') }}</p>
                             </div>
                         </div>
-                        <input type="hidden" name="customer_name" value="{{ $customer->name }}">
+                        <input type="hidden" name="customer_name" value="{{ $customer->full_name }}">
                         <input type="hidden" name="customer_phone" value="{{ $customer->phone }}">
                         <input type="hidden" name="cash" value="{{ $contents->sum('total') }}">
                         <div class="form-row">

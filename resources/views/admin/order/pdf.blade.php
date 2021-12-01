@@ -46,7 +46,7 @@
                     <div class="col-sm-4 invoice-col">
                         To
                         <address>
-                            <strong>{{ $order->customer->name }}</strong><br>
+                            <strong>{{ $order->customer->full_name }}</strong><br>
                             {{ $order->customer->address }}<br>
                             {{ $order->customer->city }}<br>
                             Phone: (+880) {{ $order->customer->phone }}<br>

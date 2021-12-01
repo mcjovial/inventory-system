@@ -339,6 +339,12 @@
 								<p>Approved </p>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.flat') }}" class="nav-link {{ Request::is('admin/flat') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Flat Drinks </p>
+							</a>
+						</li>
 					</ul>
 				</li>
                 @endif

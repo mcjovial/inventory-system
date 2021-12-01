@@ -32,7 +32,7 @@
                             @foreach($customers as $customer)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $customer->name }}</td>
+                                    <td>{{ $customer->full_name }}</td>
                                     @foreach($years as $year)
                                         <td>
                                             @foreach ($customer->dues->where('year_id', $year->id) as $item)
