@@ -32,15 +32,8 @@ class InvoiceController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // if (!isset($man_customer)){
-        //     $man_customer = new \stdClass();
-        //     $man_customer->name = $request->input('full_name');
-        //     $man_customer->phone = $request->input('phone');
-        // }
-        // dd($man_customer);
-
         $customer_name = strtolower($request->input('name'));
-        $customer = $customer_name ? Customer::where('name', $customer_name)->first() : $man_customer;
+        $customer = Customer::where('full_name', $customer_name)->first();
         $contents = Cart::all();
         $company = Setting::latest()->first();
 

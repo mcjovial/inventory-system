@@ -44,6 +44,13 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label>Title</label>
+                                                <small class="text-danger">
+                                                    (required *)
+                                                </small>
+                                                <input type="text" class="form-control" name="title" value="{{ old('title') }}" placeholder="Enter Title: Prof, Dr, Mr, Mrs or Miss" required>
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Surname</label>
                                                 <small class="text-danger">
                                                     (required *)

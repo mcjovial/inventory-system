@@ -98,14 +98,8 @@ class ExchangeController extends Controller
             return array($first_name, $last_name);
         }
 
-        $man_customer = new \stdClass();
-        // $man_customer->id = 100000000;
-        $man_customer->name = $request->input('full_name');
-        $man_customer->phone = $request->input('phone');
-        // dd($man_customer);
-
         $customer_name = strtolower($request->input('name'));
-        $customer = Customer::where('name', $customer_name)->first();
+        $customer = Customer::where('full_name', $customer_name)->first();
         // dd($customer);
 
         // cart stuffs

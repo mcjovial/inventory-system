@@ -64,7 +64,7 @@
                                         @foreach($customers as $customer)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $customer->full_name }}</td>
+                                                <td>{{ $customer->title.'. '.$customer->full_name }}</td>
                                                 @foreach($years as $year)
                                                     <td>
                                                         {{-- @if(!$year->dues->where('customer_id', $customer->id)->first()->status)

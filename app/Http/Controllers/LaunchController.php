@@ -107,14 +107,8 @@ class LaunchController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $man_customer = new \stdClass();
-        // $man_customer->id = 100000000;
-        $man_customer->name = $request->input('full_name');
-        $man_customer->phone = $request->input('phone');
-        // dd($man_customer);
-
         $customer_name = strtolower($request->input('name'));
-        $customer = $customer_name ? Customer::where('name', $customer_name)->first() : $man_customer;
+        $customer = Customer::where('name', $customer_name)->first();
         // dd($customer);
 
         // cart stuffs

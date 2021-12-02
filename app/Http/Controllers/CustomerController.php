@@ -80,6 +80,7 @@ class CustomerController extends Controller
         $settings = Setting::first();
 
         $customer = new Customer();
+        $customer->title = $request->input('title');
         $customer->sur_name = $request->input('sur_name');
         $customer->first_name = $request->input('first_name');
         $customer->other_name = $request->input('other_name');
@@ -179,6 +180,7 @@ class CustomerController extends Controller
 
         $settings = Setting::first();
 
+        $customer->title = $request->input('title');
         $customer->sur_name = $request->input('sur_name');
         $customer->first_name = $request->input('first_name');
         $customer->other_name = $request->input('other_name');
