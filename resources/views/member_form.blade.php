@@ -17,6 +17,10 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" class="form-control" name="title" value="{{ $customer->title }}" placeholder="Enter Title: Prof, Dr, Mr, Mrs or Miss">
+                                </div>
+                                <div class="form-group">
                                     <label>Surname</label>
                                     <small class="text-danger">
                                         (required *)
