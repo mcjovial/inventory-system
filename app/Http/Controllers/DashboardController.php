@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Expense;
+use App\Customer;
+use App\Dues;
 use App\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -60,8 +63,25 @@ class DashboardController extends Controller
             ->whereYear('created_at',  date('Y'))
             ->groupBy('months')->get();
 
-
-
         return view('admin.dashboard', compact('profit', 'today','yesterday' ,'month','previous_month', 'year', 'previous_year', 'sales', 'today_expenses', 'yesterday_expenses', 'month_expenses', 'previous_month_expenses', 'year_expenses', 'previous_year_expenses', 'expenses', 'current_sales', 'current_expenses', 'today_profit', 'month_profit', 'year_profit', 'yesterday_profit', 'previous_month_profit', 'previous_year_profit'));
+    }
+
+    public function populate() {
+        $customers = Customer::all();
+
+        foreach($customers as $customer){
+            $due = new Dues();
+
+            $due->customer_id = $customer->id;
+            $due->year_id = 1;
+            $due->annual = 7000;
+            $due->annual_date = Carbon::now()->format('Y-m-d');
+            $due->welfare = 5000;
+            $due->welfare_date = Carbon::now()->format('Y-m-d');
+            $due->status = true;
+            $due->debt = 0;
+            $due->save();
+        };
+        dd('Success');
     }
 }

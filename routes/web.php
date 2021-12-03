@@ -28,7 +28,7 @@ Route::post('/members/{id}/update', 'SettingController@member_update')->name('me
 
 // Admin Group
 Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], function(){
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/dashboard', 'DashboardController@populate')->name('dashboard');
     Route::resource('employee', 'EmployeeController');
     Route::resource('customer', 'CustomerController');
     Route::resource('attendance', 'AttendanceController');
