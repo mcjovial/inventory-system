@@ -18,6 +18,7 @@ class CreateExchangesTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->string('name');
             $table->integer('quantity');
+            $table->integer('total_cost');
             $table->decimal('price', 20, 2);
             $table->integer('total')->nullable();
 

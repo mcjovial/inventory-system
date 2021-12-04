@@ -93,6 +93,18 @@
                                                 <a href="{{ route('admin.create.flat', $order->id) }}" class="btn btn-secondary">
                                                     Flat
                                                 </a>
+                                                
+                                                @if (Auth::user()->hasRole('admin'))
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $order->id }})">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                                <form id="delete-form-{{ $order->id }}" action="{{ route('admin.order.destroy', $order->id) }}" method="post"
+                                                    style="display:none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            @endif
+
                                             </td>
                                         </tr>
                                     @endforeach

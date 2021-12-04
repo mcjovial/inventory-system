@@ -63,11 +63,15 @@ class XchangeController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $product_id = $request->input('product_id');
+        $product = Product::find($product_id);
+
         $exchange = new Exchange();
         $exchange->product_id = $request->input('product_id');
         $exchange->name = $request->input('name');
         $exchange->quantity = $request->input('quantity');
         $exchange->price = $request->input('price');
+        $exchange->total_cost = $exchange->quantity * $product->cost_price_bottle;
         $exchange->total = $exchange->quantity * $exchange->price;
         $exchange->save();
 
@@ -109,7 +113,11 @@ class XchangeController extends Controller
     public function update(Request $request, $id)
     {
         $exchange = Exchange::find($id);
+
+        $product = Product::find($exchange->product_id);
+
         $exchange->quantity = $request->input('quantity');
+        $exchange->total_cost = $exchange->quantity * $product->cost_price_bottle;
         $exchange->total = $exchange->quantity * $exchange->price;
         $exchange->save();
 
