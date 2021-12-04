@@ -83,7 +83,7 @@
                                     <small class="text-danger">
                                         (required *)
                                     </small>
-                                    <input type="number" class="form-control" name="phone" value="{{ $customer->phone }}" placeholder="Enter Phone">
+                                    <input type="text" class="form-control" name="phone" value="{{ $customer->phone }}" placeholder="Enter Phone">
                                 </div>
                                 <div class="form-group">
                                     <label>Place of Work</label>

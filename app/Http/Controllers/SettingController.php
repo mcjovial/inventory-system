@@ -164,7 +164,7 @@ class SettingController extends Controller
         }
 
         $customer->photo = $imageName;
-        dd($customer);
+        // dd($customer);
         $customer->save();
 
 

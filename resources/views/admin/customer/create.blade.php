@@ -112,7 +112,7 @@
                                                 <small class="text-danger">
                                                     (required *)
                                                 </small>
-                                                <input type="number" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone"required>
+                                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone"required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">

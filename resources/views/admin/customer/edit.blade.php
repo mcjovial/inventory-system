@@ -88,7 +88,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Phone</label>
-                                                <input type="number" class="form-control" name="phone" value="{{ $customer->phone }}" placeholder="Enter Phone">
+                                                <input type="" class="form-control" name="phone" value="{{ $customer->phone }}" placeholder="Enter Phone">
                                             </div>
                                         </div>
                                         <div class="col-md-6">

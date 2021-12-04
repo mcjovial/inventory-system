@@ -108,7 +108,7 @@ class LaunchController extends Controller
         }
 
         $customer_name = strtolower($request->input('name'));
-        $customer = Customer::where('name', $customer_name)->first();
+        $customer = Customer::where('full_name', $customer_name)->first();
         // dd($customer);
 
         // cart stuffs

@@ -54,7 +54,7 @@
                                         <strong>Admin, {{ config('app.name') }}</strong><br>
                                         {{ $company->address }}<br>
                                         {{ $company->city }} - {{ $company->zip_code }}, {{ $company->country }}<br>
-                                        Phone: (+880) {{ $company->mobile }} {{ $company->phone !== null ? ', +880'.$company->phone : ''  }}<br>
+                                        Phone: (+234) {{ $company->mobile }} {{ $company->phone !== null ? ', +234'.$company->phone : ''  }}<br>
                                         Email: {{ $company->email }}
                                     </address>
                                 </div>

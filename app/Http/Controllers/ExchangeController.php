@@ -46,11 +46,15 @@ class ExchangeController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $product_id = $request->input('product_id');
+        $product = Product::find($product_id);
+
         $exchange = new Exchange();
         $exchange->product_id = $request->input('product_id');
         $exchange->name = $request->input('name');
         $exchange->quantity = $request->input('quantity');
         $exchange->price = $request->input('price');
+        $exchange->total_cost = $exchange->quantity * $product->cost_price_bottle;
         $exchange->total = $exchange->quantity * $exchange->price;
         $exchange->save();
 
@@ -64,7 +68,11 @@ class ExchangeController extends Controller
     {
         dd($request);
         $exchange = Exchange::find($id);
+
+        $product = Product::find($exchange->product_id);
+
         $exchange->quantity = $request->input('quantity');
+        $exchange->total_cost = $exchange->quantity * $product->cost_price_bottle;
         $exchange->total = $exchange->quantity * $exchange->price;
         $exchange->save();
 
@@ -107,6 +115,7 @@ class ExchangeController extends Controller
         $sub_total = str_replace(',', '', Cart::sum('total'));
         $tax = str_replace(',', '', 0);
         $c_total = str_replace(',', '', Cart::sum('total'));
+        $c_cost = str_replace(',', '', Cart::sum('total_cost'));
 
         foreach ($exchange_out as $drink) {
             $product = Product::find($drink->product_id);
@@ -118,6 +127,7 @@ class ExchangeController extends Controller
             $x_out->name = $drink->name;
             $x_out->quantity = $drink->quantity;
             $x_out->price = $drink->price;
+            $x_out->total_cost = $drink->total_cost;
             $x_out->total = $drink->total;
             $x_out->save();
         }
@@ -126,6 +136,7 @@ class ExchangeController extends Controller
         $exchange_in = Exchange::all();
         $sub_total = str_replace(',', '', Exchange::sum('total'));
         $x_total = str_replace(',', '', Exchange::sum('total'));
+        $x_cost = str_replace(',', '', Exchange::sum('total_cost'));
 
         foreach ($exchange_in as $drink) {
             $product = Product::find($drink->product_id);
@@ -143,6 +154,10 @@ class ExchangeController extends Controller
 
         $debt = $c_total - $x_total;
 
+        if ($debt > 0) {
+            # code...
+        }
+
         $order = new Order();
         $order->customer_id =  $customer->id;
         $order->seller = Auth::user()->name;
@@ -155,6 +170,7 @@ class ExchangeController extends Controller
         $order->order_status = 'confirmed';
         $order->total_products = Cart::sum('quantity');
         $order->sub_total = $sub_total;
+        $order->total_cost = $c_total;
         $order->owing = $order->debt > 0 ? true : false;
         $order->to_balance = $order->debt < 0 ? true : false;
         $order->vat = $tax;

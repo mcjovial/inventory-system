@@ -154,7 +154,7 @@ class OrderController extends Controller
             ->join('order_details', 'orders.id', '=', 'order_details.order_id')
             ->join('products', 'order_details.product_id', '=', 'products.id')
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
-            ->select('customers.name as customer_name', 'products.name AS product_name', 'products.image', 'order_details.*')
+            ->select('customers.full_name as customer_name', 'products.name AS product_name', 'products.image', 'order_details.*')
             ->where('orders.order_date' , '=', $day)
             ->orderBy('order_details.created_at', 'desc')
             ->get();
@@ -184,7 +184,7 @@ class OrderController extends Controller
             ->join('order_details', 'orders.id', '=', 'order_details.order_id')
             ->join('products', 'order_details.product_id', '=', 'products.id')
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
-            ->select('customers.name as customer_name', 'products.name AS product_name', 'products.image', 'order_details.*')
+            ->select('customers.full_name as customer_name', 'products.name AS product_name', 'products.image', 'order_details.*')
             ->where('orders.order_date' , '=', $day)
             ->orderBy('order_details.created_at', 'desc')
             ->get();
@@ -211,7 +211,7 @@ class OrderController extends Controller
             ->join('order_details', 'orders.id', '=', 'order_details.order_id')
             ->join('products', 'order_details.product_id', '=', 'products.id')
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
-            ->select('customers.name as customer_name', 'products.name AS product_name', 'products.image', 'order_details.*')
+            ->select('customers.full_name as customer_name', 'products.name AS product_name', 'products.image', 'order_details.*')
             ->whereMonth('orders.created_at' , '=', $month)
             ->orderBy('order_details.created_at', 'desc')
             ->get();
@@ -229,7 +229,7 @@ class OrderController extends Controller
             ->join('order_details', 'orders.id', '=', 'order_details.order_id')
             ->join('products', 'order_details.product_id', '=', 'products.id')
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
-            ->select('customers.name as customer_name', 'products.name AS product_name','products.image', 'order_details.*')
+            ->select('customers.full_name as customer_name', 'products.name AS product_name','products.image', 'order_details.*')
             ->orderBy('order_details.created_at', 'desc')
             ->get();
 
