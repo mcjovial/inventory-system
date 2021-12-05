@@ -48,7 +48,7 @@ class ProductController extends Controller
     {
         $inputs = $request->except('_token');
         $rules = [
-            'name' => 'required | min:3',
+            'name' => 'required | min:3 | unique:products',
             'category_id' => 'required| integer',
             'stock' => 'required',
             'cost_price_pack' => 'required',
