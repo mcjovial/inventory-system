@@ -45,11 +45,8 @@ class SupplierController extends Controller
         $inputs = $request->except('_token');
         $rules = [
             'name' => 'required | min:3',
-            'email' => 'required| email | unique:suppliers',
-            'phone' => 'required | unique:suppliers',
-            'address' => 'required',
-            'city' => 'required',
-            'type' => 'required | integer',
+            'phone' => 'unique:suppliers',
+            'type' => 'integer',
         ];
 
         $validation = Validator::make($inputs, $rules);
@@ -128,12 +125,9 @@ class SupplierController extends Controller
         $inputs = $request->except('_token');
         $rules = [
             'name' => 'required | min:3',
-            'email' => 'required| email',
-            'phone' => 'required',
-            'address' => 'required',
-            'city' => 'required',
+            'email' => 'email',
             'photo' => 'image',
-            'type' => 'required | integer',
+            'type' => 'integer',
         ];
 
         $validation = Validator::make($inputs, $rules);
