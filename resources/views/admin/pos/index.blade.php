@@ -37,7 +37,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-xl">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -104,7 +104,7 @@
                                         No Product Added
                                     </div>
                                 @else
-                                    <table class="table table-bordered table-striped text-center mb-3 table-responsive-xl">
+                                    <table class="table table-bordered table-striped text-center mb-3 table-responsive">
                                         <thead>
                                         <tr>
                                             <th>S.N</th>
