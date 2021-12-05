@@ -38,7 +38,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
                                     <thead>
                                         <tr>
                                             <th>Serial</th>
@@ -71,10 +71,10 @@
                                             <td>{{ $supply->quantity * $supply->product->cost_price_pack }}</td>
                                             <td>{{ $supply->created_at->toFormattedDateString() }}</td>
                                             <td>
-                                                <a href="{{ route('admin.supply.edit', $supply->id) }}" class="btn btn-info">
+                                                <a href="{{ route('admin.supply.edit', $supply->id) }}" class="btn btn-info" title="Edit">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $supply->id }})">
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $supply->id }})" title="Delete">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $supply->id }}" action="{{ route('admin.supply.destroy', $supply->id) }}" method="post"

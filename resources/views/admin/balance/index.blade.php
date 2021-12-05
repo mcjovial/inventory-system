@@ -38,7 +38,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -88,7 +88,7 @@
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a> --}}
                                                 @if (Auth::user()->hasRole('admin'))
-                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $balance->id }})">
+                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $balance->id }})" title="Delete">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </button>
                                                     <form id="delete-form-{{ $balance->id }}" action="{{ route('admin.balance.destroy', $balance->id) }}"

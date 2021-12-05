@@ -70,7 +70,7 @@
                                                 <td>{{ $drink->name }}</td>
                                                 <td> <span>&#8358;</span> {{ number_format($drink->sell_price_bottle, 2) }}</td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-sm btn-success px-2">
+                                                    <button type="submit" class="btn btn-sm btn-success px-2" title="Add to cart">
                                                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                     </button>
                                                 </td>

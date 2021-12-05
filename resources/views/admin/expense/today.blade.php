@@ -69,11 +69,10 @@
                                             <td>{{ number_format($expense->amount, 2) }}</td>
                                             <td>{{ $expense->created_at->format('h:i:s A') }}</td>
                                             <td>
-                                                <a href="{{ route('admin.expense.edit', $expense->id) }}" class="btn
-													btn-info">
+                                                <a href="{{ route('admin.expense.edit', $expense->id) }}" class="btn btn-info" title="Edit">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $expense->id }})">
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $expense->id }})" title="Delete">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $expense->id }}" action="{{ route('admin.expense.destroy', $expense->id) }}" method="post"

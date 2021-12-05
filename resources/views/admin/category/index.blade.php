@@ -38,7 +38,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -62,11 +62,10 @@
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->products->count() }}</td>
                                             <td>
-                                                <a href="{{ route('admin.category.edit', $category->id) }}" class="btn
-													btn-info">
+                                                <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-info" title="Edit">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $category->id }})">
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $category->id }})" title="Delete">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $category->id }}" action="{{ route('admin.category.destroy', $category->id) }}" method="post"

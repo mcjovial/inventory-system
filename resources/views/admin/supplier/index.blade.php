@@ -104,14 +104,13 @@
                                             <td>{{ $supplier->bank_name }}</td>
                                             <td>{{ $supplier->bank_branch }}</td>
                                             <td>
-                                                <a href="{{ route('admin.supplier.show', $supplier->id) }}" class="btn btn-success">
+                                                <a href="{{ route('admin.supplier.show', $supplier->id) }}" class="btn btn-success" title="View">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ route('admin.supplier.edit', $supplier->id) }}" class="btn
-													btn-info">
+                                                <a href="{{ route('admin.supplier.edit', $supplier->id) }}" class="btn btn-info" title="Edit">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $supplier->id }})">
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $supplier->id }})" title="Delete">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $supplier->id }}" action="{{ route('admin.supplier.destroy', $supplier->id) }}" method="post"

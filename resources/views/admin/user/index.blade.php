@@ -38,7 +38,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
                                     <thead>
                                     <tr>
                                         <th>S/N</th>
@@ -65,11 +65,10 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
                                             <td>
-                                                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn
-													btn-info">
+                                                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-info" title="Edit">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $user->id }})">
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $user->id }})" title="Delete">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $user->id }}" action="{{ route('admin.users.destroy', $user->id) }}" method="post"

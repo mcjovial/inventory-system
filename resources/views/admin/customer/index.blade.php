@@ -97,12 +97,11 @@
                                             </td>
                                             <td><span>&#8358;</span>{{ $customer->debt }}</td>
                                             <td>
-                                                <a href="{{ route('admin.customer.edit', $customer->id) }}" class="btn
-													btn-info">
+                                                <a href="{{ route('admin.customer.edit', $customer->id) }}" class="btn btn-info" title="Edit">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
                                                 @if (Auth::user()->hasRole('admin'))
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $customer->id }})">
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $customer->id }})" title="Delete">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $customer->id }}" action="{{ route('admin.customer.destroy', $customer->id) }}" method="post"

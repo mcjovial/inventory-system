@@ -38,7 +38,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -84,19 +84,18 @@
                                             <td><span class="badge badge-warning">{{ $order->order_status }}</span></td>
 
                                             <td>
-                                                <a href="{{ route('admin.order.show', $order->id) }}" class="btn btn-success">
+                                                <a href="{{ route('admin.order.show', $order->id) }}" class="btn btn-success" title="Show">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ route('admin.order.recieved', $order->id) }}" class="btn
-													btn-info">
+                                                <a href="{{ route('admin.order.recieved', $order->id) }}" class="btn btn-info" title="Balance">
                                                     <i class="fa fa-balance-scale" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ route('admin.create.flat', $order->id) }}" class="btn btn-secondary">
+                                                <a href="{{ route('admin.create.flat', $order->id) }}" class="btn btn-secondary" title="Flat">
                                                     Flat
                                                 </a>
 
                                                 @if (Auth::user()->hasRole('admin'))
-                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $order->id }})">
+                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $order->id }})" title="Delete">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </button>
                                                     <form id="delete-form-{{ $order->id }}" action="{{ route('admin.order.destroy', $order->id) }}" method="post"

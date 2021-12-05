@@ -38,7 +38,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -62,7 +62,7 @@
                                             <td>{{ $role->name }}</td>
                                             <td>{{ $role->users->count() }}</td>
                                             <td>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $role->id }})">
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $role->id }})" title="Delete">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $role->id }}" action="{{ route('admin.role.destroy', $role->id) }}" method="post"

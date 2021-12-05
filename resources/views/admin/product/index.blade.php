@@ -38,7 +38,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -92,14 +92,13 @@
                                             <td><span>&#8358;</span>{{ number_format($product->launch_price, 2) }}</td>
                                             <td>{{ $product->launch_cartons }}</td>
                                             <td>
-                                                <a href="{{ route('admin.product.show', $product->id) }}" class="btn btn-success">
+                                                <a href="{{ route('admin.product.show', $product->id) }}" class="btn btn-success" title="Show">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ route('admin.product.edit', $product->id) }}" class="btn
-													btn-info">
+                                                <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info" title="Edit">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $product->id }})">
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $product->id }})" title="Delete">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $product->id }}" action="{{ route('admin.product.destroy', $product->id) }}" method="post"

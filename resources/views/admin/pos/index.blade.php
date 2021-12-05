@@ -37,7 +37,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -71,7 +71,7 @@
                                                 <td> <span>&#8358;</span> {{ number_format($drink->sell_price_bottle, 2) }}</td>
                                                 <td>{{ $drink->stock }}</td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-sm btn-success px-2">
+                                                    <button type="submit" class="btn btn-sm btn-success px-2" title="Add to cart">
                                                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                     </button>
                                                 </td>

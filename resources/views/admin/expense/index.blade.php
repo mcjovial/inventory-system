@@ -41,7 +41,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -74,11 +74,10 @@
                                             <td>{{ $expense->year }}</td>
                                             <td>{{ $expense->created_at->format('d M Y h:i:s A') }}</td>
                                             <td>
-                                                <a href="{{ route('admin.expense.edit', $expense->id) }}" class="btn
-													btn-info">
+                                                <a href="{{ route('admin.expense.edit', $expense->id) }}" class="btn btn-info" title="Edit">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $expense->id }})">
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $expense->id }})" title="Delete">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $expense->id }}" action="{{ route('admin.expense.destroy', $expense->id) }}" method="post"
