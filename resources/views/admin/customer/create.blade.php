@@ -66,10 +66,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Other Names</label>
-                                                <small class="text-danger">
-                                                    (required *)
-                                                </small>
-                                                <input type="text" class="form-control" name="other_name" value="{{ old('other_name') }}" placeholder="Enter Other Name" required>
+                                                <input type="text" class="form-control" name="other_name" value="{{ old('other_name') }}" placeholder="Enter Other Name">
                                             </div>
                                             <div class="form-group">
                                                 <label>Birth Month</label>
