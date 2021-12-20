@@ -43,7 +43,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label for="exampleDataList" class="form-label">Select Custormer</label>
                                                 <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
                                                 <datalist id="datalistOptions" >
@@ -52,7 +52,7 @@
                                                         <option value="{{ $customer->sur_name.' '.$customer->first_name.' '.$customer->other_name }}">
                                                     @endforeach
                                                 </datalist>
-                                            </div>
+                                            </div> --}}
                                             <input type="number" name="order_id" value="{{ $order->id }}" hidden>
                                             <div class="form-group">
                                                 <label>Select Drink</label>
