@@ -37,7 +37,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -200,7 +200,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <span>
-                                        <a href="{{ route('admin.exchange.create') }}" class="btn btn-sm btn-secondary float-md-right">Exchange</a>
+                                        <a href="{{ route('admin.exchange.create') }}" class="btn btn-sm btn-secondary float-md-right">Exchange Out</a>
                                         <a href="{{ route('admin.launch.create') }}" class="btn btn-sm btn-warning float-md-right">Launch</a>
                                         <a href="{{ route('admin.bulk.create') }}" class="btn btn-sm btn-success float-md-right">Bulk</a>
                                         <button type="submit" class="btn btn-sm btn-info float-md-right ml-3">Create Invoice</button>
