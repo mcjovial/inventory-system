@@ -51,7 +51,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -65,7 +65,7 @@
                                         <th>Serial</th>
                                         <th>Expense Title</th>
                                         <th>Amount</th>
-                                        <th>Month</th>
+                                        <th>Date</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
