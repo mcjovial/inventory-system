@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Balance;
+use App\Customer;
 use App\Expense;
 use App\Order;
 use App\OrderDetail;
@@ -236,5 +237,53 @@ class OrderController extends Controller
         return view('admin.sales.index', compact('balance', 'orders', 'products', 'order_details'));
     }
 
+    public function debtors_create(){
 
+        $customers = Customer::all();
+
+        return view('admin.order.create_debtor', compact('customers'));
+    }
+
+    public function debtors_store(Request $request)
+    {
+        $inputs = $request->except('_token');
+        $rules = [
+            'amount' => 'required',
+          'date' => 'required',
+          'name' => 'required',
+        ];
+        $customMessages = [
+            'amount.required' => 'Input amount!',
+            'name.required' => 'Select a Customer name first!.',
+        ];
+
+        $validator = Validator::make($inputs, $rules, $customMessages);
+        if ($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $customer = Customer::where('full_name', $request->name)->first();
+
+        $order = new Order();
+        $order->customer_id =  $customer->id;
+        $order->seller = Auth::user()->name;
+        $order->customer_name = $request->input('name');
+        $order->customer_phone = $customer->phone;
+        $order->payment_status = 'credit';
+        $order->debt = $request->amount;
+        $order->order_date = date('Y-m-d');
+        $order->order_status = 'confirmed';
+        $order->owing = true;
+        $order->to_balance = false;
+        $order->sub_total = $request->amount;
+        $order->total = $request->amount;
+        $order->created_at = $request->date;
+        // dd($order);
+        $order->save();
+
+        Toastr::success('Debtor added successfully', 'Success');
+
+        return redirect()->route('admin.order.credit');
+    }
 }

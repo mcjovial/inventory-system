@@ -33,7 +33,7 @@
                     <div class="col-md-12">
                         <!-- general form elements -->
                         <div class="form-group">
-                            <a href="#" class="btn btn-primary">Add Debtor</a>
+                            <a href="{{ route('admin.debtors.create') }}" class="btn btn-primary">Add Debtor</a>
                         </div>
                         <div class="card">
                             <div class="card-header">

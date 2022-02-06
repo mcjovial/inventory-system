@@ -72,6 +72,8 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::post('order/balance/{id}/update', 'BalanceController@update')->name('balance.update');
     Route::get('order/balance/{id}/destroy', 'BalanceController@destroy')->name('balance.destroy');
     Route::post('order/balance/{id}', 'OrderController@balance')->name('order.balance');
+    Route::get('debtors/create', 'OrderController@debtors_create')->name('debtors.create');
+    Route::post('debtors/store', 'OrderController@debtors_store')->name('debtors.store');
 
     Route::get('expense-today', 'ExpenseController@today_expense')->name('expense.today');
     Route::get('expense-month/{month?}', 'ExpenseController@month_expense')->name('expense.month');
