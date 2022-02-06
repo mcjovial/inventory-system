@@ -90,6 +90,8 @@
 						</li>
 					</ul>
 				</li> --}}
+
+				@if (Auth::user()->hasRole('admin'))
 				<li class="nav-item has-treeview {{ Request::is('admin/customer*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/customer*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-address-card"></i>
@@ -113,7 +115,6 @@
 						</li>
 					</ul>
 				</li>
-				@if (Auth::user()->hasRole('admin'))
 				<li class="nav-item has-treeview {{ Request::is('admin/supplier*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/supplier*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-pie-chart"></i>
@@ -299,7 +300,7 @@
 					</ul>
 				</li>
                 @endif
-                @if (Auth::user()->hasRole('seller'))
+                @if (Auth::user()->hasRole('admin'))
 				<li class="nav-item has-treeview {{ Request::is('admin/order*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('admin/order*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-money"></i>
