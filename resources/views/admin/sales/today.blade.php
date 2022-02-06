@@ -122,7 +122,6 @@
                         <!-- /.card -->
                     </div>
                     <!--/.col (left) -->
-
                 </div>
                 <!-- /.row -->
             </div><!-- /.container-fluid -->

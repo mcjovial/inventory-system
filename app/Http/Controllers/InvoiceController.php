@@ -33,12 +33,14 @@ class InvoiceController extends Controller
         }
 
         $customer_name = strtolower($request->input('name'));
+        $date = $request->date;
+        // dd($date);
         $customer = Customer::where('full_name', $customer_name)->first();
         $contents = Cart::all();
         $company = Setting::latest()->first();
 
         $drinks = Product::all();
-        return view('admin.invoice', compact('customer', 'contents', 'company', 'drinks'));
+        return view('admin.invoice', compact('customer', 'contents', 'company', 'drinks', 'date'));
     }
 
     public function print($customer_id)
@@ -103,6 +105,7 @@ class InvoiceController extends Controller
         $order->to_balance = $order->debt < 0 ? true : false;
         $order->vat = $tax;
         $order->total = $total;
+        $order->created_at = $request->date;
         // dd($order->seller);
         $order->save();
 

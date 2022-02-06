@@ -41,7 +41,8 @@
                                 <div class="col-12">
                                     <h4>
                                         <i class="fa fa-globe"></i> {{ config('app.name') }}
-                                        <small class="float-right">Date: {{ date('l, d-M-Y h:i:s A') }}</small>
+                                        <!-- <small class="float-right">Date: {{ date('l, d-M-Y h:i:s A') }}</small> -->
+                                        <smalll class="float-right">Date: {{ \Carbon\Carbon::parse($order->created_at)->toFormattedDateString() }}</smalll>
                                     </h4>
                                 </div>
                                 <!-- /.col -->

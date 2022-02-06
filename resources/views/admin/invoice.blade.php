@@ -41,7 +41,8 @@
                                 <div class="col-12">
                                     <h4>
                                         <i class="fa fa-globe"></i> {{ config('app.name') }}
-                                        <small class="float-right">Date: {{ date('l, d-M-Y h:i:s A') }}</small>
+                                        <!-- <small class="float-right">Date: {{ date('l, d-M-Y h:i:s A') }}</small> -->
+                                        <smalll class="float-right">Date: {{ \Carbon\Carbon::parse($date)->toFormattedDateString() }}</smalll>
                                     </h4>
                                 </div>
                                 <!-- /.col -->
@@ -179,6 +180,7 @@
                                 <p class="text-info float-right mb-3">Payable Total : <span>&#8358;</span>{{ $contents->sum('total') }}</p>
                             </div>
                         </div>
+                        <input type="hidden" name="date" value="{{ $date }}">
                         <input type="hidden" name="customer_name" value="{{ $customer->full_name }}">
                         <input type="hidden" name="customer_phone" value="{{ $customer->phone }}">
                         <input type="hidden" name="cash" value="{{ $contents->sum('total') }}">

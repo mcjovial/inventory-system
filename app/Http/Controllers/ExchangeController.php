@@ -117,6 +117,8 @@ class ExchangeController extends Controller
         $c_total = str_replace(',', '', Cart::sum('total'));
         $c_cost = str_replace(',', '', Cart::sum('total_cost'));
 
+        $date = $request->date;
+
         foreach ($exchange_out as $drink) {
             $product = Product::find($drink->product_id);
             $product->stock -= $drink->quantity;
@@ -129,6 +131,7 @@ class ExchangeController extends Controller
             $x_out->price = $drink->price;
             $x_out->total_cost = $drink->total_cost;
             $x_out->total = $drink->total;
+            $x_out->created_at = $date;
             $x_out->save();
         }
 
@@ -149,6 +152,7 @@ class ExchangeController extends Controller
             $x_in->quantity = $drink->quantity;
             $x_in->price = $drink->price;
             $x_in->total = $drink->total;
+            $x_in->created_at = $date;
             $x_in->save();
         }
 
@@ -175,6 +179,7 @@ class ExchangeController extends Controller
         $order->to_balance = $order->debt < 0 ? true : false;
         $order->vat = $tax;
         $order->total = $c_total;
+        $order->created_at = $date;
         // dd($order);
         $order->save();
 
@@ -189,6 +194,8 @@ class ExchangeController extends Controller
             $order_detail->quantity = $content->quantity;
             $order_detail->unit_cost = $content->price;
             $order_detail->total = $content->total;
+            $order_detail->created_at = $date;
+
             $order_detail->save();
         }
 

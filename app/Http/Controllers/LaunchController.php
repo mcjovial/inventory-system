@@ -117,6 +117,8 @@ class LaunchController extends Controller
         $tax = str_replace(',', '', 0);
         $c_total = str_replace(',', '', Cart::sum('total'));
 
+        $date = $request->date;
+
         foreach ($cart_products as $drink) {
             $product = Product::find($drink->product_id);
             $product->stock -= $drink->quantity;
@@ -129,6 +131,7 @@ class LaunchController extends Controller
             $launch->quantity = $drink->quantity;
             $launch->price = $drink->price;
             $launch->total = $drink->total;
+            $launch->created_at = $date;
             $launch->save();
         }
 
@@ -152,6 +155,7 @@ class LaunchController extends Controller
         $order->to_balance = $order->debt < 0 ? true : false;
         $order->vat = $tax;
         $order->total = $c_total;
+        $order->created_at = $date;
         // dd($order);
         $order->save();
 
@@ -166,6 +170,7 @@ class LaunchController extends Controller
             $order_detail->quantity = $content->quantity;
             $order_detail->unit_cost = $content->price;
             $order_detail->total = $content->total;
+            $order_detail->created_at = $date;
             $order_detail->save();
         }
 

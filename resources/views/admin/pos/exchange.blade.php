@@ -255,6 +255,11 @@
                                 </div>
 
                                 <div class="card-body">
+                                    <div class="form-group col">
+                                        <label for="exampleDataList" class="form-label">Select Date</label>
+                                        <input type="date" name="date" id="" class="form-control col-md-6" placeholder="Select Date">
+                                    </div>
+
                                     <div class="form-group">
                                         <label for="exampleDataList" class="form-label">Customer Name</label>
                                         <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
