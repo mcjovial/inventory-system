@@ -244,6 +244,13 @@ class OrderController extends Controller
         return view('admin.order.create_debtor', compact('customers'));
     }
 
+    public function transfer_create(){
+
+        $customers = Customer::all();
+
+        return view('admin.order.create_transfer', compact('customers'));
+    }
+
     public function debtors_store(Request $request)
     {
         $inputs = $request->except('_token');
@@ -283,6 +290,49 @@ class OrderController extends Controller
         $order->save();
 
         Toastr::success('Debtor added successfully', 'Success');
+
+        return redirect()->route('admin.order.credit');
+    }
+
+    public function transfer_store(Request $request)
+    {
+        $inputs = $request->except('_token');
+        $rules = [
+            'amount' => 'required',
+          'date' => 'required',
+          'name' => 'required',
+        ];
+        $customMessages = [
+            'amount.required' => 'Input amount!',
+            'name.required' => 'Select a Customer name first!.',
+        ];
+
+        $validator = Validator::make($inputs, $rules, $customMessages);
+        if ($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $customer = Customer::where('full_name', $request->name)->first();
+
+        $order = new Order();
+        $order->customer_id =  $customer->id;
+        $order->seller = Auth::user()->name;
+        $order->customer_name = $request->input('name');
+        $order->customer_phone = $customer->phone;
+        $order->payment_status = 'transfer';
+        $order->debt = $request->amount;
+        $order->order_date = date('Y-m-d');
+        $order->order_status = 'pending';
+        $order->owing = true;
+        $order->to_balance = false;
+        $order->sub_total = $request->amount;
+        $order->total = $request->amount;
+        $order->created_at = $request->date;
+        // dd($order);
+        $order->save();
+
+        Toastr::success('Transfer added successfully', 'Success');
 
         return redirect()->route('admin.order.credit');
     }

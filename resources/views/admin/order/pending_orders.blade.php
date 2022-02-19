@@ -32,6 +32,9 @@
                     <!-- left column -->
                     <div class="col-md-12">
                         <!-- general form elements -->
+                        <div class="form-group">
+                            <a href="{{ route('admin.transfer.create') }}" class="btn btn-primary">Add Transfer</a>
+                        </div>
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">PENDING ORDERS LISTS</h3>
