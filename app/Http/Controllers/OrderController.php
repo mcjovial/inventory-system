@@ -53,6 +53,7 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $order->order_status = 'confirmed';
+        $order->debt = 0.0;
         $order->owing = $order->debt > 0 ? true : false;
         $order->save();
 
@@ -79,7 +80,7 @@ class OrderController extends Controller
             'customer_id'       =>  'required',
             // 'customer_phone'       =>  'required',
             'order_id'          =>  'required | integer',
-            'description'       =>  'required',
+            // 'description'       =>  'required',
             'amount'            =>  'required | integer',
         ];
 
@@ -107,13 +108,21 @@ class OrderController extends Controller
             // dd($debt);
             $order->pay -= $debt;
         } else {
-            $order->owing = false;
-            $debt = abs($order->debt);
+            // dd(abs($order->debt - $request->input('amount')));
+            $debt = $order->debt - $request->input('amount');
             // dd($debt);
-            $order->pay += $debt;
+            if ($debt == 0.0) {
+                $order->owing = false;
+            } else {
+                $order->owing = true;
+            }
+
+            if (!$order->payment_status == 'transfer') {
+                $order->pay += $debt;
+            }
         }
 
-        $order->debt = 0;
+        $order->debt = $debt;
         // dd($order);
         $order->save();
 

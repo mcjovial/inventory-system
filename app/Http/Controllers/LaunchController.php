@@ -144,7 +144,7 @@ class LaunchController extends Controller
         $order->customer_phone = $customer->phone;
         $order->payment_status = $request->input('pay');
         $order->pay = $c_total;
-        $order->debt = $debt;
+        $order->debt = $order->payment_status == 'cash' ? $debt : $c_total;
         $order->order_date = date('Y-m-d');
         $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
         // $order->order_status = 'confirmed';
