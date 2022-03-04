@@ -38,21 +38,23 @@
                             <!-- /.card-header -->
 
                             <!-- form start -->
-                            <form role="form" action="{{ route('admin.order.balance', $order->id) }}" method="post" enctype="multipart/form-data">
+                            <form role="form" action="{{ route('admin.order.balance', $debtor->order->id) }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     {{-- <input type="hidden" name="customer_name" value="{{ $order->customer_name }}"> --}}
-                                    <input type="hidden" name="customer_id" value="{{ $order->customer_id }}">
-                                    <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                    <input type="hidden" name="customer_id" value="{{ $debtor->customer->id }}">
+                                    <input type="hidden" name="order_id" value="{{ $debtor->order->id }}">
+                                    <input type="hidden" name="debtor_id" value="{{ $debtor->id }}">
+
                                     <div class="row">
                                         <div class="col-md-7">
                                             <div class="form-group">
                                                 <label>Customer</label>
-                                                <input type="text" class="form-control" name="name" value="{{ $order->customer_name }}" placeholder="Enter Name">
+                                                <input type="text" class="form-control" name="name" value="{{ $debtor->customer->full_name }}" placeholder="Enter Name">
                                             </div>
                                             <div class="form-group">
                                                 <label>Amount</label>
-                                                <input type="number" class="form-control" name="amount" value="{{ abs($order->debt) }}" placeholder="Enter Email">
+                                                <input type="number" class="form-control" name="amount" value="{{ abs($debtor->amount) }}" placeholder="Enter Email">
                                             </div>
                                             <div class="form-group">
                                                 <input type="hidden" name="pay_out" value="0">

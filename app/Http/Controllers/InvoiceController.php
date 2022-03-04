@@ -20,10 +20,10 @@ class InvoiceController extends Controller
     {
         $inputs = $request->except('_token');
         $rules = [
-          'name' => 'required',
+          'date' => 'required',
         ];
         $customMessages = [
-            'name.required' => 'Select a Customer first!.',
+            'date.required' => 'Select a date Please!.',
             // 'name.string' => 'Invalid Customer!.'
         ];
         $validator = Validator::make($inputs, $rules, $customMessages);
@@ -31,16 +31,17 @@ class InvoiceController extends Controller
         {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        // dd($request);
 
-        $customer_name = strtolower($request->input('name'));
+        // $customer_name = strtolower($request->input('name'));
         $date = $request->date;
         // dd($date);
-        $customer = Customer::where('full_name', $customer_name)->first();
+        // $customer = Customer::where('full_name', $customer_name)->first();
         $contents = Cart::all();
         $company = Setting::latest()->first();
 
         $drinks = Product::all();
-        return view('admin.invoice', compact('customer', 'contents', 'company', 'drinks', 'date'));
+        return view('admin.invoice', compact('contents', 'company', 'drinks', 'date'));
     }
 
     public function print($customer_id)
@@ -90,10 +91,10 @@ class InvoiceController extends Controller
         // dd($debt. ' '. $request->input('payment_status'));
 
         $order = new Order();
-        $order->customer_id =  $request->input('customer_id');
+        // $order->customer_id =  $request->input('customer_id');
+        // $order->customer_name = $request->input('customer_name');
+        // $order->customer_phone = $request->input('customer_phone');
         $order->seller = Auth::user()->name;
-        $order->customer_name = $request->input('customer_name');
-        $order->customer_phone = $request->input('customer_phone');
         $order->payment_status = $request->input('payment_status');
         $order->pay = $pay;
         $order->debt = $debt;
@@ -106,7 +107,7 @@ class InvoiceController extends Controller
         $order->vat = $tax;
         $order->total = $total;
         $order->created_at = $request->date;
-        // dd($order->seller);
+        // dd($order);
         $order->save();
 
         $order_id = $order->id;

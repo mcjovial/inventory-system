@@ -41,67 +41,52 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped text-center table-responsive">
+                                <table id="example1" class="table table-bordered table-striped text-center table-responsive-l">
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Seller</th>
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Date</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
                                         <th>Debt</th>
-                                        <th>Payment Method</th>
-                                        <th>Order Status</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Seller</th>
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Date</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
                                         <th>Debt</th>
-                                        <th>Payment Method</th>
-                                        <th>Order Status</th>
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    @foreach($credits as $key => $order)
+                                    @foreach($debtors as $key => $debtor)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $order->seller }}</td>
-                                            <td>{{ $order->customer_name }}</td>
-                                            <td>{{ $order->customer_phone }}</td>
-                                            <td>{{ $order->created_at->toFormattedDateString() }}</td>
-                                            <td>{{ $order->total_products }}</td>
-                                            <td><span>&#8358;</span>{{ $order->total }}</td>
-                                            <td><span>&#8358;</span>{{ $order->debt }}</td>
-                                            <td>{{ $order->payment_status }}</td>
-                                            <td><span class="badge badge-warning">{{ $order->order_status }}</span></td>
+                                            <td>{{ $debtor->customer->full_name }}</td>
+                                            <td>{{ $debtor->customer->phone }}</td>
+                                            <td>{{ $debtor->order->created_at->toFormattedDateString() }}</td>
+                                            <td><span>&#8358;</span>{{ $debtor->amount }}</td>
 
                                             <td>
-                                                <a href="{{ route('admin.order.show', $order->id) }}" class="btn btn-success" title="Show">
+                                                {{-- <a href="{{ route('admin.order.show', $debtor->id) }}" class="btn btn-success" title="Show">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="{{ route('admin.order.recieved', $order->id) }}" class="btn btn-info" title="Balance">
+                                                </a> --}}
+                                                <a href="{{ route('admin.order.recieved', $debtor->id) }}" class="btn btn-info" title="Balance">
                                                     <i class="fa fa-balance-scale" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ route('admin.create.flat', $order->id) }}" class="btn btn-secondary" title="Flat">
+                                                {{-- <a href="{{ route('admin.create.flat', $debtor->id) }}" class="btn btn-secondary" title="Flat">
                                                     Flat
-                                                </a>
+                                                </a> --}}
 
                                                 @if (Auth::user()->hasRole('admin'))
-                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $order->id }})" title="Delete">
+                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $debtor->id }})" title="Delete">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </button>
-                                                    <form id="delete-form-{{ $order->id }}" action="{{ route('admin.order.destroy', $order->id) }}" method="post"
+                                                    <form id="delete-form-{{ $debtor->id }}" action="{{ route('admin.order.destroy', $debtor->id) }}" method="post"
                                                         style="display:none;">
                                                         @csrf
                                                         @method('DELETE')

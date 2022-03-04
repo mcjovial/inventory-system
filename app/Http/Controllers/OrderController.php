@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Debtors;
 use App\Balance;
 use App\Customer;
 use App\Expense;
@@ -46,7 +47,9 @@ class OrderController extends Controller
     public function credit_order()
     {
         $credits = Order::latest()->where('owing', true)->get();
-        return view('admin.order.credit_orders', compact('credits'));
+        $debtors = Debtors::all();
+
+        return view('admin.order.credit_orders', compact('credits', 'debtors'));
     }
 
     public function order_confirm($id)
@@ -117,14 +120,24 @@ class OrderController extends Controller
                 $order->owing = true;
             }
 
+            $order->pay += $request->amount;
             if (!$order->payment_status == 'transfer') {
                 $order->pay += $debt;
             }
         }
-
+        
         $order->debt = $debt;
-        // dd($order);
         $order->save();
+
+        $debtor = Debtors::findOrFail($request->debtor_id);
+        if ($debtor->amount == $request->amount) {
+            $debtor->truncate();
+        }
+
+        if ($debtor->amount > $request->amount) {
+            $debtor->amount -= $request->amount;
+            $debtor->save();
+        }
 
         Toastr::success('Order balanced successfully', 'Success!!!');
         return redirect()->route('admin.balance.index');
@@ -249,8 +262,17 @@ class OrderController extends Controller
     public function debtors_create(){
 
         $customers = Customer::all();
+        $sales = Order::where('owing', true)->get();
 
-        return view('admin.order.create_debtor', compact('customers'));
+        return view('admin.order.create_debtor', compact('customers', 'sales'));
+    }
+
+    public function debtors_create_id($id){
+
+        $customers = Customer::all();
+        $order = Order::find($id);
+
+        return view('admin.order.create_debtor_id', compact('customers', 'order'));
     }
 
     public function transfer_create(){
@@ -280,23 +302,30 @@ class OrderController extends Controller
         }
 
         $customer = Customer::where('full_name', $request->name)->first();
+        $date = $request->date;
 
-        $order = new Order();
-        $order->customer_id =  $customer->id;
-        $order->seller = Auth::user()->name;
-        $order->customer_name = $request->input('name');
-        $order->customer_phone = $customer->phone;
-        $order->payment_status = 'credit';
-        $order->debt = $request->amount;
-        $order->order_date = date('Y-m-d');
-        $order->order_status = 'confirmed';
-        $order->owing = true;
-        $order->to_balance = false;
-        $order->sub_total = $request->amount;
-        $order->total = $request->amount;
-        $order->created_at = $request->date;
+        $order = Order::where('order_date', $date)->first();
+        // $order->customer_id =  $customer->id;
+        // $order->seller = Auth::user()->name;
+        // $order->customer_name = $request->input('name');
+        // $order->customer_phone = $customer->phone;
+        // $order->payment_status = 'credit';
+        // $order->debt = $request->amount;
+        // $order->order_date = date('Y-m-d');
+        // $order->order_status = 'confirmed';
+        // $order->owing = true;
+        // $order->to_balance = false;
+        // $order->sub_total = $request->amount;
+        // $order->total = $request->amount;
+        // $order->created_at = $request->date;
         // dd($order);
-        $order->save();
+
+        $debtor = new Debtors();
+        $debtor->order_id = $order->id;
+        $debtor->customer_id = $customer->id;
+        $debtor->amount = $request->amount;
+        // dd($debtor);
+        $debtor->save();
 
         Toastr::success('Debtor added successfully', 'Success');
 

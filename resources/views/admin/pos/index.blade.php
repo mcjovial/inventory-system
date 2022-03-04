@@ -169,10 +169,10 @@
                                 @csrf
                                 <div class="card-header">
                                     <h3 class="card-title">
-                                        Customer
-                                        <span>
+                                        Date
+                                        {{-- <span>
                                             <a href="{{ route('admin.customer.create') }}" class="btn btn-sm btn-primary float-md-right">Add New Customer</a>
-                                        </span>
+                                        </span> --}}
                                     </h3>
                                 </div>
                                 <div class="card-body">
@@ -180,7 +180,7 @@
                                         <label for="exampleDataList" class="form-label">Select Date</label>
                                         <input type="date" name="date" id="" class="form-control col-md-6" placeholder="Select Date">
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="exampleDataList" class="form-label">Customer Name</label>
                                         <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
                                         <datalist id="datalistOptions" >
@@ -189,7 +189,7 @@
                                                 <option value="{{ $customer->full_name }}">
                                             @endforeach
                                         </datalist>
-                                    </div>
+                                    </div> --}}
                                     {{-- <div><hr></div>
                                     <div>
                                         <div class="form-group">
@@ -204,9 +204,9 @@
                                 </div>
                                 <div class="card-footer">
                                     <span>
-                                        <a href="{{ route('admin.exchange.create') }}" class="btn btn-sm btn-secondary float-md-right">Exchange Out</a>
+                                        {{-- <a href="{{ route('admin.exchange.create') }}" class="btn btn-sm btn-secondary float-md-right">Exchange Out</a>
                                         <a href="{{ route('admin.launch.create') }}" class="btn btn-sm btn-warning float-md-right">Launch</a>
-                                        <a href="{{ route('admin.bulk.create') }}" class="btn btn-sm btn-success float-md-right">Bulk</a>
+                                        <a href="{{ route('admin.bulk.create') }}" class="btn btn-sm btn-success float-md-right">Bulk</a> --}}
                                         <button type="submit" class="btn btn-sm btn-info float-md-right ml-3">Create Invoice</button>
                                     </span>
                                 </div>

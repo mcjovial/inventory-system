@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Debtors;
 use App\Balance;
 use App\Order;
 use Brian2694\Toastr\Facades\Toastr;
@@ -23,13 +24,17 @@ class BalanceController extends Controller
     }
 
     public function recieved($id) {
-        $order = Order::find($id);
-        // dd($order);
-        return view('admin.balance.recieved', compact('order'));
+        $debtor = Debtors::find($id);
+        $order = Order::find($debtor->order_id);
+
+        // dd($debtor);
+        // dd($debtor->order);
+        return view('admin.balance.recieved', compact('debtor'));
     }
 
     public function store(Request $request)
     {
+        dd($request);
         $inputs = $request->except('_token');
         $rules = [
             'customer_id'       =>  'required | integer',

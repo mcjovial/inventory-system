@@ -42,19 +42,9 @@
                                 @csrf
 
                                 <div class="card-body">
-                                    {{-- <div class="form-group col-lg-12">
-                                        <label for="exampleDataList" class="form-label">Select Date</label>
-                                        <input type="date" name="date" id="" class="form-control col-md-6" placeholder="Select Date">
-                                    </div> --}}
-
                                     <div class="form-group col-lg-12">
-                                        <label for="exampleDataList" class="form-label">Select Sale Day</label>
-                                        <select id="datalistOptions" name="date" class="form-control">
-                                            <option value="" selected>Select Sale Date</option>
-                                            @foreach($sales as $sale)
-                                                <option value="{{ $sale->order_date }}">{{ $sale->created_at->toFormattedDateString() }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="exampleDataList" class="form-label">Select Date</label>
+                                        <input type="date" name="date" value="{{$order->order_date ? $order->order_date : ''}}" id="" class="form-control col-md-6" placeholder="Select Date">
                                     </div>
 
                                     <div class="form-group">

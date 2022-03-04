@@ -32,6 +32,9 @@
                     <!-- left column -->
                     <div class="col-md-12">
                         <!-- general form elements -->
+                        <div class="form-group">
+                            <a href="{{ route('admin.debtors.create') }}" class="btn btn-primary">Add Debtor</a>
+                        </div>
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">CONFIRMED TRANSACTION LISTS</h3>
@@ -42,12 +45,12 @@
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Seller</th>
-                                        <th>Name</th>
-                                        <th>Phone</th>
                                         <th>Date</th>
+                                        <th>Seller</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
+                                        <th>Debt</th>
+                                        <th>CAH</th>
                                         <th>Payment Method</th>
                                         <th>Order Status</th>
                                         <th>Actions</th>
@@ -56,12 +59,12 @@
                                     <tfoot>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Seller</th>
-                                        <th>Name</th>
-                                        <th>Phone</th>
                                         <th>Date</th>
+                                        <th>Seller</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
+                                        <th>Debt</th>
+                                        <th>CAH</th>
                                         <th>Payment Method</th>
                                         <th>Order Status</th>
                                         <th>Actions</th>
@@ -71,12 +74,12 @@
                                     @foreach($approveds as $key => $order)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $order->seller }}</td>
-                                            <td>{{ $order->customer_name }}</td>
-                                            <td>{{ $order->customer_phone }}</td>
                                             <td>{{ $order->created_at->toFormattedDateString() }}</td>
+                                            <td>{{ $order->seller }}</td>
                                             <td>{{ $order->total_products }}</td>
                                             <td><span>&#8358;</span>{{ $order->total }}</td>
+                                            <td><span>&#8358;</span>{{ $order->debt }}</td>
+                                            <td><span>&#8358;</span>{{ $order->pay }}</td>
                                             @if ($order->launch)
                                                 <td>{{ $order->payment_status  }} <small>[Launch]</small></td>
                                             @elseif ($order->bulk)
@@ -87,8 +90,11 @@
                                             <td><span class="badge badge-success">{{ $order->order_status }}</span></td>
 
                                             <td>
-                                                <a href="{{ route('admin.order.show', $order->id) }}" class="btn btn-success" title="Show">
+                                                <a href="{{ route('admin.order.show', $order->id) }}" class="btn btn-success" title="Show sales detail">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ route('admin.debtors.create.id', $order->id) }}" class="btn btn-primary" title="Add debtor">
+                                                    <i class="fa fa-money" aria-hidden="true"></i>
                                                 </a>
                                                 <a href="{{ route('admin.create.flat', $order->id) }}" class="btn btn-secondary" title="Flat">
                                                     Flat

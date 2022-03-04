@@ -61,11 +61,15 @@
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-sm-4 invoice-col">
-                                    To
-                                    <address>
-                                        <strong>{{ $customer->full_name }}</strong><br>
-                                        Phone: (+234) {{ $customer->phone }}<br>
-                                    </address>
+                                    @if (isset($customer->full_name))
+                                        To
+                                        <address>
+                                            <strong>{{ $customer->full_name }}</strong><br>
+                                            Phone: (+234) {{ $customer->phone }}<br>
+                                        </address>
+                                    @else
+                                        
+                                    @endif
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-sm-4 invoice-col">
@@ -138,15 +142,15 @@
                                 <div class="col-12">
                                     <form action="" method="post">
                                         @csrf
-                                        <input type="hidden" name="customer_name" value="{{ $customer->full_name }}">
-                                        <input type="hidden" name="customer_phone" value="{{ $customer->phone }}">
+                                        <input type="hidden" name="customer_name" value="{{ isset($customer->full_name) }}">
+                                        <input type="hidden" name="customer_phone" value="{{ isset($customer->phone) }}">
                                         {{-- <a href="{{ route('admin.invoice.print', $customer->id) }}" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a> --}}
                                         <button type="button" data-toggle="modal" data-target="#paymentModal" class="btn btn-success float-left"><i class="fa fa-credit-card"></i>
                                             Submit Payment
                                         </button>
-                                        <a href="{{ route('admin.exchange.create') }}" type="button" class="btn btn-primary float-right"><i class="fa fa-exchange"></i>
+                                        {{-- <a href="{{ route('admin.exchange.create') }}" type="button" class="btn btn-primary float-right"><i class="fa fa-exchange"></i>
                                             Exchange
-                                        </a>
+                                        </a> --}}
                                     </form>
                                 </div>
                             </div>
@@ -168,7 +172,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">
-                            Invoice of {{ $customer->full_name }}
+                            Invoice of {{ isset($customer->full_name) }}
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -181,8 +185,8 @@
                             </div>
                         </div>
                         <input type="hidden" name="date" value="{{ $date }}">
-                        <input type="hidden" name="customer_name" value="{{ $customer->full_name }}">
-                        <input type="hidden" name="customer_phone" value="{{ $customer->phone }}">
+                        <input type="hidden" name="customer_name" value="{{ isset($customer->full_name) }}">
+                        <input type="hidden" name="customer_phone" value="{{ isset($customer->phone) }}">
                         <input type="hidden" name="cash" value="{{ $contents->sum('total') }}">
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -190,8 +194,8 @@
                                 <select name="payment_status" class="form-control" required >
                                     <option value="" disabled selected>Choose a Payment Method</option>
                                     <option value="cash">Cash</option>
-                                    <option value="transfer">Transfer</option>
-                                    <option value="credit">Credit</option>
+                                    {{-- <option value="transfer">Transfer</option>
+                                    <option value="credit">Credit</option> --}}
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
@@ -200,7 +204,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="customer_id" value="{{ $customer->id }}">
+                    <input type="hidden" name="customer_id" value="{{ isset($customer->id) }}">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Submit</button>
