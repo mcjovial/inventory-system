@@ -11,6 +11,7 @@ use App\Order;
 use App\OrderDetail;
 use App\Product;
 use App\Setting;
+use App\Transfer;
 use Barryvdh\DomPDF\Facade as PDF;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +35,9 @@ class OrderController extends Controller
 
     public function pending_order()
     {
-        $pendings = Order::latest()->with('customer')->where('order_status', 'pending')->get();
+        // $pendings = Order::latest()->with('customer')->where('order_status', 'pending')->get();
+        $pendings = Debtors::where('transfer', true)->get();
+
         return view('admin.order.pending_orders', compact('pendings'));
     }
 
@@ -53,12 +56,20 @@ class OrderController extends Controller
     }
 
     public function order_confirm($id)
-    {
-        $order = Order::findOrFail($id);
-        $order->order_status = 'confirmed';
-        $order->debt = 0.0;
-        $order->owing = $order->debt > 0 ? true : false;
+    {        
+        $debtor = Debtors::findOrFail($id);
+        $order = Order::findOrFail($debtor->order_id);
+        $order->pay += $debtor->amount;
+        $order->debt -= $debtor->amount;
         $order->save();
+
+        $transfer = new Transfer();
+        $transfer->customer_id = $debtor->customer_id;
+        $transfer->order_id = $debtor->order_id;
+        $transfer->amount = $debtor->amount;
+        $transfer->save();
+
+        $debtor->truncate();
 
         Toastr::success('Payment has been Confirmed!', 'Success');
         return redirect()->route('admin.order.approved');
@@ -278,8 +289,9 @@ class OrderController extends Controller
     public function transfer_create(){
 
         $customers = Customer::all();
+        $orders = Order::all();
 
-        return view('admin.order.create_transfer', compact('customers'));
+        return view('admin.order.create_transfer', compact('customers', 'orders'));
     }
 
     public function debtors_store(Request $request)
@@ -324,7 +336,7 @@ class OrderController extends Controller
         $debtor->order_id = $order->id;
         $debtor->customer_id = $customer->id;
         $debtor->amount = $request->amount;
-        // dd($debtor);
+        $debtor->transfer = false;
         $debtor->save();
 
         Toastr::success('Debtor added successfully', 'Success');
@@ -353,22 +365,19 @@ class OrderController extends Controller
 
         $customer = Customer::where('full_name', $request->name)->first();
 
-        $order = new Order();
-        $order->customer_id =  $customer->id;
-        $order->seller = Auth::user()->name;
-        $order->customer_name = $request->input('name');
-        $order->customer_phone = $customer->phone;
-        $order->payment_status = 'transfer';
-        $order->debt = $request->amount;
-        $order->order_date = date('Y-m-d');
-        $order->order_status = 'pending';
-        $order->owing = true;
-        $order->to_balance = false;
-        $order->sub_total = $request->amount;
-        $order->total = $request->amount;
-        $order->created_at = $request->date;
-        // dd($order);
+        $order = Order::where('order_date', $request->date)->first();
+
+        // Subtract transfered amount from total CAH for that day and add to debt
+        $order->pay -= $request->amount;
+        $order->debt += $request->amount;
         $order->save();
+
+        $debtor = new Debtors();
+        $debtor->order_id = $order->id;
+        $debtor->customer_id = $customer->id;
+        $debtor->amount = $request->amount;
+        $debtor->transfer = true;
+        $debtor->save();
 
         Toastr::success('Transfer added successfully', 'Success');
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDebtorsTable extends Migration
+class CreateTransfersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateDebtorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('debtors', function (Blueprint $table) {
+        Schema::create('transfers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->float('amount');
-            $table->boolean('transfer');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
@@ -32,6 +31,6 @@ class CreateDebtorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('debtors');
+        Schema::dropIfExists('transfers');
     }
 }
