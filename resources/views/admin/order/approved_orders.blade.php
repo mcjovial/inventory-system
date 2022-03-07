@@ -99,6 +99,9 @@
                                                 <a href="{{ route('admin.debtors.create.id', $order->id) }}" class="btn btn-info" title="Add debtor">
                                                     <i class="fa fa-money" aria-hidden="true"></i>
                                                 </a>
+                                                <a href="{{ route('admin.launch.create.id', $order->id) }}" class="btn btn-info" title="Add launch">
+                                                    <i class="fa fa-rocket" aria-hidden="true"></i>
+                                                </a>
                                                 <a href="{{ route('admin.debtors.create.id', $order->id) }}" class="btn btn-warning" title="Add exchange">
                                                     <i class="fa fa-random" aria-hidden="true"></i>
                                                 </a>

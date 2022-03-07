@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Cart;
 use App\Customer;
+use App\Debtors;
 use App\Launch;
 use App\Order;
 use App\OrderDetail;
@@ -119,13 +120,19 @@ class LaunchController extends Controller
 
         $date = $request->date;
 
+        $order = Order::where('order_date', $date)->first();
+        // dd($order);
+
         foreach ($cart_products as $drink) {
             $product = Product::find($drink->product_id);
             $product->stock -= $drink->quantity;
             $product->save();
 
             $launch = new Launch();
+            $launch->order_id = $order->id;
+            $launch->customer_id = $customer->id;
             $launch->product_id = $drink->product_id;
+            $launch->method = $request->pay;
             $launch->name = $drink->name;
             $launch->cartons = $drink->cartons;
             $launch->quantity = $drink->quantity;
@@ -137,25 +144,37 @@ class LaunchController extends Controller
 
         $debt = $c_total - $c_total;
 
-        $order = new Order();
-        $order->customer_id =  $customer->id;
-        $order->seller = Auth::user()->name;
-        $order->customer_name = $customer->full_name;
-        $order->customer_phone = $customer->phone;
-        $order->payment_status = $request->input('pay');
-        $order->pay = $c_total;
-        $order->debt = $order->payment_status == 'cash' ? $debt : $c_total;
-        $order->order_date = date('Y-m-d');
-        $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
+        $order = Order::find($order->id);
+        // $order->customer_id =  $customer->id;
+        // $order->seller = Auth::user()->name;
+        // $order->customer_name = $customer->full_name;
+        // $order->customer_phone = $customer->phone;
+        // $order->payment_status = $request->input('pay');
+        // $order->pay = $c_total;
+        // $order->debt = $order->payment_status == 'cash' ? $debt : $c_total;
+        // $order->order_date = date('Y-m-d');
+        // $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
         // $order->order_status = 'confirmed';
         $order->total_products = Cart::sum('quantity');
-        $order->launch = true;
-        $order->sub_total = $sub_total;
-        $order->owing = $order->debt > 0 ? true : false;
-        $order->to_balance = $order->debt < 0 ? true : false;
+        $order->launch += $c_total;
+        $order->sub_total += $sub_total;
+        // $order->owing = $order->debt > 0 ? true : false;
+        // $order->to_balance = $order->debt < 0 ? true : false;
         $order->vat = $tax;
-        $order->total = $c_total;
-        $order->created_at = $date;
+        if ($request->pay == 'cash') {
+            $order->total += $c_total;
+            $order->pay += $c_total;
+        } else {
+            $order->debt += $c_total;
+
+            $debtor = new Debtors();
+            $debtor->order_id = $order->id;
+            $debtor->customer_id = $customer->id;
+            $debtor->amount = $c_total;
+            $debtor->transfer = true;
+            $debtor->save();
+        }
+        $order->order_date = $date;
         // dd($order);
         $order->save();
 

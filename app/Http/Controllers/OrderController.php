@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Cart;
+use App\Launch;
 use App\Debtors;
 use App\Balance;
 use App\Customer;
@@ -60,6 +62,7 @@ class OrderController extends Controller
         $debtor = Debtors::findOrFail($id);
         $order = Order::findOrFail($debtor->order_id);
         $order->pay += $debtor->amount;
+        $order->total += $debtor->amount;
         $order->debt -= $debtor->amount;
         $order->save();
 
@@ -301,6 +304,21 @@ class OrderController extends Controller
 
         return view('admin.order.create_transfer_id', compact('customers', 'order'));
     }
+
+    public function launch($id){
+        $cart_products = Cart::all();
+        $cart = Cart::all();
+        $drinks = Product::all();
+
+        $Launch_products = Launch::all();
+        $Launch = Launch::all();
+
+        $customers = Customer::all();
+        $order = Order::find($id);
+
+        return view('admin.pos.launch', compact('cart_products', 'cart', 'drinks', 'customers', 'order'));
+    }
+
 
     public function debtors_store(Request $request)
     {

@@ -15,14 +15,19 @@ class CreateLaunchesTable extends Migration
     {
         Schema::create('launches', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->string('method');
             $table->string('name');
             $table->integer('cartons');
             $table->integer('quantity');
             $table->decimal('price', 20, 2);
             $table->integer('total')->nullable();
 
+            $table->foreign('order_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }
