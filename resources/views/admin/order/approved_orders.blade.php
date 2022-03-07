@@ -93,8 +93,14 @@
                                                 <a href="{{ route('admin.order.show', $order->id) }}" class="btn btn-success" title="Show sales detail">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ route('admin.debtors.create.id', $order->id) }}" class="btn btn-primary" title="Add debtor">
+                                                <a href="{{ route('admin.transfer.create.id', $order->id) }}" class="btn btn-primary" title="Add Transfer">
+                                                    <i class="fa fa-share" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ route('admin.debtors.create.id', $order->id) }}" class="btn btn-info" title="Add debtor">
                                                     <i class="fa fa-money" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ route('admin.debtors.create.id', $order->id) }}" class="btn btn-warning" title="Add exchange">
+                                                    <i class="fa fa-random" aria-hidden="true"></i>
                                                 </a>
                                                 <a href="{{ route('admin.create.flat', $order->id) }}" class="btn btn-secondary" title="Flat">
                                                     Flat

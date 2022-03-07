@@ -75,6 +75,7 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::get('debtors/create', 'OrderController@debtors_create')->name('debtors.create');
     Route::get('debtors/create/{id}', 'OrderController@debtors_create_id')->name('debtors.create.id');
     Route::get('transfer/create', 'OrderController@transfer_create')->name('transfer.create');
+    Route::get('transfer/create/{id}', 'OrderController@transfer_create_id')->name('transfer.create.id');
     Route::post('debtors/store', 'OrderController@debtors_store')->name('debtors.store');
     Route::post('transfer/store', 'OrderController@transfer_store')->name('transfer.store');
 

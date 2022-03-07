@@ -294,6 +294,14 @@ class OrderController extends Controller
         return view('admin.order.create_transfer', compact('customers', 'orders'));
     }
 
+    public function transfer_create_id($id){
+
+        $customers = Customer::all();
+        $order = Order::find($id);
+
+        return view('admin.order.create_transfer_id', compact('customers', 'order'));
+    }
+
     public function debtors_store(Request $request)
     {
         $inputs = $request->except('_token');
