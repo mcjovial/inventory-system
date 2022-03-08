@@ -208,7 +208,7 @@
 
                                     if($previous_month->sum('pay') != 0)
                                     {
-                                        $percentage = (($year->sum('pay') - isset($previous_year)->sum('pay'))/ isset($previous_year)->sum('pay'))*100;
+                                        $percentage = (($year->sum('pay') - $previous_year->sum('pay'))/ $previous_year->sum('pay'))*100;
                                     } else {
                                         $percentage = 0;
                                     }
