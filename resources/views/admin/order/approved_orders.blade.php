@@ -50,7 +50,9 @@
                                         <th>Quantity</th>
                                         <th>Total</th>
                                         <th>Debt</th>
-                                        <th>CAH</th>
+                                        <th>Income</th>
+                                        <th>Exchange</th>
+                                        <th>To Balance</th>
                                         <th>Payment Method</th>
                                         <th>Order Status</th>
                                         <th>Actions</th>
@@ -64,7 +66,9 @@
                                         <th>Quantity</th>
                                         <th>Total</th>
                                         <th>Debt</th>
-                                        <th>CAH</th>
+                                        <th>Income</th>
+                                        <th>Exchange</th>
+                                        <th>To Balance</th>
                                         <th>Payment Method</th>
                                         <th>Order Status</th>
                                         <th>Actions</th>
@@ -80,6 +84,8 @@
                                             <td><span>&#8358;</span>{{ $order->total }}</td>
                                             <td><span>&#8358;</span>{{ $order->debt }}</td>
                                             <td><span>&#8358;</span>{{ $order->pay }}</td>
+                                            <td><span>&#8358;</span>{{ $order->exchange }}</td>
+                                            <td><span>&#8358;</span>{{ $order->to_balance }}</td>
                                             @if ($order->launch)
                                                 <td>{{ $order->payment_status  }} <small>[Launch]</small></td>
                                             @elseif ($order->bulk)

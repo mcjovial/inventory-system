@@ -305,6 +305,7 @@ class ExchangeController extends Controller
             $order->to_balance += $debt;
         } else {
             $order->exchange += $debt;
+            $order->debt += $debt;
         }
         $order->save();
 
