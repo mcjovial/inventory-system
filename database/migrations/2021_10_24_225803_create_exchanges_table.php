@@ -15,14 +15,15 @@ class CreateExchangesTable extends Migration
     {
         Schema::create('exchanges', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('product_id');
-            $table->string('name');
-            $table->integer('quantity');
-            $table->integer('total_cost');
-            $table->decimal('price', 20, 2);
-            $table->integer('total')->nullable();
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('exchangein_id');
+            $table->unsignedBigInteger('exchangeout_id');
+            $table->integer('debt');
 
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('exchangein_id')->references('id')->on('exchangeins')->onDelete('cascade');
+            $table->foreign('exchangeout_id')->references('id')->on('exchangeouts')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

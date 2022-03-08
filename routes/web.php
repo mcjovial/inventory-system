@@ -48,7 +48,13 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::resource('users', 'UserController');
     Route::resource('role', 'RoleController');
 
-    Route::get('exchange', 'ExchangeController@create')->name('exchange.create');
+    Route::get('exchange/create/{id}', 'ExchangeController@create')->name('exchange.create');
+    Route::post('exchange-in/store', 'ExchangeController@exchange_in_cart_store')->name('exchange.in.store');
+    Route::post('exchange-in/update/{id}', 'ExchangeController@exchange_in_cart_update')->name('exchange.in.update');
+    Route::get('exchange-in/{id}', 'ExchangeController@destroy_cart_in')->name('exchange.in.destroy');
+    Route::post('exchange-out/store', 'ExchangeController@exchange_out_cart_store')->name('exchange.out.store');
+    Route::post('exchange-out/update/{id}', 'ExchangeController@exchange_out_cart_update')->name('exchange.out.update');
+    Route::get('exchange-out/{id}', 'ExchangeController@destroy_cart_out')->name('exchange.out.destroy');
     Route::post('exchange/store', 'ExchangeController@store')->name('exchange.store');
     Route::post('exchange/{id}', 'ExchangeController@update')->name('exchange');
     Route::post('exchange', 'ExchangeController@final_invoice')->name('exchange.invoice');
