@@ -240,8 +240,8 @@ class ExchangeController extends Controller
 
         // $customer_name = strtolower($request->input('name'));
         // $customer = Customer::where('full_name', $customer_name)->first();
-        $order = Order::where('order_date', $request->date)->first();
-
+        $order = Order::find($request->order_id)->first();
+        // dd($order);
         // out stuffs
         $exchange_out = exchangeOutCart::all();
         $sub_total_out = str_replace(',', '', exchangeOutCart::sum('total'));
@@ -262,7 +262,7 @@ class ExchangeController extends Controller
         // dd($debt);
 
         $exchange = new Exchange();
-        $exchange->order_id = $order->id;
+        $exchange->order_id = $request->order_id;
         $exchange->amount = $debt;
         $exchange->save();
 

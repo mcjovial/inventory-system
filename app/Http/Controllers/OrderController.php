@@ -145,7 +145,7 @@ class OrderController extends Controller
 
         $debtor = Debtors::findOrFail($request->debtor_id);
         if ($debtor->amount == $request->amount) {
-            $debtor->truncate();
+            $debtor->delete();
         }
 
         if ($debtor->amount > $request->amount) {
@@ -343,6 +343,9 @@ class OrderController extends Controller
         $date = $request->date;
 
         $order = Order::where('order_date', $date)->first();
+        $order->debt += $request->amount;
+        $order->save();
+
         // $order->customer_id =  $customer->id;
         // $order->seller = Auth::user()->name;
         // $order->customer_name = $request->input('name');
@@ -394,7 +397,7 @@ class OrderController extends Controller
         $order = Order::where('order_date', $request->date)->first();
 
         // Subtract transfered amount from total CAH for that day and add to debt
-        $order->pay -= $request->amount;
+        // $order->pay -= $request->amount;
         $order->debt += $request->amount;
         $order->save();
 

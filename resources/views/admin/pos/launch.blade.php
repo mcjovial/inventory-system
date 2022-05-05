@@ -172,9 +172,10 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group col">
-                                        <label for="exampleDataList" class="form-label">Select Date</label>
-                                        <input type="date" name="date" value="{{$order->order_date}}" id="" class="form-control col-md-6" placeholder="Select Date">
+                                        <label for="exampleDataList" class="form-label">Date</label>
+                                        <input value="{{$order->order_date ? $order->order_date : ''}}" id="" class="form-control col-md-6" disabled>
                                     </div>
+                                    <input type="text" name="order_id" value="{{$order->order_date ? $order->id : ''}}" hidden>
 
                                     <div class="form-group col">
                                         <label for="inputState">Payment Method</label>

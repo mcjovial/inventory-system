@@ -313,11 +313,13 @@
 
                                 <div class="card-body">
                                     <div class="form-group col">
-                                        <label for="exampleDataList" class="form-label">Select Date</label>
-                                        <input type="date" name="date" value="{{$order->order_date}}" class="form-control col-md-6" placeholder="Select Date">
+                                        <label for="exampleDataList" class="form-label">Date</label>
+                                        <input value="{{$order->order_date ? $order->order_date : ''}}" id="" class="form-control col-md-6" disabled>
                                     </div>
+                                    <input type="text" name="order_id" value="{{$order->order_date ? $order->id : ''}}" hidden>
 
-                                    <div class="form-group">
+
+                                    {{-- <div class="form-group">
                                         <label for="exampleDataList" class="form-label">Customer Name</label>
                                         <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
                                         <datalist id="datalistOptions" >
@@ -326,7 +328,7 @@
                                                 <option value="{{ $customer->full_name }}">
                                             @endforeach
                                         </datalist>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="card-footer">
                                     <span>

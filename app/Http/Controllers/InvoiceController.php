@@ -97,7 +97,7 @@ class InvoiceController extends Controller
         $order->seller = Auth::user()->name;
         $order->payment_status = $request->input('payment_status');
         $order->pay = $pay;
-        $order->debt = $debt;
+        // $order->debt = $debt;
         $order->order_date = date('Y-m-d');
         $order->order_status = $request->input('payment_status') != 'transfer' ? 'confirmed' : 'pending';
         $order->total_products = Cart::sum('quantity');
