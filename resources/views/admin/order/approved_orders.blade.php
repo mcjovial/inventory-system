@@ -48,7 +48,7 @@
                                         <th>Date</th>
                                         <th>Seller</th>
                                         <th>Quantity</th>
-                                        <th>Total</th>
+                                        <th>Total Sale</th>
                                         <th>Debt</th>
                                         <th>Income</th>
                                         <th>Exchange</th>
@@ -64,7 +64,7 @@
                                         <th>Date</th>
                                         <th>Seller</th>
                                         <th>Quantity</th>
-                                        <th>Total</th>
+                                        <th>Total Sale</th>
                                         <th>Debt</th>
                                         <th>Income</th>
                                         <th>Exchange</th>
