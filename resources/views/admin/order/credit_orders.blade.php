@@ -69,7 +69,7 @@
                                             <td>{{ $debtor->customer->full_name }}</td>
                                             <td>{{ $debtor->customer->phone }}</td>
                                             <td>{{ $debtor->order->created_at->toFormattedDateString() }}</td>
-                                            <td><span>&#8358;</span>{{ $debtor->amount }}</td>
+                                            <td><span>&#8358;</span>{{ $debtor->amount }} @if ($debtor->transfer)<span class="badge badge-dark">Transfer</span>@endif</td>
 
                                             <td>
                                                 {{-- <a href="{{ route('admin.order.show', $debtor->id) }}" class="btn btn-success" title="Show">

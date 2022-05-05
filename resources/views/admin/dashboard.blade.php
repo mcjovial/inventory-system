@@ -205,8 +205,7 @@
                                 <span class="info-box-text">This Year's Paid</span>
                                 <span class="info-box-number"><span>&#8358;</span>{{ $year->sum('pay') }}</span>
                                 @php
-
-                                    if($previous_month->sum('pay') != 0)
+                                    if($previous_year->sum('pay') != 0)
                                     {
                                         $percentage = (($year->sum('pay') - $previous_year->sum('pay'))/ $previous_year->sum('pay'))*100;
                                     } else {
@@ -250,14 +249,12 @@
                                 <span class="info-box-text">Today's Debt</span>
                                 <span class="info-box-number"><span>&#8358;</span>{{ $today->sum('debt') }}</span>
                                 @php
-
                                     if($yesterday->sum('debt') != 0)
                                     {
                                         $percentage = (($today->sum('debt') - $yesterday->sum('debt'))/ $yesterday->sum('debt'))*100;
                                     } else {
                                         $percentage = 0;
                                     }
-
                                 @endphp
 
                                 <div class="progress">
@@ -281,15 +278,12 @@
                                 <span class="info-box-text">This Month's Debt</span>
                                 <span class="info-box-number"><span>&#8358;</span>{{ $month->sum('debt') }}</span>
                                 @php
-
                                     if($previous_month->sum('debt') != 0)
                                     {
                                         $percentage = (($month->sum('debt') - $previous_month->sum('debt'))/ $previous_month->sum('debt'))*100;
                                     } else {
                                         $percentage = 0;
                                     }
-
-
                                 @endphp
 
                                 <div class="progress">
