@@ -91,7 +91,7 @@ class LaunchController extends Controller
 
     public function final_invoice(Request $request)
     {
-        dd($request);
+        // dd($request);
         $inputs = $request->except('_token');
         $rules = [
           'pay' => 'required',
