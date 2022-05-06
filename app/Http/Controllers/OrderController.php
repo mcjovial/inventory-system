@@ -72,7 +72,7 @@ class OrderController extends Controller
         $transfer->amount = $debtor->amount;
         $transfer->save();
 
-        $debtor->truncate();
+        $debtor->delete();
 
         Toastr::success('Payment has been Confirmed!', 'Success');
         return redirect()->route('admin.order.approved');
