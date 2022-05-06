@@ -91,7 +91,7 @@ class LaunchController extends Controller
 
     public function final_invoice(Request $request)
     {
-        // dd($request);
+        dd($request);
         $inputs = $request->except('_token');
         $rules = [
           'pay' => 'required',
@@ -120,7 +120,7 @@ class LaunchController extends Controller
 
         $date = $request->date;
 
-        $order = Order::where('order_date', $date)->first();
+        $order = Order::find('order_id');
         // dd($order);
 
         foreach ($cart_products as $drink) {
@@ -142,31 +142,19 @@ class LaunchController extends Controller
             $launch->save();
         }
 
-        $debt = $c_total - $c_total;
-
         $order = Order::find($order->id);
-        // $order->customer_id =  $customer->id;
-        // $order->seller = Auth::user()->name;
-        // $order->customer_name = $customer->full_name;
-        // $order->customer_phone = $customer->phone;
-        // $order->payment_status = $request->input('pay');
-        // $order->pay = $c_total;
-        // $order->debt = $order->payment_status == 'cash' ? $debt : $c_total;
-        // $order->order_date = date('Y-m-d');
-        // $order->order_status = $order->payment_status == 'cash' ? 'confirmed' : 'pending';
-        // $order->order_status = 'confirmed';
-        $order->total_products = Cart::sum('quantity');
+        $order->total_products += Cart::sum('quantity');
         $order->launch += $c_total;
         $order->sub_total += $sub_total;
-        // $order->owing = $order->debt > 0 ? true : false;
-        // $order->to_balance = $order->debt < 0 ? true : false;
+        $order->total += $sub_total;
         $order->vat = $tax;
+
         if ($request->pay == 'cash') {
             $order->total += $c_total;
             $order->pay += $c_total;
         } else {
             $order->debt += $c_total;
-
+            
             $debtor = new Debtors();
             $debtor->order_id = $order->id;
             $debtor->customer_id = $customer->id;
@@ -174,7 +162,6 @@ class LaunchController extends Controller
             $debtor->transfer = true;
             $debtor->save();
         }
-        $order->order_date = $date;
         // dd($order);
         $order->save();
 
