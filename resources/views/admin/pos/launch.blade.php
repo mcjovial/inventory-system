@@ -171,10 +171,6 @@
                                     </h3>
                                 </div>
                                 <div class="card-body">
-                                    <div class="form-group col">
-                                        <label for="exampleDataList" class="form-label">Date</label>
-                                        <input value="{{$order->order_date ? $order->order_date : ''}}" id="" class="form-control col-md-6" disabled>
-                                    </div>
                                     <input type="text" name="order_id" value="{{$order->order_date ? $order->id : ''}}" hidden>
 
                                     <div class="form-group col">
