@@ -325,7 +325,7 @@ class OrderController extends Controller
         $inputs = $request->except('_token');
         $rules = [
             'amount' => 'required',
-          'oder_id' => 'required',
+          'order_id' => 'required',
           'name' => 'required',
         ];
         $customMessages = [
