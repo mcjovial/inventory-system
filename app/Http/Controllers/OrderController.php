@@ -62,7 +62,7 @@ class OrderController extends Controller
         $debtor = Debtors::findOrFail($id);
         $order = Order::findOrFail($debtor->order_id);
         $order->pay += $debtor->amount;
-        $order->total += $debtor->amount;
+        // $order->total += $debtor->amount;
         $order->debt -= $debtor->amount;
         $order->save();
 
