@@ -120,7 +120,7 @@ class LaunchController extends Controller
 
         $date = $request->date;
 
-        $order = Order::find('order_id');
+        $order = Order::find($request->order_id);
         // dd($order);
 
         foreach ($cart_products as $drink) {
