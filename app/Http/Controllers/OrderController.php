@@ -342,7 +342,7 @@ class OrderController extends Controller
         $customer = Customer::where('full_name', $request->name)->first();
         $date = $request->date;
 
-        $order = Order::where('order_date', $date)->first();
+        $order = Order::find($request->order_id);
         $order->debt += $request->amount;
         $order->save();
 
@@ -394,8 +394,7 @@ class OrderController extends Controller
 
         $customer = Customer::where('full_name', $request->name)->first();
 
-        $order = Order::where('order_date', $request->date)->first();
-
+        $order = Order::find($request->order_id);
         // Subtract transfered amount from total CAH for that day and add to debt
         // $order->pay -= $request->amount;
         $order->debt += $request->amount;

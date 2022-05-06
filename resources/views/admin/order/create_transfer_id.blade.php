@@ -42,11 +42,7 @@
                                 @csrf
 
                                 <div class="card-body">
-                                    <div class="form-group col-lg-12">
-                                        <label for="exampleDataList" class="form-label">Date</label>
-                                        <input value="{{$order->order_date ? $order->order_date : ''}}" id="" class="form-control col-md-6" disabled>
-                                    </div>
-                                    <input type="date" name="date" value="{{$order->order_date ? $order->order_date : ''}}" hidden>
+                                    <input type="text" name="order_id" value="{{$order->id}}" hidden>
 
                                     <div class="form-group">
                                         <label for="exampleDataList" class="form-label">Customer Name</label>

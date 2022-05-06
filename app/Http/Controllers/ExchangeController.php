@@ -240,7 +240,7 @@ class ExchangeController extends Controller
 
         // $customer_name = strtolower($request->input('name'));
         // $customer = Customer::where('full_name', $customer_name)->first();
-        $order = Order::find($request->order_id)->first();
+        $order = Order::find($request->order_id);
         // dd($order);
         // out stuffs
         $exchange_out = exchangeOutCart::all();
