@@ -53,7 +53,7 @@
                                         <th>Income</th>
                                         <th>Exchange</th>
                                         <th>To Balance</th>
-                                        <th>Payment Method</th>
+                                        <th>Launch</th>
                                         <th>Order Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -69,7 +69,7 @@
                                         <th>Income</th>
                                         <th>Exchange</th>
                                         <th>To Balance</th>
-                                        <th>Payment Method</th>
+                                        <th>Launch</th>
                                         <th>Order Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -86,13 +86,14 @@
                                             <td><span>&#8358;</span>{{ $order->pay }}</td>
                                             <td><span>&#8358;</span>{{ $order->exchange }}</td>
                                             <td><span>&#8358;</span>{{ $order->to_balance }}</td>
-                                            @if ($order->launch)
-                                                <td>{{ $order->payment_status  }} <small>[Launch]</small></td>
+                                            <td><span>&#8358;</span>{{ $order->launch }}</td>
+                                            {{-- @if ($order->launch)
+                                            <td>{{ $order->payment_status  }} <small>[Launch]</small></td>
                                             @elseif ($order->bulk)
                                                 <td>{{ $order->payment_status  }} <small>[Bulk]</small></td>
                                             @else
                                                 <td>{{ $order->payment_status  }}</td>
-                                            @endif
+                                            @endif --}}
                                             <td><span class="badge badge-success">{{ $order->order_status }}</span></td>
 
                                             <td>
