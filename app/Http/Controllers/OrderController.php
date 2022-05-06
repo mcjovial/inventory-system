@@ -325,7 +325,7 @@ class OrderController extends Controller
         $inputs = $request->except('_token');
         $rules = [
             'amount' => 'required',
-          'date' => 'required',
+          'oder_id' => 'required',
           'name' => 'required',
         ];
         $customMessages = [
@@ -378,7 +378,7 @@ class OrderController extends Controller
         $inputs = $request->except('_token');
         $rules = [
             'amount' => 'required',
-          'date' => 'required',
+          'order_id' => 'required',
           'name' => 'required',
         ];
         $customMessages = [
