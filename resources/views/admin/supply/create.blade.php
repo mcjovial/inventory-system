@@ -43,7 +43,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label>Drink</label>
                                                 <select name="product_id" class="form-control">
                                                     <option value="" disabled selected>Select a drink</option>
@@ -51,6 +51,16 @@
                                                         <option value="{{ $drink->id }}">{{ $drink->name }}</option>
                                                     @endforeach
                                                 </select>
+                                            </div> --}}
+                                            <div class="form-group">
+                                                <label for="exampleDataList" class="form-label">Drink</label>
+                                                <input class="form-control" name="product_name" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                                                <datalist id="datalistOptions" >
+                                                    <option value="" selected>Select a Customer</option>
+                                                    @foreach($drinks as $drink)
+                                                        <option value="{{ $drink->name }}">
+                                                    @endforeach
+                                                </datalist>
                                             </div>
                                             <div class="form-group">
                                                 <label>Supplier Name</label>

@@ -51,7 +51,7 @@ class SupplyController extends Controller
     {
         $inputs = $request->except('_token');
         $rules = [
-            'product_id'  => 'required | integer',
+            'product_name'  => 'required | string',
             'supplier_id'   => 'required | integer',
             'quantity'       => 'required',
             'cost_per_pack'     => 'required | integer',
@@ -63,7 +63,7 @@ class SupplyController extends Controller
         }
 
         $supply = new Supply();
-        $supply->product_id = $request->input('product_id');
+        $supply->product_id = Product::where('name',$request->input('product_name'))->first()->id;
         $supply->supplier_id = $request->input('supplier_id');
         $supply->quantity = $request->input('quantity');
         $supply->save();

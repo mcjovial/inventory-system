@@ -253,7 +253,7 @@ class OrderController extends Controller
             ->orderBy('order_details.created_at', 'desc')
             ->get();
 
-        return view('admin.sales.month', compact('orders', 'month', 'balance', 'products', 'order_details',));
+        return view('admin.sales.month', compact('orders', 'month', 'balance', 'products', 'order_details'));
     }
 
     public function total_sales()
