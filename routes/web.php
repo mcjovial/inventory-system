@@ -130,4 +130,6 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'auth' ], fun
     Route::get('flat/create/{order_id}', 'FlatController@create')->name('create.flat');
     Route::post('flat/store', 'FlatController@store')->name('store.flat');
     Route::post('flat/{id}/destroy', 'FlatController@destroy')->name('destroy.flat');
+
+    Route::get('order/credit/{id}', 'DebtController@details')->name('credit.details');
 });

@@ -66,7 +66,7 @@
                                     @foreach($debtors as $key => $debtor)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $debtor->customer->full_name }}</td>
+                                            <td><a href="{{route('admin.credit.details', $debtor->customer->id)}}">{{ $debtor->customer->full_name }}</a></td>
                                             <td>{{ $debtor->customer->phone }}</td>
                                             <td>{{ $debtor->order->created_at->toFormattedDateString() }}</td>
                                             <td><span>&#8358;</span>{{ $debtor->amount }} @if ($debtor->transfer)<span class="badge badge-dark">Transfer</span>@endif</td>
