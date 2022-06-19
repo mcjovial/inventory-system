@@ -191,6 +191,7 @@ class SettingController extends Controller
           'year' => 'required',
           'reg_fee' => 'required',
           'annual' => 'required',
+          'max_debt' => 'required',
           'welfare' => 'required'
         ];
 
@@ -240,6 +241,7 @@ class SettingController extends Controller
         $setting->year = $request->input('year');
         $setting->reg_fee = $request->input('reg_fee');
         $setting->annual = $request->input('annual');
+        $setting->max_debt = $request->input('max_debt');
         $setting->welfare = $request->input('welfare');
         $setting->logo = $imageName;
 

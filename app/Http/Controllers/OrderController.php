@@ -53,8 +53,9 @@ class OrderController extends Controller
     {
         $credits = Order::latest()->where('owing', true)->get();
         $debtors = Debtors::all();
+        $max_debt = Setting::first()->max_debt;
 
-        return view('admin.order.credit_orders', compact('credits', 'debtors'));
+        return view('admin.order.credit_orders', compact('credits', 'debtors', 'max_debt'));
     }
 
     public function order_confirm($id)

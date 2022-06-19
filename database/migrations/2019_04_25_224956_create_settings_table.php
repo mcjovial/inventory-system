@@ -27,6 +27,7 @@ class CreateSettingsTable extends Migration
             $table->string('year');
             $table->integer('reg_fee');
             $table->integer('annual');
+            $table->integer('max_debt');
             $table->integer('welfare');
             $table->timestamps();
         });

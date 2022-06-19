@@ -79,6 +79,10 @@
                                                 <input type="number" class="form-control" name="annual" value="{{ $setting->annual }}" placeholder="Enter Annual Dues">
                                             </div>
                                             <div class="form-group">
+                                                <label>Maximum Allowable Debt</label>
+                                                <input type="number" class="form-control" name="max_debt" value="{{ $setting->max_debt }}" placeholder="Enter Maximum Debt Allowed">
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Welfar Dues</label>
                                                 <input type="number" class="form-control" name="welfare" value="{{ $setting->welfare }}" placeholder="Enter Welfare Dues">
                                             </div>

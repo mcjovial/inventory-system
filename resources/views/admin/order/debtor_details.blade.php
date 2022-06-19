@@ -39,30 +39,28 @@
                             <!-- title row -->
                             <div class="row">
                                 <div class="col-12">
-                                    <h4>
-                                        {{ $debtor->full_name }}
-                                        <!-- <small class="float-right">Date: {{ date('l, d-M-Y h:i:s A') }}</small> -->
-                                        {{-- <smalll class="float-right">Date: {{ \Carbon\Carbon::parse($order->created_at)->toFormattedDateString() }}</smalll> --}}
-                                    </h4>
                                 </div>
                                 <!-- /.col -->
-                            </div>
-                            <!-- info row -->
-                            <div class="row invoice-info">
+                              </div>
+                              <!-- info row -->
+                              <div class="row invoice-info">
                                 <div class="col-sm-4 invoice-col">
-                                    From
-                                    {{-- <address>
-                                        <strong>Admin, {{ config('app.name') }}</strong><br>
-                                        {{ $company->address }}<br>
-                                        {{ $company->city }} - {{ $company->zip_code }}, {{ $company->country }}<br>
-                                        Phone: (+234) {{ $company->mobile }} {{ $company->phone !== null ? ', +234'.$company->phone : ''  }}<br>
-                                        Email: {{ $company->email }}
-                                    </address> --}}
+                                  <h4>
+                                      {{ $debtor->full_name }}
+                                  </h4>
+                                </div>
+                                <div class="col-sm-4 invoice-col">
                                 </div>
                                 <!-- /.col -->
+                                <div class="col-sm-4 invoice-col">
+                                  @if ($total > $max_debt)
+                                    <span class="btn btn-lg btn-outline-danger btn-danger float-right">Debt limit of <span>&#8358;</span>{{ $max_debt }} exceeded</span>
+                                  @endif
+                                </div>
+                                  <!-- /.col -->
                             </div>
                             <!-- /.row -->
-
+                            <br>
                             <!-- Table row -->
                             <div class="row">
                                 <div class="col-12 table-responsive">
@@ -70,21 +68,16 @@
                                         <thead>
                                         <tr>
                                             <th>S.N</th>
-                                            {{-- <th>Product Name</th> --}}
-                                            {{-- <th>Product Code</th> --}}
                                             <th>Amount</th>
                                             <th>Date</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                          {{-- {{dd($total)}} --}}
                                             @foreach($debts as $debt)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    {{-- <td>{{ $order_detail->product->name }}</td> --}}
-                                                    {{-- <td>{{ $order_detail->product->code }}</td> --}}
                                                     <td>{{ $debt->amount }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($debt->created_at)->toFormattedDateString() }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($debt->order->created_at)->toFormattedDateString() }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -97,35 +90,11 @@
                             <div class="row">
                                 <!-- accepted payments column -->
                                 <div class="col-4">
-                                    {{-- <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <tr>
-                                                <th style="width:50%">Payment Method:</th>
-                                                <td class="text-right"><b>{{ $order->payment_status }}</b></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Pay</th>
-                                                <td class="text-right"><span>&#8358;</span>{{ number_format($order->pay, 2) }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Debt</th>
-                                                <td class="text-right"><span>&#8358;</span>{{ number_format($order->debt, 2) }}</td>
-                                            </tr>
-                                        </table>
-                                    </div> --}}
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-4 offset-4">
                                     <div class="table-responsive">
                                         <table class="table">
-                                            {{-- <tr>
-                                                <th style="width:50%">Subtotal:</th>
-                                                <td class="text-right"><span>&#8358;</span>{{ number_format($order->sub_total, 2) }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Tax (21%)</th>
-                                                <td class="text-right"><span>&#8358;</span>0</td>
-                                            </tr> --}}
                                             <tr>
                                                 <th>Total:</th>
                                                 <td class="text-right"><span>&#8358;</span>{{ round($total) }} Naira</td>
